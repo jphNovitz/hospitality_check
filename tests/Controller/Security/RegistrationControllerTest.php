@@ -3,18 +3,25 @@
 namespace App\Tests\Controller\Security;
 
 use App\DataFixtures\UserFixtures;
+use App\Entity\User;
+use App\Tests\SessionHelper;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 
 
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
 
 class RegistrationControllerTest extends WebTestCase
 {
+
     private $router;
     private $client;
     private $databaseTool;
+    private $container;
 
     public function setUp(): void
     {
@@ -58,8 +65,8 @@ class RegistrationControllerTest extends WebTestCase
 
         $form = $this->client->request('GET', '/admin/register')->selectButton("Register")->form();
 
-//        $form['registration_form[username]'] = 'new_utilisateur';
         $form['registration_form[email]'] = 'new_user@test.com';
+        $form['registration_form[name]'] = 'Lorem Ipsum';
         $form['registration_form[plainPassword]'] = 'password';
         $form['registration_form[agreeTerms]'] = 1;
         $this->client->submit($form);
@@ -71,6 +78,32 @@ class RegistrationControllerTest extends WebTestCase
 
         $testUser = $userRepository->findOneByEmail('new_user@test.com');
         $this->assertEquals('new_user@test.com', $testUser->getEmail());
+    }
+
+    public function test_user_can_confirm_account()
+    {
+        $this->databaseTool->loadFixtures([UserFixtures::class]);
+
+        $userRepository = $this->container->get(UserRepository::class);
+        $adminUser = $userRepository->findOneByEmail('admin@test.be');
+        $this->client->loginUser($adminUser);
+
+        $form = $this->client->request('GET', '/admin/register')->selectButton("Register")->form();
+
+        $form['registration_form[email]'] = 'new_user@test.com';
+        $form['registration_form[name]'] = 'Lorem Ipsum';
+        $form['registration_form[plainPassword]'] = 'password';
+        $form['registration_form[agreeTerms]'] = 1;
+        $this->client->submit($form);
+        $test_user_id = $userRepository->findOneByEmail('new_user@test.com')->getId();
+
+        $email = $this->getMailerMessage(0);
+        $this->assertEmailHeaderSame($email, 'To', 'new_user@test.com');
+        $this->assertEmailCount(1);
+
+        $link = explode('"', $email->getHtmlBody())[1];
+        $this->client->request('GET', $link);
+        $this->assertResponseRedirects($this->router->generate('app_home'));
     }
 
     protected function tearDown(): void
