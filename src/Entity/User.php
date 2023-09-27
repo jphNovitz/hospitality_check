@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'referent', targetEntity: Resident::class)]
     private Collection $referees;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = "mon nom";
+
     public function __construct()
     {
         $this->referees = new ArrayCollection();
@@ -150,6 +153,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $referee->setReferent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
