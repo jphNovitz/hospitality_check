@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+
+    <h1>My Profile</h1>
+  {% if user.email is defined %}
+        <p>{{ user.name ?? '' }}
+            <br/> {{ user.email }}</p>
+
+    {% if user.referees is not empty %}
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ user.name }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        Je n'ai pas de referes
+    {% endif %}
+    <a href="{{ path('app_profile_edit', {'id': user.id}) }}">edit</a>
+  {% else %}
+    user special
+  {% endif %}
+{% endblock %}
