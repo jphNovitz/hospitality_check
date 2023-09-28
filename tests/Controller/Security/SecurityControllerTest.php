@@ -10,7 +10,6 @@ class SecurityControllerTest extends WebTestCase
 {
     private $router;
     private $client;
-    private $databaseTool;
 
     public function setUp(): void
     {
@@ -18,7 +17,6 @@ class SecurityControllerTest extends WebTestCase
         $this->client = static::createClient();
         $container = static::getContainer();
         $this->router = $container->get('router');
-        $this->databaseTool = $container->get(DatabaseToolCollection::class)->get();
         $this->container = $container;
 
     }
