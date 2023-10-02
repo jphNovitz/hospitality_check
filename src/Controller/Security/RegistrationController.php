@@ -54,6 +54,7 @@ class RegistrationController extends AbstractController
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->context(['pwd' => $form->get('plainPassword')->getData()])
             );
 
             $this->addFlash('success', 'The user has been created');
