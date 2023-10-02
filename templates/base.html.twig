@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body class="w-screen overflow-x-hidden">
+<div class="min-h-screen max-w-md xl:max-w-7xl m-auto">
+    <main class="h-min-screen">
+        {% block body %}{% endblock %}
+    </main>
+    <footer class="mt-16">
+        <p>&copy; 2023 Roomate - Tous droits réservés.</p>
+    </footer>
+</div>
+</body>
+</html>
