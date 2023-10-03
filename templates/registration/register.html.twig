@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register user{% endblock %}
 
 {% block body %}
 <div class="my-16">
@@ -8,7 +8,7 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1 class="text-3xl font-bold underline">Register</h1>
+    <h1 class="text-3xl font-bold underline">Register a user</h1>
 
     {{ form_errors(registrationForm) }}
 
@@ -36,11 +36,11 @@
             }) }}
             {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control bg-gray-50 rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900'} }) }}
         </div>
-        {{ form_row(registrationForm.agreeTerms) }}
+{#        {{ form_row(registrationForm.agreeTerms) }}#}
         <div class="flex flex-col my-8">
-            <button type="submit" class="w-36 rounded-md py-3 px-6 text-center bg-blue-600 text-blue-50">
-                Register
-            </button>
+            {{ form_widget(registrationForm.register, { 'attr': {'class': 'w-full xl:w-38 rounded-md py-3 px-6 text-center bg-blue-600 text-blue-50'}}) }}
+            {{ form_widget(registrationForm.registerAndAdd, { 'attr': {'class': 'w-full xl:w-38 rounded-md mt-6 xl:mt-0 xl:ml-6 py-3 px-6 text-center bg-transparent border border-blue-600 text-blue-600'}}) }}
+
         </div>
         <div class="flex flex-col my-8">
             {{ form_end(registrationForm) }}

@@ -59,7 +59,12 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('success', 'The user has been created');
 
-            return $this->redirectToRoute('app_register');
+            $nextAction = $form->get('registerAndAdd')->isClicked()
+                ? 'app_register'
+                : 'app_admin_home';
+
+            return $this->redirectToRoute($nextAction);
+//            return $this->redirectToRoute('app_register');
 //            return $userAuthenticator->authenticateUser(
 //                $user,
 //                $authenticator,
