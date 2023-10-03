@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resident index{% endblock %}
+
+{% block body %}
+    <h1>Resident index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Picture</th>
+                <th>FirstName</th>
+                <th>BirthDate</th>
+                <th>Nationality</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resident in residents %}
+            <tr>
+                <td>{{ resident.id }}</td>
+                <td>{{ resident.picture }}</td>
+                <td>{{ resident.firstName }}</td>
+                <td>{{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ resident.nationality }}</td>
+                <td>
+                    <a href="{{ path('app_resident_show', {'id': resident.id}) }}">show</a>
+                    <a href="{{ path('app_resident_edit', {'id': resident.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resident_new') }}">Create new</a>
+{% endblock %}
