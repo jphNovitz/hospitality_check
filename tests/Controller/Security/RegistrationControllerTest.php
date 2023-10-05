@@ -7,22 +7,28 @@ use App\Entity\User;
 use App\Tests\SessionHelper;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 
 
 use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\MockHttpClient;
 
 class RegistrationControllerTest extends WebTestCase
 {
 
     private $router;
-    private $client;
-    private $databaseTool;
-    private $container;
+    private KernelBrowser $client;
+    private mixed $databaseTool;
+    private ContainerInterface $container;
 
+    /**
+     * @throws Exception
+     */
     public function setUp(): void
     {
         parent::setUp();
@@ -41,7 +47,7 @@ class RegistrationControllerTest extends WebTestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function test_Registration_Page_is_accessible_if_user_is_admin(): void
     {
