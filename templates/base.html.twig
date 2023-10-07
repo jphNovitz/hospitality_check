@@ -14,11 +14,11 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="w-screen overflow-x-hidden">
-<div class="min-h-screen max-w-md xl:max-w-7xl m-auto">
+<body class="w-screen overflow-x-hidden bg-zinc-50 dark:bg-stone-950 text-stone-950 dark:text-stone-400  ">
+<div class="min-h-screen max-w-md xl:max-w-7xl m-auto p-5">
     <main class="h-min-screen">
         <div class="px-4">
-        {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
         </div>
     </main>
     <footer class="mt-16">
