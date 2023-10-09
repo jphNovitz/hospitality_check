@@ -44,7 +44,6 @@ class ProfileControllerTest extends WebTestCase
     {
         $this->databaseTool->loadFixtures([UserFixtures::class]);
         $users = $this->container->get(UserRepository::class)->findAll();
-
         $this->client->loginUser($users[1]);
         $response = $this->client->request('GET', sprintf('%s', $this->path));
         $content = $response->filter('html')->text();
@@ -81,5 +80,20 @@ class ProfileControllerTest extends WebTestCase
         self::assertSame("Marcel", $user->getName());
     }
 
+    public function testChangePassword(){
+        $this->databaseTool->loadFixtures([UserFixtures::class]);
+        $user = $this->container->get(UserRepository::class)->find(2);
+
+        $this->client->loginUser($user);
+        $this->client->request('GET', sprintf('%s/change-password', $this->path));
+
+        $this->client->submitForm('Update', [
+            "password_form[new_password][first]" => "password",
+            "password_form[new_password][second]" => "password",
+        ]);
+
+        self::assertResponseRedirects(sprintf('%s/edit', $this->path));
+
+    }
 
 }
