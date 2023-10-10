@@ -7,11 +7,19 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager): void
+    /**
+     * @return list<class-string<FixtureInterface>>
+     */
+    public function getDependencies(): array
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        return [
+            UserFixtures::class,
+            ResidentFixtures::class
+        ];
+    }
 
-        $manager->flush();
+    public function load(ObjectManager $manager)
+    {
+        // TODO: Implement load() method.
     }
 }
