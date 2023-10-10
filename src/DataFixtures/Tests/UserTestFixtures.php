@@ -20,12 +20,14 @@ class UserTestFixtures extends Fixture
         $user->setEmail('admin@test.be');
         $user->setName('Jean-Francois Ipsum');
         $user->setRoles(['ROLE_ADMIN']);
+        $user->setIsVerified(true);
         $user->setPassword($this->hasher->hashPassword($user, 'password'));
         $manager->persist($user);
         $user = new User();
         $user->setEmail('user_1@test.be');
         $user->setName('User One');
         $user->setRoles(['ROLE_USER']);
+        $user->setIsVerified(true);
         $user->setPassword($this->hasher->hashPassword($user, 'password'));
         $manager->persist($user);
         $user = new User();
