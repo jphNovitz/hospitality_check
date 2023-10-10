@@ -98,5 +98,20 @@ class ProfileControllerTest extends WebTestCase
 
     }
 
+    // tests/Security/PasswordUpdaterTest.php
+    public function testUpgradePasswordWithUnsupportedUser()
+    {
+        // Create a mock object that does not implement User class
+        $user = $this->createMock(PasswordAuthenticatedUserInterface::class);
+//        $passwordUpdater = new PasswordUpgraderInterface;
+
+        // Set the expectation that UnsupportedUserException should be thrown
+        $this->expectException(UnsupportedUserException::class);
+
+        // Now, call the method which should throw the exception
+        $this->container->get(UserRepository::class)->upgradePassword($user, 'new_hashed_password');
+    }
+
+
 
 }
