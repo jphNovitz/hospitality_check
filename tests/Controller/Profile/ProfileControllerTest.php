@@ -10,6 +10,8 @@ use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class ProfileControllerTest extends WebTestCase
 {
@@ -95,5 +97,6 @@ class ProfileControllerTest extends WebTestCase
         self::assertResponseRedirects(sprintf('%s/edit', $this->path));
 
     }
+
 
 }
