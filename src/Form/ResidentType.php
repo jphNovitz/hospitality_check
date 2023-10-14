@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Base;
 use App\Entity\Resident;
 use App\Entity\Room;
 use App\EventListener\AddRoomSubscriber;
@@ -9,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +39,13 @@ class ResidentType extends AbstractType
                 'empty_data' => '',
             ])
             ->add('newRoom', TextType::class, ['mapped' => false])
-            ->add('referent');
+            ->add('referent')
+            ->add('basePrefs', EntityType::class, [
+                'class' => Base::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+            ])
+        ;
 
         $builder->addEventSubscriber(new AddRoomSubscriber($this->entityManager));
     }

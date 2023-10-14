@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResidentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,14 @@ class Resident
 
     #[ORM\ManyToOne(inversedBy: 'referees')]
     private ?User $referent = null;
+
+    #[ORM\ManyToMany(targetEntity: Base::class, mappedBy: 'resident')]
+    private Collection $basePrefs;
+
+    public function __construct()
+    {
+        $this->basePrefs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,5 +118,37 @@ class Resident
         $this->referent = $referent;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Base>
+     */
+    public function getBasePrefs(): Collection
+    {
+        return $this->basePrefs;
+    }
+
+    public function addBasePref(Base $basePref): static
+    {
+        if (!$this->basePrefs->contains($basePref)) {
+            $this->basePrefs->add($basePref);
+            $basePref->addResident($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasePref(Base $basePref): static
+    {
+        if ($this->basePrefs->removeElement($basePref)) {
+            $basePref->removeResident($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return  $this->firstName;
     }
 }
