@@ -8,6 +8,7 @@ use App\DataFixtures\Tests\TestFixtures;
 use App\DataFixtures\Tests\UserTestFixtures;
 use App\DataFixtures\UserFixtures;
 use App\Entity\Resident;
+use App\Entity\Room;
 use App\Entity\User;
 use App\Repository\ResidentRepository;
 use App\Repository\UserRepository;
@@ -98,6 +99,40 @@ class ResidentControllerTest extends WebTestCase
         self::assertResponseRedirects('/resident/');
 
         self::assertSame($originalNumObjectsInRepository + 1, count($this->resident_repository->findAll()));
+    }
+
+    public function testNewRoomIsPersistedByEvent(): void
+    {
+
+        $this->databaseTool->loadFixtures([
+            UserTestFixtures::class,
+            RoomTestFixtures::class,
+            ResidentTestFixtures::class,
+        ]);
+        $originalNumObjectsInRepository = count($this->manager->getRepository(Room::class)->findAll());
+
+        $user = $this->user_repository->find(1);
+        $this->client->loginUser($user);
+        $this->client->request('GET', sprintf('%snew', $this->path));
+
+        self::assertResponseStatusCodeSame(200);
+
+        $this->client->submitForm('Save', [
+            'resident[picture]' => 'Testing',
+            'resident[firstName]' => 'Fake First',
+            'resident[birthDate]' => [
+                'year' => 2018,
+                'month' => 12,
+                'day' => 1,
+            ],
+            'resident[nationality]' => 'Beligian',
+            'resident[newRoom]' => 50,
+            'resident[referent]' => $user->getId(),
+        ]);
+
+        self::assertResponseRedirects('/resident/');
+
+        self::assertSame($originalNumObjectsInRepository + 1, count($this->manager->getRepository(Room::class)->findAll()));
     }
 
     public function testShow(): void
