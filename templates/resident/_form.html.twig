@@ -1,26 +1,23 @@
-{{ form_start(form) }}
-{# <twig:form:TextRowComponent #}
-{#        :row="form.firstName" #}
-{# /> #}
-{# {{ component('Form:TextRowComponent', { #}
-{#    row: form.firstName #}
-{# }) }} #}
-<div class="flex flex-col my-8">
-    {{ component('RowText', {label: 'First name', row: form.firstName}) }}
-    {{ component('RowText', {label: 'Nationality', row: form.nationality}) }}
-    <div class="grid grid-cols-2 gap-5">
-        {{ component('RowSelect', {label: 'Room', row: form.room}) }}
-        {{ component('RowText', {label: 'New Room', row: form.newRoom}) }}
-    </div>
+<div class="w-full">
+    {{ form_start(form) }}
+    <div class="flex flex-col my-8">
+        {{ component('RowText', {label: 'First name', row: form.firstName}) }}
+        {{ component('RowText', {label: 'Nationality', row: form.nationality}) }}
+        <div class="grid grid-cols-2 gap-5">
+            {{ component('RowSelect', {label: 'Room', row: form.room}) }}
+            {{ component('RowText', {label: 'New Room', row: form.newRoom}) }}
+        </div>
 
-    {{ component('RowSelect', {label: 'Referent', row: form.referent}) }}
-    <span class="font-semibold">Birth Day</span>
-    <div class="grid grid-cols-3 gap-5">
-        {{ component('RowSelect', {label: 'Day', row: form.birthDate.day}) }}
-        {{ component('RowSelect', {label: 'Month', row: form.birthDate.month}) }}
-        {{ component('RowSelect', {label: 'Year', row: form.birthDate.year}) }}
+        {{ component('RowSelect', {label: 'Referent', row: form.referent}) }}
+        <span class="font-semibold">Birth Day</span>
+        <div class="grid grid-cols-3 gap-5">
+            {{ component('RowSelect', {label: 'Day', row: form.birthDate.day}) }}
+            {{ component('RowSelect', {label: 'Month', row: form.birthDate.month}) }}
+            {{ component('RowSelect', {label: 'Year', row: form.birthDate.year}) }}
+        </div>
+        {{ form_widget(form) }}
+        <twig:Button:Primary>{{ button_label|default('Save') }}</twig:Button:Primary>
+        <twig:Button:Secondary class="mt-2">{{ button_label|default('Save and Add') }}</twig:Button:Secondary>
     </div>
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
 </div>
-{{ form_end(form) }}

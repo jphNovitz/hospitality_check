@@ -11,7 +11,7 @@ import { Controller } from '@hotwired/stimulus';
  */
 export default class extends Controller {
 
-    static targets = [ 'show', 'form' ]
+    static targets = [ 'button', 'show', 'form' ]
     connect() {
         console.log('trigger works !')
     }
@@ -19,8 +19,12 @@ export default class extends Controller {
     toggle() {
         // console.log(this.showTarget !== undefined)
         this.showTarget.classList.toggle("opacity-0")
+        // this.showTarget.classList.toggle("hidden")
         this.showTarget.classList.toggle("-ml-96")
         this.formTarget.classList.toggle("opacity-0")
+        // this.formTarget.classList.toggle("hidden")
+        if (this.buttonTarget.innerText === 'Update') this.buttonTarget.innerText = "Show"
+            else this.buttonTarget.innerText = 'Update'
         // if (this.mobileTarget !== undefined){
         //     this.navTarget.classList.toggle("-mt-[50vh]")
         // }

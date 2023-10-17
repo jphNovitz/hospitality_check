@@ -1,21 +1,32 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block title %}Edit Resident{% endblock %}
 
 {% block body %}
     <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5" {{ stimulus_controller('form') }}>
-        <h1>Edit Resident</h1>
-        <button class="cursor-pointer" {{ stimulus_action('form', 'toggle', 'click') }}> click </button>
+
+        {% if ('ROLE_ADMIN' in app.user.roles)  or (resident.referent.id == app.user.id) %}
+            <div class="text-right">
+                {#        <span class="cursor-pointer" {{ stimulus_action('form', 'toggle', 'click') }}> #}
+
+                {{ component('Button:Primary', {
+                    class: "!w-20 !h-12 !px-1.5 !py-.5",
+                    label:'Update',
+                    ...stimulus_action('form', 'toggle', 'click'),
+                    ...stimulus_target('form', 'button')
+                }) }}
+                {#            <twig:Button:Primary #}
+                {#                    class=" w-20 h-12 px-1.5 py-.5" ...stimulus_target('form', 'button')> {{ button_label|default('update') }} </twig:Button:Primary> #}
+                {#        </span> #}
+            </div>
+        {% endif %}
         <div class="w-full flex flex-nowrap overflow-hidden">
-            <div class="flex basis-full grow-0 shrink-0 transition-opacity"  {{ stimulus_target('form', 'show') }}>
-               {% block show %} {% endblock %}
+            <div class="flex basis-full grow-0 shrink-0 transition-all duration-500" {{ stimulus_target('form', 'show') }}>
+                {% block show %} {% endblock %}
             </div>
             <div class="flex basis-full grow-0 shrink-0 opacity-0" {{ stimulus_target('form', 'form') }}>
                 {% block form %} {% endblock %}
             </div>
         </div>
-        <a href="{{ path('app_resident_index') }}">back to list</a>
 
-        {{ include('resident/_delete_form.html.twig') }}
     </div>
 {% endblock %}
