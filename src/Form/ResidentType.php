@@ -38,13 +38,12 @@ class ResidentType extends AbstractType
                 'required'   => false,
                 'empty_data' => '',
             ])
-            ->add('newRoom', TextType::class, ['mapped' => false])
+            ->add('newRoom', TextType::class, [
+                'mapped' => false,
+                'required'   => false,
+            ])
             ->add('referent')
-//            ->add('basePrefs', EntityType::class, [
-//                'class' => Base::class,
-//                'choice_label' => 'name',
-//                'multiple' => true,
-//            ])
+
         ;
 
         $builder->addEventSubscriber(new AddRoomSubscriber($this->entityManager));
