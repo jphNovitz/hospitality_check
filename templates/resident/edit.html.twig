@@ -34,11 +34,13 @@
 
      {% embed '_layout/_form_trigger.html.twig' %}
          {% block show %}
-             show base
+             {{ include('resident/base_preferences/show.html.twig') }}
          {% endblock %}
 
          {% block form %}
-             base form
+             {{ render(controller(
+                 'App\\Controller\\Resident\\BasePreferenceController::edit', {id: resident.id}
+             )) }}
          {% endblock %}
      {% endembed %}
  {% endblock %}
