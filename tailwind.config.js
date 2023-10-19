@@ -6,7 +6,12 @@ module.exports = {
       "./templates/**/*.html.twig",
   ],
   theme: {
-    extend: {},
+    extend: {
+        transitionProperty: {
+            'spacing': 'margin, padding, display',
+            'width': 'width',
+        }
+    },
   },
   plugins: [],
 }
