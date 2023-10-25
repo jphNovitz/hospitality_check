@@ -18,6 +18,7 @@ class ResidentBaseType extends AbstractType
                 'class' => Base::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
                 'required' => false,
                 'by_reference' => false,
             ]);
