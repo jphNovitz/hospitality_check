@@ -38,9 +38,13 @@ class Resident
     #[ORM\ManyToMany(targetEntity: Base::class, mappedBy: 'resident')]
     private Collection $basePrefs;
 
+    #[ORM\OneToMany(mappedBy: 'resident', targetEntity: Interest::class, orphanRemoval: true)]
+    private Collection $interests;
+
     public function __construct()
     {
         $this->basePrefs = new ArrayCollection();
+        $this->interests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,5 +154,35 @@ class Resident
     public function __toString(): string
     {
         return  $this->firstName;
+    }
+
+    /**
+     * @return Collection<int, Interest>
+     */
+    public function getInterests(): Collection
+    {
+        return $this->interests;
+    }
+
+    public function addInterest(Interest $interest): static
+    {
+        if (!$this->interests->contains($interest)) {
+            $this->interests->add($interest);
+            $interest->setResident($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInterest(Interest $interest): static
+    {
+        if ($this->interests->removeElement($interest)) {
+            // set the owning side to null (unless already changed)
+            if ($interest->getResident() === $this) {
+                $interest->setResident(null);
+            }
+        }
+
+        return $this;
     }
 }
