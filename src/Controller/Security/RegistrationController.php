@@ -64,12 +64,6 @@ class RegistrationController extends AbstractController
                 : 'app_admin_home';
 
             return $this->redirectToRoute($nextAction);
-//            return $this->redirectToRoute('app_register');
-//            return $userAuthenticator->authenticateUser(
-//                $user,
-//                $authenticator,
-//                $request
-//            );
         }
 
         return $this->render('registration/register.html.twig', [
