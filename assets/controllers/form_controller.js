@@ -1,17 +1,14 @@
-import { Controller } from '@hotwired/stimulus';
+import {Controller} from '@hotwired/stimulus';
 
 /*
- * This is an example Stimulus controller!
- *
- * Any element with a data-controller="hello" attribute will cause
- * this controller to be executed. The name "hello" comes from the filename:
- * hello_controller.js -> "hello"
- *
- * Delete this file or adapt it for your use!
+ * This controller manage the form and show elements
+ * div is composed by an show panel and a form panel (hidden)
+ * this trigger hide show template and show form on button click
  */
 export default class extends Controller {
 
-    static targets = [ 'button', 'show', 'form' ]
+    static targets = ['button', 'show', 'form']
+
     connect() {
         console.log('trigger works !')
     }
@@ -25,7 +22,7 @@ export default class extends Controller {
         this.formTarget.classList.toggle("opacity-0")
         // this.formTarget.classList.toggle("hidden")
         if (this.buttonTarget.innerText === 'Update') this.buttonTarget.innerText = "Show"
-            else this.buttonTarget.innerText = 'Update'
+        else this.buttonTarget.innerText = 'Update'
         // if (this.mobileTarget !== undefined){
         //     this.navTarget.classList.toggle("-mt-[50vh]")
         // }
