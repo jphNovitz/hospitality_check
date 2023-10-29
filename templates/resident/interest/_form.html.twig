@@ -1,0 +1,42 @@
+{% import _self as formMacros %}
+
+{% macro printInterestForm(interestForm) %}
+    <div>
+        {{ form_errors(interestForm) }}
+        {{ form_label(interestForm) }}
+        {{ form_widget(interestForm) }}
+        <button
+                {{ stimulus_action('interest', 'remove', 'click') }}
+                {{ stimulus_target('interest', 'remove') }}
+                class="w-16 h-9 hover:cursor-pointer bg-red-900 text-white">
+            remove
+        </button>
+    </div>
+{% endmacro %}
+
+<div class="w-full">
+    {{ form_start(form) }}
+    <div class="row js-interest-wrapper"
+            {{ stimulus_controller('interest') }}
+            {{ stimulus_target('interest', 'prototype') }}
+         data-prototype="{{ formMacros.printInterestForm(form.interests.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.interests|length }}"
+    >
+        {% for interestForm in form.interests %}
+            {{ formMacros.printInterestForm(interestForm) }}
+
+        {% endfor %}
+        {#    {{ form_widget(form.interests.vars.prototype) }} #}
+        <button
+                {{ stimulus_action('interest', 'add', 'click') }}
+                {{ stimulus_target('interest', 'button') }}
+                class="hover:cursor-pointer bg-white">
+            add
+        </button>
+        {#        <a href="#" {{ stimulus_action('interest', 'add', 'click') }}> #}
+        {#            click #}
+        {#        </a> #}
+    </div>
+    <button type="submit">send</button>
+    {{ form_end(form) }}
+</div>

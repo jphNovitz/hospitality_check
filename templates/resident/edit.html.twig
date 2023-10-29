@@ -43,4 +43,16 @@
              )) }}
          {% endblock %}
      {% endembed %}
+
+     {% embed '_layout/_form_trigger.html.twig' %}
+         {% block show %}
+             {{ include('resident/interest/show.html.twig') }}
+         {% endblock %}
+
+         {% block form %}
+             {{ render(controller(
+                 'App\\Controller\\Resident\\InterestController::edit', {id: resident.id}
+             )) }}
+         {% endblock %}
+     {% endembed %}
  {% endblock %}

@@ -1,0 +1,10 @@
+<div class="w-full flex flex-col">
+    <ul>
+        {% for interest in resident.interests %}
+            <li>
+                {{ interest.name }}
+                <br/>{{ interest.description }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
