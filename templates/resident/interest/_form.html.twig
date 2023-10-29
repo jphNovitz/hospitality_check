@@ -3,14 +3,27 @@
 {% macro printInterestForm(interestForm) %}
     <div>
         {{ form_errors(interestForm) }}
-        {{ form_label(interestForm) }}
-        {{ form_widget(interestForm) }}
-        <button
-                {{ stimulus_action('interest', 'remove', 'click') }}
-                {{ stimulus_target('interest', 'remove') }}
-                class="w-16 h-9 hover:cursor-pointer bg-red-900 text-white">
-            remove
-        </button>
+        {{ component('RowText', {
+            row: interestForm.name,
+            label: 'name'
+        }) }}
+        {{ component('RowText', {
+            row: interestForm.description,
+            label: 'description'
+        }) }}
+{#        {{ form_label(interestForm) }}#}
+{#        {{ form_widget(interestForm) }}#}
+        <twig:Button:Secondary
+                data-action="click->interest#remove"
+                data-interest-target="remove">
+            Remove
+        </twig:Button:Secondary>
+{#        <button#}
+{#                {{ stimulus_action('interest', 'remove', 'click') }}#}
+{#                {{ stimulus_target('interest', 'remove') }}#}
+{#                class="w-16 h-9 hover:cursor-pointer bg-red-900 text-white">#}
+{#            remove#}
+{#        </button>#}
     </div>
 {% endmacro %}
 
@@ -27,16 +40,27 @@
 
         {% endfor %}
         {#    {{ form_widget(form.interests.vars.prototype) }} #}
-        <button
+        <twig:Button:Primary
+                data-action="click->interest#add"
+                data-interest-target="add"
+                class="my-3">
+            Add
+        </twig:Button:Primary>
+        {#<button
                 {{ stimulus_action('interest', 'add', 'click') }}
                 {{ stimulus_target('interest', 'button') }}
                 class="hover:cursor-pointer bg-white">
             add
-        </button>
+        </button>#}
         {#        <a href="#" {{ stimulus_action('interest', 'add', 'click') }}> #}
         {#            click #}
         {#        </a> #}
     </div>
-    <button type="submit">send</button>
+    <twig:Button:Primary
+            type="submit"
+            class="mt-12">
+        Update
+    </twig:Button:Primary>
+{#    <button type="submit">send</button>#}
     {{ form_end(form) }}
 </div>
