@@ -20,6 +20,7 @@ export default class extends Controller {
         this.showTarget.classList.toggle("max-w-0")
         // this.showTarget.classList.toggle("-ml-80")
         this.formTarget.classList.toggle("opacity-0")
+        this.formTarget.classList.toggle("max-h-0")
         // this.formTarget.classList.toggle("hidden")
         if (this.buttonTarget.innerText === 'Update') this.buttonTarget.innerText = "Show"
         else this.buttonTarget.innerText = 'Update'
