@@ -1,11 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 
 /*
- *
- *
- *
- *
- *
+ * This Controller manage rows in interest form
+ * Add and remove action
+ * using form prototype from symfony
  *
  */
 export default class extends Controller {
@@ -18,30 +16,25 @@ export default class extends Controller {
 
     add(event){
         event.preventDefault()
-        console.log("click")
+
         let prototype = this.prototypeTarget.dataset.prototype
         let index = this.prototypeTarget.dataset.index
-        let newForm = prototype.replace(/__name__/g, index)
-        let row = document.createElement('span')
-        this.prototypeTarget.dataset.index++
-        row.innerHTML = newForm
+        let newRow = prototype.replace(/__name__/g, index)
+        let row = document.createElement('div')
         let wrapper = document.getElementsByClassName('js-interest-wrapper')[0]
-        wrapper.insertBefore(row, this.buttonTarget)
-        // wrapper.innerHTML += newForm
-        console.log(wrapper)
 
+        this.prototypeTarget.dataset.index++
+
+        row.innerHTML = newRow
+        wrapper.insertBefore(row, this.buttonTarget)
     }
     remove(event){
         event.preventDefault()
-        console.log("click remove")
+
         let target = event.target
-        // console.log(this.removeTarget.parentNode)
-        let prototype = this.prototypeTarget.dataset.prototype
-        let index = this.prototypeTarget.dataset.index
-        this.prototypeTarget.dataset.index--
-        let wrapper = document.getElementsByClassName('js-interest-wrapper')[0]
-        // wrapper.remove(this.removeTarget)
         target.parentNode.remove()
+
+        // this.prototypeTarget.dataset.index--
 
     }
 }
