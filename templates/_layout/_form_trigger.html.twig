@@ -17,11 +17,11 @@
                 </div>
             {% endif %}
         {% endif %}
-        <div class="w-full flex flex-nowrap overflow-hidden">
-            <div class="flex basis-full grow-0 shrink-0 transition-all transition-width duration-500 transition-opacity duration-600" {{ stimulus_target('form', 'show') }}>
+        <div class="w-full flex flex-nowrap overflow-hidden ">
+            <div class="flex flex-col basis-full grow-0 shrink-0 transition-all transition-width duration-800 transition-opacity duration-600" {{ stimulus_target('form', 'show') }}>
                 {% block show %} {% endblock %}
             </div>
-            <div class="flex basis-full grow-0 shrink-0 opacity-0  transition-all duration-600 max-h-0" {{ stimulus_target('form', 'form') }}>
+            <div class="flex flex-col basis-full grow-0 shrink-0 opacity-0  transition-all duration-600 max-h-0" {{ stimulus_target('form', 'form') }}>
                 {% block form %} {% endblock %}
             </div>
         </div>

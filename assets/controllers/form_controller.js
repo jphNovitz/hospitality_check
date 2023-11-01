@@ -16,8 +16,10 @@ export default class extends Controller {
     toggle(event) {
         event.preventDefault()
         console.log(event.currentTarget)
-        this.showTarget.classList.toggle("opacity-0")
-        this.showTarget.classList.toggle("max-w-0")
+        this.showTarget.classList.toggle("-ml-[100%]")
+        /*this.showTarget.classList.toggle("opacity-0")
+        this.showTarget.classList.toggle("max-w-0")*/
+        // this.showTarget.classList.toggle("-ml-1")
         this.formTarget.classList.toggle("opacity-0")
         this.formTarget.classList.toggle("max-h-0")
         if (this.buttonTarget.innerText === 'Update') this.buttonTarget.innerText = "Show"
