@@ -43,6 +43,14 @@ class ResidentType extends AbstractType
                 'required'   => false,
             ])
             ->add('referent')
+            ->add('basePrefs', EntityType::class, [
+                'class' => Base::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false,
+                'by_reference' => false,
+            ])
 
         ;
 

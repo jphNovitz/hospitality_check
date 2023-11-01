@@ -65,7 +65,6 @@ class ResidentController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_resident', ['id'=> $resident->getId()], Response::HTTP_SEE_OTHER);
-//            return $this->redirectToRoute('app_resident_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('resident/edit.html.twig', [
