@@ -1,5 +1,25 @@
-<div class="grid grid-cols-2 gap-4">
-    {% for preference in resident.basePrefs %}
-        <div>{{ preference.name }}</div>
-    {% endfor %}
+<div>
+    <h2>Base Preferences</h2>
+    {% if resident.basePrefs  is not empty %}
+        <div class="w-full grid grid-cols-2 gap-4">
+            {% for preference in resident.basePrefs %}
+                <div>
+                    {% if preference.icon is not empty %}
+                        <img alt="{{ preference.name }}"
+                             src="{{ asset('images/base/'~preference.icon) }}"
+                             class="w-full aspect-square"/>
+                    {% else %}
+                        <div class="w-full aspect-square"> NO IMAGE</div>
+                    {% endif %}
+                    <span class="w-full inline-block text-center font-semibold text-xl">
+                {{ preference.name }}
+            </span>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="p-6">
+        Pas de préférences de bases ?!
+        </div>
+    {% endif %}
 </div>
