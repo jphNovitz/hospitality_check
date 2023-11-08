@@ -1,18 +1,18 @@
 <div>
-    <h2>Base Preferences</h2>
-    {% if resident.basePrefs  is not empty %}
+    <h2>Base bases</h2>
+    {% if resident.bases  is not empty %}
         <div class="w-full grid grid-cols-2 gap-4">
-            {% for preference in resident.basePrefs %}
+            {% for base in resident.bases %}
                 <div>
-                    {% if preference.icon is not empty %}
-                        <img alt="{{ preference.name }}"
-                             src="{{ asset('images/base/'~preference.icon) }}"
+                    {% if base.icon is not empty %}
+                        <img alt="{{ base.name }}"
+                             src="{{ asset('images/base/'~base.icon) }}"
                              class="w-full aspect-square"/>
                     {% else %}
                         <div class="w-full aspect-square"> NO IMAGE</div>
                     {% endif %}
                     <span class="w-full inline-block text-center font-semibold text-xl">
-                {{ preference.name }}
+                {{ base.name }}
             </span>
                 </div>
             {% endfor %}

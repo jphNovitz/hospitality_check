@@ -30,7 +30,7 @@ class Base
     private ?string $icon = null;
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
-    #[ORM\ManyToMany(targetEntity: Resident::class, inversedBy: 'basePrefs')]
+    #[ORM\ManyToMany(targetEntity: Resident::class, inversedBy: 'bases')]
     private Collection $resident;
 
     public function __construct()

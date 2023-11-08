@@ -36,17 +36,20 @@ class Resident
     private ?User $referent = null;
 
     #[ORM\ManyToMany(targetEntity: Base::class, mappedBy: 'resident')]
-    private Collection $basePrefs;
+    private Collection $bases;
 
-    #[ORM\OneToMany(mappedBy: 'resident', targetEntity: Interest::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'resident', targetEntity: Interest::class, cascade: ["persist", "refresh"], orphanRemoval: true)]
     private Collection $interests;
 
     public function __construct()
     {
-        $this->basePrefs = new ArrayCollection();
+        $this->bases = new ArrayCollection();
         $this->interests = new ArrayCollection();
     }
-
+    public function __toString(): string
+    {
+        return  $this->firstName;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -124,37 +127,6 @@ class Resident
         return $this;
     }
 
-    /**
-     * @return Collection<int, Base>
-     */
-    public function getBasePrefs(): Collection
-    {
-        return $this->basePrefs;
-    }
-
-    public function addBasePref(Base $basePref): static
-    {
-        if (!$this->basePrefs->contains($basePref)) {
-            $this->basePrefs->add($basePref);
-            $basePref->addResident($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBasePref(Base $basePref): static
-    {
-        if ($this->basePrefs->removeElement($basePref)) {
-            $basePref->removeResident($this);
-        }
-
-        return $this;
-    }
-
-    public function __toString(): string
-    {
-        return  $this->firstName;
-    }
 
     /**
      * @return Collection<int, Interest>
@@ -181,6 +153,33 @@ class Resident
             if ($interest->getResident() === $this) {
                 $interest->setResident(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Base>
+     */
+    public function getBases(): Collection
+    {
+        return $this->bases;
+    }
+
+    public function addBasis(Base $basis): static
+    {
+        if (!$this->bases->contains($basis)) {
+            $this->bases->add($basis);
+            $basis->addResident($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasis(Base $basis): static
+    {
+        if ($this->bases->removeElement($basis)) {
+            $basis->removeResident($this);
         }
 
         return $this;
