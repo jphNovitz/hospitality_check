@@ -25,8 +25,8 @@
                 </td>
                 <td class=" text-left">{{ resident.firstName }}</td>
                 <td class=" text-center">
-                    <a href="{{ path('app_resident_show', {'id': resident.id}) }}">show</a>
-                    <a href="{{ path('app_resident_edit', {'id': resident.id}) }}">edit</a>
+                    <a href="{{ path('app_resident', {'id': resident.id}) }}">show</a>
+{#                    <a href="{{ path('app_resident_edit', {'id': resident.id}) }}">edit</a>#}
                 </td>
             </tr>
         {% else %}

@@ -28,9 +28,9 @@
                         {{ component('RowSelect', {label: 'Year', row: form.birthDate.year}) }}
                     </div>
 
-                    <twig:Button:Primary>{{ button_label|default('Save') }}</twig:Button:Primary>
-                    <twig:Button:Secondary
-                            class="mt-2">{{ button_label|default('Save and Add') }}</twig:Button:Secondary>
+                    <twig:Button:Primary type="submit">{{ button_label|default('Save') }}</twig:Button:Primary>
+{#                    <twig:Button:Secondary#}
+{#                            class="mt-2">{{ button_label|default('Save and Add') }}</twig:Button:Secondary>#}
 
                 </div>
 

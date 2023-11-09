@@ -3,9 +3,11 @@
 {% block title %}New Resident{% endblock %}
 
 {% block body %}
-    <h1>Create new Resident</h1>
+    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5">
+        <h1>Create new Resident</h1>
 
-    {{ include('resident/_form.html.twig') }}
+        {{ include('resident/_form.html.twig') }}
 
-    <a href="{{ path('app_resident_index') }}">back to list</a>
+        <a href="{{ path('app_resident_index') }}">back to list</a>
+    </div>
 {% endblock %}
