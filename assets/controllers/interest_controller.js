@@ -26,6 +26,8 @@ export default class extends Controller {
         this.prototypeTarget.dataset.index++
 
         row.innerHTML = newRow
+        console.log(wrapper)
+        console.log(row)
         wrapper.insertBefore(row, this.buttonTarget)
     }
     remove(event){
