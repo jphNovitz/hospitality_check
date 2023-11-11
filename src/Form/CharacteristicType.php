@@ -2,8 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Caracteristic;
+use App\Entity\Characteristic;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,15 +15,30 @@ class CharacteristicType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('contentType', ChoiceType::class, [
+                'choices' => [
+                    'Interest' => 'interest',
+                    'Do' => 'do',
+                    'Don\'t do' => 'don\'t',
+                    'Other' => 'other',
+                ],
+            ])
             ->add('picture')
-            ->add('priority')
-        ;
+            ->add('priority', ChoiceType::class, [
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Caracteristic::class,
+            'data_class' => Characteristic::class,
         ]);
     }
 }
