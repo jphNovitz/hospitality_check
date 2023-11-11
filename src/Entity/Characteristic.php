@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CaracteristicRepository::class)]
-class Caracteristic
+class Characteristic
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,6 +30,12 @@ class Caracteristic
     #[ORM\JoinColumn(nullable: false)]
     private ?Resident $resident = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $contentType = null;
+
+    public function __construct(){
+        $this->contentType = "other";
+    }
     public function __tostring(){
         return $this->name;
     }
@@ -95,6 +101,18 @@ class Caracteristic
     public function setResident(?Resident $resident): static
     {
         $this->resident = $resident;
+
+        return $this;
+    }
+
+    public function getContentType(): ?string
+    {
+        return $this->contentType;
+    }
+
+    public function setContentType(string $contentType): static
+    {
+        $this->contentType = $contentType;
 
         return $this;
     }
