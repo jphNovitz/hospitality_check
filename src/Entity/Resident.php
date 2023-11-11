@@ -41,10 +41,14 @@ class Resident
     #[ORM\OneToMany(mappedBy: 'resident', targetEntity: Interest::class, cascade: ["persist", "refresh"], orphanRemoval: true)]
     private Collection $interests;
 
+    #[ORM\OneToMany(mappedBy: 'resident', targetEntity: Characteristic::class, cascade: ["persist", "refresh"], orphanRemoval: true)]
+    private Collection $characteristics;
+
     public function __construct()
     {
         $this->bases = new ArrayCollection();
         $this->interests = new ArrayCollection();
+        $this->characteristics = new ArrayCollection();
     }
     public function __toString(): string
     {
@@ -180,6 +184,36 @@ class Resident
     {
         if ($this->bases->removeElement($basis)) {
             $basis->removeResident($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Characteristic>
+     */
+    public function getCharacteristics(): Collection
+    {
+        return $this->characteristics;
+    }
+
+    public function addCharacteristic(Characteristic $characteristic): static
+    {
+        if (!$this->characteristics->contains($characteristic)) {
+            $this->characteristics->add($characteristic);
+            $characteristic->setResident($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacteristic(Characteristic $characteristic): static
+    {
+        if ($this->characteristics->removeElement($characteristic)) {
+            // set the owning side to null (unless already changed)
+            if ($characteristic->getResident() === $this) {
+                $characteristic->setResident(null);
+            }
         }
 
         return $this;
