@@ -62,6 +62,18 @@ class ResidentType extends AbstractType
                 'by_reference' => false,
 
             ])
+            ->add('characteristics', CollectionType::class, [
+                'entry_type' => CharacteristicType::class,
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+
+
+            ])
 
         ;
 
