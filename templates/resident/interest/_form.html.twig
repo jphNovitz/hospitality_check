@@ -1,66 +1,69 @@
-{% import _self as formMacros %}
+{% embed '_layout/_form_trigger.html.twig' %}
+    {% block show %}
+        {{ include('resident/interest/show.html.twig') }}
+    {% endblock %}
 
-{% macro printInterestForm(interestForm) %}
-    <div>
-        {{ form_errors(interestForm) }}
-        {{ component('RowText', {
-            row: interestForm.name,
-            label: 'name'
-        }) }}
-        {{ component('RowText', {
-            row: interestForm.description,
-            label: 'description'
-        }) }}
-{#        {{ form_label(interestForm) }}#}
-{#        {{ form_widget(interestForm) }}#}
-        <twig:Button:Secondary
-                data-action="click->interest#remove"
-                data-interest-target="remove">
-            Remove
-        </twig:Button:Secondary>
-{#        <button#}
-{#                {{ stimulus_action('interest', 'remove', 'click') }}#}
-{#                {{ stimulus_target('interest', 'remove') }}#}
-{#                class="w-16 h-9 hover:cursor-pointer bg-red-900 text-white">#}
-{#            remove#}
-{#        </button>#}
-    </div>
-{% endmacro %}
+    {% block form %}
+        {% import _self as formMacros %}
 
-<div class="w-full">
-    {{ form_start(form) }}
-    <div class="row js-interest-wrapper"
-            {{ stimulus_controller('interest') }}
-            {{ stimulus_target('interest', 'prototype') }}
-         data-prototype="{{ formMacros.printInterestForm(form.interests.vars.prototype)|e('html_attr') }}"
-         data-index="{{ form.interests|length }}"
-    >
-        {% for interestForm in form.interests %}
-            {{ formMacros.printInterestForm(interestForm) }}
+        {% macro printInterestForm(interestForm) %}
+            <div>
+                {{ form_errors(interestForm) }}
+                {{ component('RowText', {
+                    row: interestForm.name,
+                    label: 'name'
+                }) }}
+                {{ component('RowText', {
+                    row: interestForm.description,
+                    label: 'description'
+                }) }}
+                <twig:Button:Secondary
+                        data-action="click->interest#remove"
+                        data-interest-target="remove">
+                    Remove
+                </twig:Button:Secondary>
+                {#        <button #}
+                {#                {{ stimulus_action('interest', 'remove', 'click') }} #}
+                {#                {{ stimulus_target('interest', 'remove') }} #}
+                {#                class="w-16 h-9 hover:cursor-pointer bg-red-900 text-white"> #}
+                {#            remove #}
+                {#        </button> #}
+            </div>
+        {% endmacro %}
+        <div class="w-full">
+            <div class="row js-interest-wrapper"
+                    {{ stimulus_controller('interest') }}
+                    {{ stimulus_target('interest', 'prototype') }}
+                 data-prototype="{{ formMacros.printInterestForm(form.interests.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ form.interests|length }}"
+            >
+                {% for interestForm in form.interests %}
+                    {{ formMacros.printInterestForm(interestForm) }}
 
-        {% endfor %}
-        {#    {{ form_widget(form.interests.vars.prototype) }} #}
-        <twig:Button:Primary
-                data-action="click->interest#add"
-                data-interest-target="add"
-                class="my-3">
-            Add
-        </twig:Button:Primary>
-        {#<button
+                {% endfor %}
+                {#    {{ form_widget(form.interests.vars.prototype) }} #}
+                <twig:Button:Primary
+                        data-action="click->interest#add"
+                        data-interest-target="button"
+                        class="my-3">
+                    Add
+                </twig:Button:Primary>
+                {# <button
                 {{ stimulus_action('interest', 'add', 'click') }}
                 {{ stimulus_target('interest', 'button') }}
                 class="hover:cursor-pointer bg-white">
             add
-        </button>#}
-        {#        <a href="#" {{ stimulus_action('interest', 'add', 'click') }}> #}
-        {#            click #}
-        {#        </a> #}
-    </div>
-    <twig:Button:Primary
-            type="submit"
-            class="mt-12">
-        Update
-    </twig:Button:Primary>
-{#    <button type="submit">send</button>#}
-    {{ form_end(form) }}
-</div>
+        </button> #}
+                {#        <a href="#" {{ stimulus_action('interest', 'add', 'click') }}> #}
+                {#            click #}
+                {#        </a> #}
+            </div>
+            <twig:Button:Primary
+                    type="submit"
+                    class="mt-12">
+                Update
+            </twig:Button:Primary>
+
+        </div>
+    {% endblock %}
+{% endembed %}
