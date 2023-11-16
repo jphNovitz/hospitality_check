@@ -51,17 +51,17 @@ class ResidentType extends AbstractType
                 'required' => false,
                 'by_reference' => false,
             ])
-            ->add('interests', CollectionType::class, [
-                'entry_type' => InterestType::class,
-                'entry_options' => [
-                    'label' => false,
-                ],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
-
-            ])
+//            ->add('interests', CollectionType::class, [
+//                'entry_type' => InterestType::class,
+//                'entry_options' => [
+//                    'label' => false,
+//                ],
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'prototype' => true,
+//                'by_reference' => false,
+//
+//            ])
             ->add('characteristics', CollectionType::class, [
                 'entry_type' => CharacteristicType::class,
                 'entry_options' => [
