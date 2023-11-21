@@ -13,3 +13,12 @@ vich_uploader:
             inject_on_load: true
             delete_on_update: true
             delete_on_remove: true
+
+        resident:
+            uri_prefix: /images/resident
+            upload_destination: '%kernel.project_dir%/public/images/resident'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
