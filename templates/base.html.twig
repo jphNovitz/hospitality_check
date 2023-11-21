@@ -14,16 +14,16 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="w-screen overflow-x-hidden bg-zinc-50 dark:bg-stone-950 text-stone-950 dark:text-stone-400  ">
+<body class="w-screen overflow-x-hidden bg-black dark:bg-black text-black dark:text-white  ">
 <div class="min-h-screen max-w-md xl:max-w-7xl m-auto p-5">
-    <main class="h-min-screen">
+    <main class="min-h-screen xl:min-h-screen bg-white dark:bg-black">
         <div class="px-4">
             {% block body %}{% endblock %}
         </div>
     </main>
-    <footer class="mt-16">
-        <p>&copy; 2023 Roomate - Tous droits réservés.</p>
-    </footer>
 </div>
+<footer class="w-full bg-primary-light mt-16">
+    <p>&copy; 2023 Roomate - Tous droits réservés.</p>
+</footer>
 </body>
 </html>
