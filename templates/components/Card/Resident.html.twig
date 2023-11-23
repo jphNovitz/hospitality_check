@@ -3,7 +3,7 @@
     <article class="w-full flex">
         <div class="w-1/3">
             {% if resident.picture is not empty %}
-                <img src="{{ resident.picture }}" alt="" class="w-full"/>
+                <img src="{{ asset('images/resident/' ~ resident.picture) }}" alt="" class="w-full"/>
             {% else %}
                 <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" class="w-full"/>
             {% endif %}
