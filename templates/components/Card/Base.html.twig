@@ -1,0 +1,25 @@
+{#Card Component for resident base informations#}
+<section>
+    {% if infos  is not empty %}
+        <div class="w-full grid grid-cols-3 gap-4">
+            {% for base in infos %}
+                <article>
+                    {% if base.icon is not empty %}
+                        <img alt="{{ base.name }}"
+                             src="{{ asset('images/base/'~base.icon) }}"
+                             class="w-full aspect-square"/>
+                    {% else %}
+                        <div class="w-full aspect-square"> NO IMAGE</div>
+                    {% endif %}
+                    <span class="w-full inline-block text-center font-semibold text-xl">
+                        {{ base.name }}
+                    </span>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="p-6">
+            Pas de préférences de bases ?!
+        </div>
+    {% endif %}
+</section>
