@@ -3,7 +3,7 @@
         {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent is not null) %}
             {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent.id == app.user.id) %}
                 <div class="text-right">
-                    {#        <span class="cursor-pointer" {{ stimulus_action('form', 'toggle', 'click') }}> #}
+                    {#                            <span class="cursor-pointer" {{ stimulus_action('form', 'toggle', 'click') }}> #}
 
                     {{ component('Button:Primary', {
                         class: "!w-20 !h-12 !px-1.5 !py-.5",
@@ -11,9 +11,9 @@
                         ...stimulus_action('form', 'toggle', 'click'),
                         ...stimulus_target('form', 'button')
                     }) }}
-                    {#            <twig:Button:Primary #}
-                    {#                    class=" w-20 h-12 px-1.5 py-.5" ...stimulus_target('form', 'button')> {{ button_label|default('update') }} </twig:Button:Primary> #}
-                    {#        </span> #}
+                    {#                    <span {{ stimulus_target('form', 'button') }} {{ stimulus_action('form', 'toggle', 'click') }} > #}
+                    {#                    <twig:Button:Primary class="!w-20 !h-12 !px-1.5 !py-.5">Update</twig:Button:Primary> #}
+                    {#                    </span> #}
                 </div>
             {% endif %}
         {% endif %}
