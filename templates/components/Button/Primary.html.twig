@@ -1,3 +1,5 @@
-<button {{ attributes.defaults({ class: 'w-full xl:w-14 px-6 py-3 text-semibold bg-blue-600 text-blue-50 dark:bg-stone-300 dark:text-stone-950 rounded-md' }) }}>
-    {% block content %}{% endblock %}
+<button {{ attributes.defaults({
+    class: 'w-full xl:w-14 px-6 py-3 text-semibold bg-black/10 dark:bg-white/10 text-black dark:text-white rounded-md' })
+}}>
+    {% block content %}{{ label }}{% endblock %}
 </button>
