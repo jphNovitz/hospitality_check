@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\BaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BaseRepository::class)]
 #[Vich\Uploadable]
@@ -32,6 +34,14 @@ class Base
     private ?int $imageSize = null;
     #[ORM\ManyToMany(targetEntity: Resident::class, inversedBy: 'bases')]
     private Collection $resident;
+
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(name: 'created', type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $created ;
+
+    #[ORM\Column(name: 'updated', type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Gedmo\Timestampable]
+    private ?\DateTimeImmutable $updated;
 
     public function __construct()
     {
@@ -110,7 +120,7 @@ class Base
         if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updated = new \DateTimeImmutable();
         }
     }
 
@@ -137,5 +147,29 @@ class Base
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeImmutable $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeImmutable
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?\DateTimeImmutable $updated): static
+    {
+        $this->updated = $updated;
+
+        return $this;
     }
 }
