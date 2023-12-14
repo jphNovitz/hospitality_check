@@ -13,15 +13,15 @@ final class Residents
     use DefaultActionTrait;
 
     #[LiveProp(writable: true)]
-    public int $query = 5;
+    public int $limit = 5;
 
-    public function __construct(private ResidentRepository $repository)
+    public function __construct(private readonly ResidentRepository $repository)
     {
     }
 
     public function getResidents(): array
     {
-        return $this->repository->findAlphabeticalFirsts($this->query);
+        return $this->repository->findAlphabeticalFirsts($this->limit);
     }
 
 }
