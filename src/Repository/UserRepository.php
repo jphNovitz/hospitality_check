@@ -4,10 +4,12 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -38,6 +40,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @return User[] Returns an array of Resident objects
+     */
+    public function findAlphabeticalFirsts($limit = 5): array
+    {
+        $query = $this->createQueryBuilder('u')
+            ->leftJoin('u.referees', 'referees')
+            ->select('u, partial referees.{id, firstName}')
+            ->orderBy('u.name', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery();
+        $query->setHint(Query::HINT_FORCE_PARTIAL_LOAD, 1);
+        return $query->getResult();
     }
 
 //    /**
