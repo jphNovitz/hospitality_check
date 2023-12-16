@@ -13,7 +13,7 @@ final class Residents
     use DefaultActionTrait;
 
     #[LiveProp(writable: true)]
-    public int $limit = 5;
+    public int|null $limit = null;
 
     public function __construct(private readonly ResidentRepository $repository)
     {
