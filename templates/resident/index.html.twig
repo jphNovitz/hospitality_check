@@ -3,39 +3,44 @@
 {% block title %}Resident index{% endblock %}
 
 {% block body %}
-    <h1>Resident index</h1>
+    <twig:Title:H1>Resident index</twig:Title:H1>
+    <div class="w-full grid grid-cols-2 gap-4 m-auto">
+        <div>
+        </div>
+        <div>
+            <a href="{{ path('app_resident_new') }}">
+                <twig:Button:Primary>Create new</twig:Button:Primary>
+            </a>
+        </div>
+    </div>
+    {% if residents is not empty %}
+        <div class="w-full grid grid-cols-2 gap-4 mx-auto my-8 ">
+            {% for resident in residents %}
+                <div class="relative">
+                    <div class=" text-left">
+                        {% if resident.picture is not empty %}
+                            <img src="{{ asset('images/resident/' ~ resident.picture) }}" alt=""/>
+                        {% else %}
+                            <img src="{{ asset('images/emojis/elon-musk.png') }}" alt=""/>
+                        {% endif %}
+                    </div>
+                    <div class=" text-center">
+                        <a href="{{ path('app_resident', {'id': resident.id}) }}">
+                            <twig:Button:Secondary>
+                                {{ resident.firstName }}
+                            </twig:Button:Secondary>
+                        </a>
+                    </div>
+                    <span class="absolute top-1 right-1 flex justify-center items-center w-8 aspect-square rounded-full font-black bg-black text-white dark:bg-white dark:text-black"> {{ resident.room }}</span>
+                </div>
 
-    <table class="table-fixed  border-separate border-spacing-y-2 w-full">
-        <thead>
+            {% endfor %}
+        </div>
+    {% else %}
         <tr>
-            <th class="w-2/12 text-left"></th>
-            <th class="w-6/12 text-left">FirstName</th>
-            <th class="w-4/12 text-center">actions</th>
+            <td colspan="6">no records found</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for resident in residents %}
-            <tr class="table-row">
-                <td class=" text-left">
-                    {% if resident.picture is not empty %}
-                        <img src="{{ resident.picture }}" alt="" />
-                    {% else %}
-                        <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" />
-                    {% endif %}
-                </td>
-                <td class=" text-left">{{ resident.firstName }}</td>
-                <td class=" text-center">
-                    <a href="{{ path('app_resident', {'id': resident.id}) }}">show</a>
-{#                    <a href="{{ path('app_resident_edit', {'id': resident.id}) }}">edit</a>#}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% endif %}
 
-    <a href="{{ path('app_resident_new') }}">Create new</a>
+
 {% endblock %}
