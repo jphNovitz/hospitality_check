@@ -3,10 +3,37 @@
 {% block title %}New Resident{% endblock %}
 
 {% block body %}
-    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5">
-        <h1>Create new Resident</h1>
+    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5 pb-12">
+        <h1>Welcome a new Resident</h1>
 
-        {{ include('resident/_form.html.twig') }}
+        <div class="flex flex-col my-3">
+            {#                    {{ component('Form:RowText', {label: 'Picture', row: form.picture}) }}#}
+            {{ form_row(form.imageFile) }}
+        </div>
+        <div class="flex flex-col my-8">
+            {{ component('Form:RowText', {label: 'First name', row: form.firstName}) }}
+            {{ component('Form:RowText', {label: 'Nationality', row: form.nationality}) }}
+            <div class="grid grid-cols-2 gap-5">
+                {{ component('Form:RowSelect', {label: 'Room', row: form.room}) }}
+                {{ component('Form:RowText', {label: 'New Room', row: form.newRoom}) }}
+            </div>
+
+            {{ component('Form:RowSelect', {label: 'Referent', row: form.referent}) }}
+            <span class="font-semibold">Birth Day</span>
+            <div class="grid grid-cols-3 gap-5">
+                {{ component('Form:RowSelect', {label: 'Day', row: form.birthDate.day}) }}
+                {{ component('Form:RowSelect', {label: 'Month', row: form.birthDate.month}) }}
+                {{ component('Form:RowSelect', {label: 'Year', row: form.birthDate.year}) }}
+            </div>
+
+            <twig:Button:Primary type="submit">{{ button_label|default('Save') }}</twig:Button:Primary>
+            {#                    <twig:Button:Secondary #}
+            {#                            class="mt-2">{{ button_label|default('Save and Add') }}</twig:Button:Secondary> #}
+
+        </div>
+        {#
+        #}{#        Removed because in _form there is a trigger #}{#
+        {{ include('resident/_form.html.twig') }} #}
 
         <a href="{{ path('app_resident_index') }}">back to list</a>
     </div>

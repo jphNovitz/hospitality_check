@@ -6,14 +6,19 @@ use App\Entity\Base;
 use App\Entity\Resident;
 use App\Entity\Room;
 use App\EventListener\AddRoomSubscriber;
+use App\EventListener\ManageReferentSubscriber;
+use App\EventSubscriber\ResidentSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ResidentType extends AbstractType
@@ -21,7 +26,8 @@ class ResidentType extends AbstractType
     private $entityManager;
 
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        private TokenStorageInterface $tokenStorage
     )
     {
         $this->entityManager = $entityManager;
@@ -78,7 +84,9 @@ class ResidentType extends AbstractType
 
         ;
 
+
         $builder->addEventSubscriber(new AddRoomSubscriber($this->entityManager));
+        $builder->addEventSubscriber(new ResidentSubscriber($this->tokenStorage));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
