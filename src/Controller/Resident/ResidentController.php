@@ -38,7 +38,7 @@ class ResidentController extends AbstractController
             $entityManager->persist($resident);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_resident_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_resident_edit', ['id' => $resident->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('resident/new.html.twig', [
@@ -55,7 +55,7 @@ class ResidentController extends AbstractController
 //        ]);
 //    }
 
-    #[Route('/{id}', name: 'app_resident', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_resident_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ResidentType::class, $resident);
