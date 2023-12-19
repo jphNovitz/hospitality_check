@@ -1,0 +1,24 @@
+<div {{ attributes.defaults({ class: 'my-5' }) }}>
+    {{ form_label(row,null, {
+        'label': label,
+        'label_attr': {'class': 'font-semibold'}
+    }) }}
+    <div class="flex">
+        {{ form_widget(row.day, { 'attr':
+            {
+                'class': 'w-full flex bg-zinc-100 dark:bg-stone-400 dark:text-stone-950  rounded-l-md px-1 py-2 mt-3 outline-none focus:outline-none border-stone-300 focus:ring focus:border-stone-950'
+            }
+        }) }}
+    {{ form_widget(row.month, { 'attr':
+        {
+            'class': 'w-full flex bg-zinc-100 dark:bg-stone-400 dark:text-stone-950  px-1 py-2 mt-3 outline-none focus:outline-none border-stone-300 focus:ring focus:border-stone-950'
+        }
+    }) }}
+    {{ form_widget(row.year, { 'attr':
+        {
+            'class': 'w-full flex bg-zinc-100 dark:bg-stone-400 dark:text-stone-950  rounded-r-md px-1 py-2 mt-3 outline-none focus:outline-none border-stone-300 focus:ring focus:border-stone-950'
+        }
+    }) }}
+
+    </div>
+</div>
