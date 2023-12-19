@@ -45,7 +45,10 @@ class AddRoomSubscriber implements EventSubscriberInterface
                 $id = $room->getId();
                 $resident['room'] = $id;
             }
+            else $resident['room'] = $resident['newRoom'];
         }
+
+
         $event->setData($resident);
 
     }
