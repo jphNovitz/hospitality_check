@@ -9,9 +9,11 @@ use App\EventListener\AddRoomSubscriber;
 use App\EventListener\ManageReferentSubscriber;
 use App\EventSubscriber\ResidentSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,9 +38,16 @@ class ResidentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true
+            ])
             ->add('firstName')
-            ->add('birthDate')
+            ->add('birthDate', BirthdayType::class, [
+                'input' => 'datetime_immutable',
+                'widget' => 'choice',
+                'years' => range(date('Y') -80, date('Y'))
+                ])
             ->add('nationality')
             ->add('room', EntityType::class, [
                 'class'=> Room::class,
