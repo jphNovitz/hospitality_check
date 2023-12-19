@@ -46,7 +46,7 @@ class ResidentType extends AbstractType
             ->add('birthDate', BirthdayType::class, [
                 'input' => 'datetime_immutable',
                 'widget' => 'choice',
-                'years' => range(date('Y') -80, date('Y'))
+                'years' => range(date('Y') -65, date('Y'))
                 ])
             ->add('nationality')
             ->add('room', EntityType::class, [

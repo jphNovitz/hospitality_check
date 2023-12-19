@@ -1,7 +1,4 @@
 <div class="w-full">
-{#    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5" {{ stimulus_controller('form') }}>#}
-{#        {{ form_start(form) }}#}
-
         {% embed '_layout/_form_trigger.html.twig' %}
             {% block show %}
                 {{ include('resident/show.html.twig') }}
@@ -10,30 +7,29 @@
             {% block form %}
 
                 <div class="flex flex-col my-3">
-{#                    {{ component('RowText', {label: 'Picture', row: form.picture}) }}#}
+{#                    {{ component('Form:RowText', {label: 'Picture', row: form.picture}) }}#}
                         {{ form_row(form.imageFile) }}
                 </div>
                     <div class="flex flex-col my-8">
-                    {{ component('RowText', {label: 'First name', row: form.firstName}) }}
-                    {{ component('RowText', {label: 'Nationality', row: form.nationality}) }}
+                    {{ component('Form:RowText', {label: 'First name', row: form.firstName}) }}
+                    {{ component('Form:RowText', {label: 'Nationality', row: form.nationality}) }}
                     <div class="grid grid-cols-2 gap-5">
-                        {{ component('RowSelect', {label: 'Room', row: form.room}) }}
-                        {{ component('RowText', {label: 'New Room', row: form.newRoom}) }}
+                        {{ component('Form:RowSelect', {label: 'Room', row: form.room}) }}
+                        {{ component('Form:RowText', {label: 'New Room', row: form.newRoom}) }}
                     </div>
 
-                    {{ component('RowSelect', {label: 'Referent', row: form.referent}) }}
+                    {{ component('Form:RowSelect', {label: 'Referent', row: form.referent}) }}
                     <span class="font-semibold">Birth Day</span>
                     <div class="grid grid-cols-3 gap-5">
-                        {{ component('RowSelect', {label: 'Day', row: form.birthDate.day}) }}
-                        {{ component('RowSelect', {label: 'Month', row: form.birthDate.month}) }}
-                        {{ component('RowSelect', {label: 'Year', row: form.birthDate.year}) }}
+                        {{ component('Form:RowSelect', {label: 'Day', row: form.birthDate.day}) }}
+                        {{ component('Form:RowSelect', {label: 'Month', row: form.birthDate.month}) }}
+                        {{ component('Form:RowSelect', {label: 'Year', row: form.birthDate.year}) }}
                     </div>
 
                     <twig:Button:Primary type="submit">{{ button_label|default('Save') }}</twig:Button:Primary>
-{#                    <twig:Button:Secondary#}
-{#                            class="mt-2">{{ button_label|default('Save and Add') }}</twig:Button:Secondary>#}
+                        {#                    <twig:Button:Secondary #}
+                        {#                            class="mt-2">{{ button_label|default('Save and Add') }}</twig:Button:Secondary> #}
 
                 </div>
-
             {% endblock %}
         {% endembed %}
