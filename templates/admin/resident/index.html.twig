@@ -1,41 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Resident index{% endblock %}
+{% block title %}Residents{% endblock %}
 
 {% block body %}
-    <h1>Resident index,kdsqkldjklqj</h1>
+    <h1>Accueil Résidents</h1>
+    <div class="space-y-12">
+        {{ component('Live:List:Residents' ,{ limit: 5 }) }}
 
-    <table class="table-fixed  border-separate border-spacing-y-2 w-full">
-        <thead>
-        <tr>
-            <th class="w-2/12 text-left"></th>
-            <th class="w-6/12 text-left">FirstName</th>
-            <th class="w-4/12 text-center">actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for resident in residents %}
-            <tr class="table-row">
-                <td class=" text-left">
-                    {% if resident.picture is not empty %}
-                        <img src="{{ resident.picture }}" alt="" />
-                    {% else %}
-                        <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" />
-                    {% endif %}
-                </td>
-                <td class=" text-left">{{ resident.firstName }}</td>
-                <td class=" text-center">
-                    <a href="{{ path('app_resident_show', {'id': resident.id}) }}">show</a>
-                    <a href="{{ path('app_resident_edit', {'id': resident.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_resident_new') }}">Create new</a>
+    </div>
 {% endblock %}
