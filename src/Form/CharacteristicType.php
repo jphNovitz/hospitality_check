@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CharacteristicType extends AbstractType
 {
@@ -23,7 +24,6 @@ class CharacteristicType extends AbstractType
                     'Other' => 'other',
                 ],
             ])
-            ->add('picture')
             ->add('priority', ChoiceType::class, [
                 'choices' => [
                     '1' => 1,
@@ -32,7 +32,8 @@ class CharacteristicType extends AbstractType
                     '4' => 4,
                     '5' => 5
                 ]
-            ]);
+            ])
+            ->add('imageFile', VichImageType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
