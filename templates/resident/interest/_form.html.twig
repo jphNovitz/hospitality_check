@@ -9,11 +9,11 @@
         {% macro printInterestForm(interestForm) %}
             <div>
                 {{ form_errors(interestForm) }}
-                {{ component('RowText', {
+                {{ component('Form:RowText', {
                     row: interestForm.name,
                     label: 'name'
                 }) }}
-                {{ component('RowText', {
+                {{ component('Form:RowText', {
                     row: interestForm.description,
                     label: 'description'
                 }) }}
