@@ -9,16 +9,17 @@
         {% macro printCharacteristicForm(characteristicForm) %}
             <div>
                 {{ form_errors(characteristicForm) }}
-                {{ component('RowText', {
+                {{ component('Form:RowText', {
                     row: characteristicForm.name,
                     label: 'name'
                 }) }}
-                {{ component('RowText', {
+                {{ component('Form:RowText', {
                     row: characteristicForm.description,
                     label: 'description'
                 }) }}
                 {{ form_row(characteristicForm.contentType) }}
                 {{ form_row(characteristicForm.priority) }}
+                {{ form_row(characteristicForm.imageFile) }}
                 <twig:Button:Secondary
                         data-action="click->characteristic#remove"
                         data-characteristic-target="remove">
@@ -40,16 +41,17 @@
                     {% for characteristicForm in characteristicForms %}
                         <div>
                             {{ form_errors(characteristicForm) }}
-                            {{ component('RowText', {
+                            {{ component('Form:RowText', {
                                 row: characteristicForm.name,
                                 label: 'name'
                             }) }}
-                            {{ component('RowText', {
+                            {{ component('Form:RowText', {
                                 row: characteristicForm.description,
                                 label: 'description'
                             }) }}
                             {{ form_row(characteristicForm.contentType) }}
                             {{ form_row(characteristicForm.priority) }}
+                            {{ form_row(characteristicForm.imageFile) }}
                             <twig:Button:Secondary
                                     data-action="click->characteristic#remove"
                                     data-characteristic-target="remove">
