@@ -6,28 +6,39 @@
             <th class="w-12 text-right p-2">Rm</th>
             <th class="w-20 md:w-1/3 text-left p-2">Name</th>
             <th class="w-20 md:w-1/3 hidden md:table-cell text-left p-2">Referent</th>
-            <th class=" text-right p-2"><twig:Button:Primary href="{{ path('app_resident_new') }}" class="!w-32 mr-1">Ajouter</twig:Button:Primary></th>
+            <th class=" text-right p-2">
+                <twig:Button:Primary href="{{ path('app_resident_new') }}" class="!w-32 mr-1">Ajouter
+                </twig:Button:Primary>
+            </th>
         </tr>
         </thead>
         <tbody>
         {% for resident in this.residents %}
-        <tr class="even:bg-black/5 dark:even:bg-white/5">
-            <td class="w-12 text-right p-2">{{ resident.room.number}}</td>
-            <td class="w-24 md:w-1/3 p-2">{{ resident.firstname }}</td>
-            <td class="w-24 md:w-1/3 p-2">{{  resident.referent.name}}</td>
-            <td class="p-1 flex justify-end">
-                <twig:Button:Primary
-                        href="{{ path('app_resident_edit', {id: resident.id}) }}"
-                        class="!w-32 mr-1" >
-                    Update
-                </twig:Button:Primary>
-                <twig:Button:Secondary
-                        href="{{ path('app_resident_delete', {id: resident.id}) }}"
-                        class="hidden lg:table-cell !w-32 border-red-800 text-red-800">
-                    Delete
-                </twig:Button:Secondary>
-            </td>
-        </tr>
+            <tr class="even:bg-black/5 dark:even:bg-white/5">
+                <td class="w-12 text-right p-2">{{ resident.room.number }}</td>
+                <td class="w-24 md:w-1/3 p-2">{{ resident.firstname }}</td>
+                <td class="w-24 md:w-1/3 p-2">{{ resident.referent.name }}</td>
+                <td class="p-1 flex justify-end">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <twig:Button:Primary
+                                href="{{ path('admin_resident_edit', {id: resident.id}) }}"
+                                class="!w-32 mr-1">
+                            Update
+                        </twig:Button:Primary>
+                    {% else %}
+                        <twig:Button:Primary
+                                href="{{ path('app_resident_edit', {id: resident.id}) }}"
+                                class="!w-32 mr-1">
+                            Update
+                        </twig:Button:Primary>
+                    {% endif %}
+                    <twig:Button:Secondary
+                            href="{{ path('app_resident_delete', {id: resident.id}) }}"
+                            class="hidden lg:table-cell !w-32 border-red-800 text-red-800">
+                        Delete
+                    </twig:Button:Secondary>
+                </td>
+            </tr>
         {% endfor %}
 
         </tbody>
