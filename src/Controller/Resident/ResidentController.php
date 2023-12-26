@@ -35,6 +35,7 @@ class ResidentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            dd($resident->getReferent());
             $entityManager->persist($resident);
             $entityManager->flush();
 
