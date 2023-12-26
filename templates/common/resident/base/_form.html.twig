@@ -1,0 +1,11 @@
+<div class="w-full grid grid-cols-2 gap-4 my-4">
+    {% for base in form.bases %}
+        <div class="inline-fex">
+            {{ form_widget(base, {'attr': {'class': 'mr-1'}}) }}
+            {{ form_label(base, null, {'label_attr': {'class': 'inline'}}) }}
+        </div>
+    {% endfor %}
+</div>
+{#<twig:Button:Primary>#}
+{#    {{ button_label|default('Save') }}#}
+{#</twig:Button:Primary>#}
