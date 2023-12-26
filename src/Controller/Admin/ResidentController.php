@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Resident;
-use App\Form\ResidentType;
+use App\Form\Admin\ResidentType;
 use App\Repository\ResidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,8 +24,6 @@ class ResidentController extends AbstractController
         return $this->render('admin/resident/index.html.twig');
     }
 
-
-
     #[Route('/{id}', name: 'app_resident_show', methods: ['GET'])]
     public function show(Resident $resident): Response
     {
@@ -34,7 +32,7 @@ class ResidentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_resident_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'admin_resident_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ResidentType::class, $resident);
@@ -43,10 +41,10 @@ class ResidentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_resident_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_resident_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('resident/edit.html.twig', [
+        return $this->render('admin/resident/edit.html.twig', [
             'resident' => $resident,
             'form' => $form,
         ]);
