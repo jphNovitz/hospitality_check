@@ -1,0 +1,25 @@
+<div class="w-full">
+{#    {{ form_start(form) }}#}
+    <div class="flex flex-col my-3">
+        {{ form_row(form.imageFile) }}
+    </div>
+    <div class="flex flex-col my-8">
+        {{ component('Form:RowText', {label: 'First name', row: form.firstName}) }}
+        {{ component('Form:RowText', {label: 'Nationality', row: form.nationality}) }}
+        <div class="grid grid-cols-2 gap-5">
+            {{ component('Form:RowSelect', {label: 'Room', row: form.room}) }}
+            {{ component('Form:RowText', {label: 'New Room', row: form.newRoom}) }}
+        </div>
+
+        {{ component('Form:RowSelect', {label: 'Referent', row: form.referent}) }}
+        <span class="font-semibold">Birth Day</span>
+        <div class="grid grid-cols-3 gap-5">
+            {{ component('Form:RowSelect', {label: 'Day', row: form.birthDate.day}) }}
+            {{ component('Form:RowSelect', {label: 'Month', row: form.birthDate.month}) }}
+            {{ component('Form:RowSelect', {label: 'Year', row: form.birthDate.year}) }}
+        </div>
+
+
+    </div>
+{#    {{ form_end(form) }}#}
+</div>
