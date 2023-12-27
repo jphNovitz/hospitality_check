@@ -59,6 +59,9 @@ class ResidentType extends AbstractType
                 'required'   => false,
             ])
             ->add('referent')
+
+
+            /*
             ->add('bases', EntityType::class, [
                 'class' => Base::class,
                 'choice_label' => 'name',
@@ -66,7 +69,9 @@ class ResidentType extends AbstractType
                 'expanded' => true,
                 'required' => false,
                 'by_reference' => false,
-            ])
+            ])*/
+
+
 //            ->add('interests', CollectionType::class, [
 //                'entry_type' => InterestType::class,
 //                'entry_options' => [
@@ -78,7 +83,9 @@ class ResidentType extends AbstractType
 //                'by_reference' => false,
 //
 //            ])
-            ->add('characteristics', CollectionType::class, [
+
+
+           /* ->add('characteristics', CollectionType::class, [
                 'entry_type' => CharacteristicType::class,
                 'entry_options' => [
                     'label' => false,
@@ -89,7 +96,7 @@ class ResidentType extends AbstractType
                 'by_reference' => false,
 
 
-            ])
+            ])*/
 
         ;
 

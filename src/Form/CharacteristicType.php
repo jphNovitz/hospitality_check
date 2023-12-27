@@ -33,7 +33,10 @@ class CharacteristicType extends AbstractType
                     '5' => 5
                 ]
             ])
-            ->add('imageFile', VichImageType::class);
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
