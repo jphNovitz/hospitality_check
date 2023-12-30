@@ -1,0 +1,18 @@
+<div{{ attributes.defaults({ class: "w-[200%] float-left flex overflow-hidden pt-12 relative"}) }} {{ stimulus_controller('view_switcher') }}>
+{#    <button class="absolute top-1 left-1/2 -translate-x-16" {{ stimulus_action('view_switcher','toggle', 'click') }}> Update </button>#}
+{#    <button class="absolute top-1 right-1/2 translate-x-12" {{ stimulus_action('view_switcher','toggle', 'click') }}> Back </button>#}
+
+    <div class="w-1/2 pt-12 relative" {{ stimulus_target('view_switcher', 'left') }}>
+        <button class="absolute top-1 right-1" {{ stimulus_action('view_switcher','toggle', 'click') }}> Update </button>
+        {% block left %}
+
+        {% endblock %}
+    </div>
+    <div class="w-1/2 pt-12 relative" {{ stimulus_target('view_switcher', 'right') }}>
+        <button class="absolute top-1 left-1" {{ stimulus_action('view_switcher','toggle', 'click') }}> Back </button>
+        {% block right %}
+
+        {% endblock %}
+    </div>
+
+</div>
