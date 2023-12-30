@@ -4,14 +4,22 @@
 
  {% block body %}
      <h1>Edit Resident</h1>
-     <div class="w-full">
-                  {{ form_start(form) }}
+     <div class="w-full overflow-hidden">
+     <twig:ViewSwitcher>
+         {% block left %}
+             {% include 'resident/base/show.html.twig' %}
+         {% endblock %}
+         {% block right %}
+             {{ component('Live:Resident:Form:Basic', {residentId: resident.id}) }}
+         {% endblock %}
+     </twig:ViewSwitcher>
+     {#                 {{ form_start(form) }}
 
                   {{ include('resident/_form.html.twig', {'button_label': 'Update'}) }}
                   {{ include('resident/base/_form.html.twig') }}
-{#                  {{ include('resident/interest/_form.html.twig') }}#}
+                  {{ include('resident/interest/_form.html.twig') }}
                   {{ include('resident/characteristic/_form.html.twig') }}
 
-                  {{ form_end(form) }}
+                  {{ form_end(form) }} #}
 
  {% endblock %}
