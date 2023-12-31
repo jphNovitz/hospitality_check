@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CaracteristicRepository;
+use App\Repository\CharacteristicRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
-#[ORM\Entity(repositoryClass: CaracteristicRepository::class)]
+#[ORM\Entity(repositoryClass: CharacteristicRepository::class)]
 #[Vich\Uploadable]
 class Characteristic
 {
