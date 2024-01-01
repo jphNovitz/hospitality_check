@@ -1,0 +1,23 @@
+<div{{ attributes.defaults({ class: "p-4"}) }} >
+
+    {% if isSuccessful %}
+        <div class="bg-green-100 text-green-900 ">Updated</div>
+    {% else %}
+        <div>
+            {{ form_start(form, {
+                attr: {
+                    'novalidate': true,
+                    'data-action': 'live#action',
+                    'data-action-name': 'prevent|save',
+                }
+            }) }}
+            {{ include('common/resident/_form.html.twig', {'form': form}) }}
+            <twig:Button:Submit
+                    label="{{ action }}"
+                    class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}"/>
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+</div>
