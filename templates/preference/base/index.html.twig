@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Base index{% endblock %}
+
+{% block body %}
+    <h1>Base index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Icon</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for base in bases %}
+            <tr>
+                <td>{{ base.id }}</td>
+                <td>{{ base.name }}</td>
+                <td>{{ base.description }}</td>
+                <td>{{ base.icon }}</td>
+                <td>
+                    <a href="{{ path('app_preference_base_show', {'id': base.id}) }}">show</a>
+                    <a href="{{ path('app_preference_base_edit', {'id': base.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_preference_base_new') }}">Create new</a>
+{% endblock %}
