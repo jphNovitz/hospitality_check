@@ -11,7 +11,10 @@
                     'data-action-name': 'prevent|save',
                 }
             }) }}
-            {{ include('common/resident/_form.html.twig', {'form': form}) }}
+            {% block form %}
+                {{ include( path, {'form': form}) }}
+            {% endblock %}
+
             <twig:Button:Submit
                     label="{{ action }}"
                     class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}"/>

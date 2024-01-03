@@ -17,6 +17,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\PreMount;
 
 #[AsLiveComponent(template: 'components/Live/Resident/Form/Profile.html.twig')]
 final class Profile extends AbstractController
@@ -28,16 +29,31 @@ final class Profile extends AbstractController
     #[LiveProp]
     public bool $isSuccessful = false;
     #[LiveProp]
-    public ?int $residentId = null;
+    public Resident $initialResidentForm;
+
+    public string $path;
+
+    #[LiveProp]
+    public mixed $formClass;
 
     public string $action = 'Update';
 
-    public function __construct(protected ResidentRepository $residentRepository, protected  EntityManagerInterface $em){
+    public function __construct(protected ResidentRepository $residentRepository, protected EntityManagerInterface $em)
+    {
+    }
+
+    #[PreMount]
+    public function preMount($datas): void
+    {
+        $this->formClass = match ($datas['TypeName']) {
+            "ResidentType" => ResidentType::class,
+            "BasicType" => BasicType::class
+        };
     }
 
     public function getResident(): ?Resident
     {
-            return $this->residentRepository->findOneBy(['id'=>$this->residentId]);
+        return $this->residentRepository->findOneBy(['id' => $this->initialResidentForm]);
     }
 
     #[LiveListener('residentUpdated')]
@@ -45,14 +61,10 @@ final class Profile extends AbstractController
     {
         $this->getResident();
     }
+
     protected function instantiateForm(): FormInterface
     {
-//        dd($this->getResident());
-
-        return $this->createForm(
-            ResidentType::class,
-            $this->getResident()
-        );
+        return $this->createForm($this->formClass, $this->initialResidentForm);
     }
 
     public function hasValidationErrors(): bool
