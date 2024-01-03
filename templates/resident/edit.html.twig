@@ -7,12 +7,46 @@
      <div class="w-full overflow-hidden">
      <twig:ViewSwitcher>
          {% block left %}
-             {% include 'resident/base/show.html.twig' %}
+             {{ component('Live:Resident:Show:Profile', {
+                 path: "resident/show.html.twig",
+                 resident: resident
+             }) }}
          {% endblock %}
          {% block right %}
-             {{ component('Live:Resident:Form:Basic', {residentId: resident.id}) }}
+             {{ component('Live:Resident:Form:Profile', {
+                 path: "common/resident/_form.html.twig",
+                 TypeName: "ResidentType",
+                 initialResidentForm: resident,
+                 action: "Update"
+             } ) }}
          {% endblock %}
      </twig:ViewSwitcher>
+
+     <twig:ViewSwitcher>
+         {% block left %}
+             {{ component('Live:Resident:Show:Profile', {
+                 path: "resident/base/show.html.twig",
+                 resident: resident
+             }) }}
+         {% endblock %}
+         {% block right %}
+             {{ component('Live:Resident:Form:Profile', {
+                 path: "common/resident/base/_form.html.twig",
+                 TypeName: "BasicType",
+                 initialResidentForm: resident,
+                 action: "Update"
+             } ) }}
+         {% endblock %}
+     </twig:ViewSwitcher>
+
+{#     <twig:ViewSwitcher>
+         {% block left %}
+             {{ component('Live:Resident:Show:Basic', { residentId: resident.id}) }}
+         {% endblock %}
+         {% block right %}
+             {{ component('Live:Resident:Form:Basic', { residentId: resident.id, action: "Update"} ) }}
+         {% endblock %}
+     </twig:ViewSwitcher>#}
      {#                 {{ form_start(form) }}
 
                   {{ include('resident/_form.html.twig', {'button_label': 'Update'}) }}
