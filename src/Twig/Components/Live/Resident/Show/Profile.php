@@ -15,17 +15,34 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 final class Profile
 {
     use DefaultActionTrait;
+    #[LiveProp]
+    public Resident $initialResident;
+
+//    public function getResident(): ?Resident
+//    {
+//        return $this->residentRepository->findOneBy(['id' => $this->initialResidentForm]);
+//    }
 
     #[LiveProp]
-    public ?int $residentId = null;
-
+    public string $path;
     #[LiveAction]
-    public function __construct(protected ResidentRepository $residentRepository, protected  EntityManagerInterface $em){
+    public function __construct(protected ResidentRepository $residentRepository){
+    }
+    public function getResident(bool $update = false): ?Resident
+    {
+        if(!$update) return $this->initialResident ;
+        else return $this->residentRepository->findOneBy(['id' => $this->initialResident]);
     }
 
     #[LiveListener('residentUpdated')]
-    public function getResident(): ?Resident
+    public function refreshResident(): void
     {
-        return $this->residentRepository->findOneBy(['id'=>$this->residentId]);
+        $this->getResident(true);
     }
+
+//    #[LiveListener('residentUpdated')]
+//    public function getResident(): ?Resident
+//    {
+//        return $this->residentRepository->findOneBy(['id'=>$this->resident->getId()]);
+//    }
 }

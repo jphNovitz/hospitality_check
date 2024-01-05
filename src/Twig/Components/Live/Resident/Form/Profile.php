@@ -4,6 +4,7 @@ namespace App\Twig\Components\Live\Resident\Form;
 
 use App\Entity\Resident;
 use App\Form\Resident\BasicType;
+use App\Form\Resident\CharacteristicsType;
 use App\Form\ResidentType;
 use App\Repository\ResidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +32,7 @@ final class Profile extends AbstractController
     #[LiveProp]
     public Resident $initialResidentForm;
 
+    #[LiveProp]
     public string $path;
 
     #[LiveProp]
@@ -47,19 +49,22 @@ final class Profile extends AbstractController
     {
         $this->formClass = match ($datas['TypeName']) {
             "ResidentType" => ResidentType::class,
-            "BasicType" => BasicType::class
+            "BasicType" => BasicType::class,
+            "CharacteristicType" => CharacteristicsType::class,
         };
     }
 
-    public function getResident(): ?Resident
+    public function getResident(bool $update = false): ?Resident
     {
-        return $this->residentRepository->findOneBy(['id' => $this->initialResidentForm]);
+        if(!$update) return $this->initialResidentForm ;
+        else return $this->residentRepository->findOneBy(['id' => $this->initialResidentForm]);
+//        return $this->residentRepository->findOneBy(['id' => $this->initialResidentForm]);
     }
 
     #[LiveListener('residentUpdated')]
     public function refreshResident(): void
     {
-        $this->getResident();
+        $this->getResident(true);
     }
 
     protected function instantiateForm(): FormInterface
