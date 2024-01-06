@@ -9,7 +9,7 @@
          {% block left %}
              {{ component('Live:Resident:Show:Profile', {
                  path: "resident/show.html.twig",
-                 resident: resident
+                 initialResident: resident
              }) }}
          {% endblock %}
          {% block right %}
@@ -26,13 +26,30 @@
          {% block left %}
              {{ component('Live:Resident:Show:Profile', {
                  path: "resident/base/show.html.twig",
-                 resident: resident
+                 initialResident: resident
              }) }}
          {% endblock %}
          {% block right %}
              {{ component('Live:Resident:Form:Profile', {
                  path: "common/resident/base/_form.html.twig",
                  TypeName: "BasicType",
+                 initialResidentForm: resident,
+                 action: "Update"
+             } ) }}
+         {% endblock %}
+     </twig:ViewSwitcher>
+
+     <twig:ViewSwitcher>
+         {% block left %}
+             {{ component('Live:Resident:Show:Profile', {
+                 path: "resident/characteristic/show.html.twig",
+                 initialResident: resident
+             }) }}
+         {% endblock %}
+         {% block right %}
+             {{ component('Live:Resident:Form:Profile', {
+                 path: "common/resident/characteristic/_form.html.twig",
+                 TypeName: "CharacteristicType",
                  initialResidentForm: resident,
                  action: "Update"
              } ) }}
