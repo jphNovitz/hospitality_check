@@ -1,17 +1,23 @@
 <div class="w-full flex flex-col">
-    <div class="w-full ">
+    <div class="mb-4">
         {% if resident.picture is not empty %}
-            <img src="{{ asset('images/resident/'~resident.picture) }}" alt="" class="w-full"/>
+            <img src="{{ asset('images/resident/'~resident.picture) }}" alt="" class="w-48 lg:w-36 rounded-md"/>
         {% else %}
-            <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" class="w-full"/>
+            <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" class="w-48 lg:w-36 rounded-md"/>
         {% endif %}
     </div>
-    <div class="w-full my-8">
-        <ul class="text-xl">
-            <li class="my-8 text-2xl">{{ resident.firstName }}</li>
-            <li class="my-8 text-2xl">Room: {{ resident.room }}</li>
-            <li class="my-8">Born: {{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }}</li>
-            <li class="my-8">Nationality: {{ resident.nationality }} </li>
-        </ul>
-    </div>
+    <ul class="w-full flex flex-col space-y-4">
+        <twig:InfoLine label="Je m'appele"> {{ resident.firstName }} </twig:InfoLine>
+        <twig:InfoLine label="Je suis dans la chambre"> {{ resident.room }} </twig:InfoLine>
+        <twig:InfoLine label="Je suis suis né le"> {{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }} </twig:InfoLine>
+        <twig:InfoLine label="Je suis de nationnalité"> {{ resident.nationality }} </twig:InfoLine>
+    </ul>
 </div>
+
+{#
+<ul class="text-semibold">
+    <li class="font-black text-xl">{{ resident.firstName }}</li>
+    <li class="">Room: {{ resident.room }}</li>
+    <li class="">Born: {{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }}</li>
+    <li class="">Nationality: {{ resident.nationality }} </li>
+</ul>#}
