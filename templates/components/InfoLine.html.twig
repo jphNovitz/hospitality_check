@@ -1,0 +1,10 @@
+<div {{ attributes.defaults({ class: "w-full flex flex-col"}) }}>
+    <div class="font-italic font-weight-light text-sm">
+        {% if label is defined %}
+            {{ label }}
+        {% endif %}
+    </div>
+    <div class="py-2 font-semibold text-lg">
+        {% block content %} {% endblock %}
+    </div>
+</div>
