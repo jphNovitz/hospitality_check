@@ -1,0 +1,54 @@
+{% import _self as formMacros %}
+
+        {% macro printCharacteristicForm(characteristicForm) %}
+            <div class="w-full flex flex-col space-y-8 my-3">
+                {{ form_errors(characteristicForm) }}
+                {{ component('Form:RowText', {
+                    row: characteristicForm.name,
+                    label: 'name'
+                }) }}
+                {{ component('Form:RowText', {
+                    row: characteristicForm.description,
+                    label: 'description'
+                }) }}
+                {{ component('Form:RowSelect', {
+                    row: characteristicForm.contentType,
+                    label: 'Type'
+                }) }}
+                {{ component('Form:RowSelect', {
+                    row: characteristicForm.priority,
+                    label: 'Priority'
+                }) }}
+
+                {{ form_row(characteristicForm.imageFile) }}
+                <twig:Button:Secondary
+                        data-action="click->characteristic#remove"
+                        data-characteristic-target="remove">
+                    Remove
+                </twig:Button:Secondary>
+            </div>
+        {% endmacro %}
+
+<div class="w-full">
+    <div class="js-characteristic-wrapper my-6"
+            {{ stimulus_controller('characteristic') }}
+            {{ stimulus_target('characteristic', 'prototype') }}
+         data-prototype="{{ formMacros.printcharacteristicForm(form.characteristics.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.characteristics|length }}"
+    >
+
+        {% for key, characteristicForms in form.characteristics |group_form %}
+{#            Key: {{ key }}#}
+            {% for characteristicForm in characteristicForms %}
+                {{ formMacros.printCharacteristicForm(characteristicForm) }}
+            {% endfor %}
+        {% endfor %}
+        <twig:Button:Primary
+                data-action="click->characteristic#add"
+                data-characteristic-target="button"
+                class="mt-12">
+            Add
+        </twig:Button:Primary>
+    </div>
+
+</div>
