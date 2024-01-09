@@ -1,23 +1,44 @@
-<div class="w-full flex flex-col">
-    <div class="mb-4">
-        {% if resident.picture is not empty %}
-            <img src="{{ asset('images/resident/'~resident.picture) }}" alt="" class="w-48 lg:w-36 rounded-md"/>
-        {% else %}
-            <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" class="w-48 lg:w-36 rounded-md"/>
-        {% endif %}
-    </div>
-    <ul class="w-full flex flex-col space-y-4">
-        <twig:InfoLine label="Je m'appele"> {{ resident.firstName }} </twig:InfoLine>
-        <twig:InfoLine label="Je suis dans la chambre"> {{ resident.room }} </twig:InfoLine>
-        <twig:InfoLine label="Je suis suis né le"> {{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }} </twig:InfoLine>
-        <twig:InfoLine label="Je suis de nationnalité"> {{ resident.nationality }} </twig:InfoLine>
-    </ul>
-</div>
+{% extends 'base.html.twig' %}
 
+{% block title %}Edit Resident{% endblock %}
+
+ {% block body %}
+     <h1>Edit Resident</h1>
+     <div class="w-full pt-16 overflow-hidden  relative">
+         <twig:Button:Edit class="w-auto absolute top-4 right-1"/>
+         <div class="w-full flex flex-col">
+             <div class="mb-4">
+                 {% if resident.picture is not empty %}
+                     <img src="{{ asset('images/resident/'~resident.picture) }}" alt=""
+                          class="w-48 lg:w-36 rounded-md"/>
+                 {% else %}
+                     <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" class="w-48 lg:w-36 rounded-md"/>
+                 {% endif %}
+             </div>
+             <ul class="w-full flex flex-col space-y-4">
+                 <twig:InfoLine label="Je m'appele"> {{ resident.firstName }} </twig:InfoLine>
+                 <twig:InfoLine label="Je suis dans la chambre"> {{ resident.room }} </twig:InfoLine>
+                 <twig:InfoLine
+                         label="Je suis suis né le"> {{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }} </twig:InfoLine>
+                 <twig:InfoLine label="Je suis de nationnalité"> {{ resident.nationality }} </twig:InfoLine>
+             </ul>
+         </div>
+     </div>
+     <div class="w-full pt-16 overflow-hidden  relative">
+         <twig:Button:Edit class="w-auto absolute top-4 right-1"
+                           href="{{ path('app_resident__base_edit', {'id': resident.id}) }}"/>
+         {% include 'resident/base/show.html.twig' %}
+     </div>
+     <div class="w-full pt-16 overflow-hidden  relative">
+         <twig:Button:Edit class="w-auto absolute top-4 right-1"
+                           href="{{ path('app_resident__base_edit', {'id': resident.id}) }}"/>
+         {% include 'resident/characteristic/show.html.twig' %}
+     </div>
+ {% endblock %}
 {#
 <ul class="text-semibold">
     <li class="font-black text-xl">{{ resident.firstName }}</li>
     <li class="">Room: {{ resident.room }}</li>
     <li class="">Born: {{ resident.birthDate ? resident.birthDate|date('Y-m-d') : '' }}</li>
     <li class="">Nationality: {{ resident.nationality }} </li>
-</ul>#}
+</ul> #}
