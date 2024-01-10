@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Resident{% endblock %}
+
+ {% block body %}
+     <h1>Edit Resident BaseCharacteristics</h1>
+     <div class="w-full pt-16 overflow-hidden  relative">
+         <twig:Button:Secondary class="w-auto absolute top-4 left-1"
+                                href="{{ path('app_resident_show', {'id': resident.id}) }}">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                 <path fill-rule="evenodd"
+                       d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+                       clip-rule="evenodd"/>
+             </svg>
+         </twig:Button:Secondary>
+         <div class="">
+             {{ component('Live:Resident:Form:Profile', {
+                 path: "common/resident/characteristic/_form.html.twig",
+                 TypeName: "CharacteristicType",
+                 initialResidentForm: resident,
+                 action: "Update"
+             } ) }}
+         </div>
+     </div>
+
+ {% endblock %}
