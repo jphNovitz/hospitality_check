@@ -13,26 +13,35 @@
             </a>
         </div>
     </div>
+
     {% if residents is not empty %}
-        <div class="w-full grid grid-cols-2 gap-4 mx-auto my-8 ">
+        <div class="w-full grid lg:grid-cols-2 gap-4 mx-auto my-8 p-4 ">
             {% for resident in residents %}
-                <div class="relative">
-                    <div class=" text-left">
-                        {% if resident.picture is not empty %}
-                            <img src="{{ asset('images/resident/' ~ resident.picture) }}" alt=""/>
-                        {% else %}
-                            <img src="{{ asset('images/emojis/elon-musk.png') }}" alt=""/>
-                        {% endif %}
+                <twig:Card:Headline :resident="resident" />
+                {#<div class="w-full flex bg-black dark:bg-white overflow-hidden border-2 border-black">
+                    <div class="w-1/3 aspect-square bg-center bg-no-repeat bg-cover relative border-r border-white dark:border-black p-1"
+                            {% if resident.picture is not empty %}
+                                style="background-image: url('{{ asset('images/resident/' ~ resident.picture) }}')"
+                            {% else %}
+                                style="background-image: url('{{ asset('images/emojis/elon-musk.png') }}')"
+                            {% endif %}
+                    >
+                        <twig:Button:Primary
+                                class="!w-full p-4 absolute left-0 bottom-0 !bg-primary !text-black !dark:bg-primary !dark:text-white font-black rounded-b-none"
+                                href="{{ path('app_resident_show', {'id': resident.id}) }}">
+                            Voir
+                        </twig:Button:Primary>
                     </div>
-                    <div class=" text-center">
+                    <div class="w-2/3 text-left text-white dark:text-black p-4">
                         <a href="{{ path('app_resident_show', {'id': resident.id}) }}">
-                            <twig:Button:Secondary>
-                                {{ resident.firstName }}
-                            </twig:Button:Secondary>
+                            <twig:Title:H2>  {{ resident.firstName }}  </twig:Title:H2>
                         </a>
+                        <ul class="h-auto flex flex-col ">
+                            <li class="leading-loose">Chambre <span class="w-6 h-6 justify-center items-center  inline-flex bg-white text-black dark:bg-black text-white  font-semibold rounded-full">{{ resident.room }}</span></li>
+                            <li class="leading-loose">Référent:<strong> {{ resident.referent.name }}</strong></li>
+                        </ul>
                     </div>
-                    <span class="absolute top-1 right-1 flex justify-center items-center w-8 aspect-square rounded-full font-black bg-black text-white dark:bg-white dark:text-black"> {{ resident.room }}</span>
-                </div>
+                </div>#}
 
             {% endfor %}
         </div>
@@ -41,6 +50,7 @@
             <td colspan="6">no records found</td>
         </tr>
     {% endif %}
+
 
 
 {% endblock %}
