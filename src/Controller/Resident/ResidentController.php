@@ -48,29 +48,19 @@ class ResidentController extends AbstractController
         ]);
     }
 
-//    #[Route('/{id}', name: 'app_resident_show', methods: ['GET'])]
-//    public function show(Resident $resident): Response
-//    {
-//        return $this->render('resident/show.html.twig', [
-//            'resident' => $resident,
-//        ]);
-//    }
-
-    #[Route('/{id}', name: 'app_resident_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_resident_show', methods: ['GET'])]
+    public function show(Resident $resident): Response
     {
-        $form = $this->createForm(ResidentType::class, $resident);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_resident', ['id'=> $resident->getId()], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('resident/edit.html.twig', [
+        return $this->render('resident/show.html.twig', [
             'resident' => $resident,
-            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_resident_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Resident $resident): Response
+    {
+        return $this->render('resident/edit.html.twig', [
+            'resident' => $resident
         ]);
     }
 
