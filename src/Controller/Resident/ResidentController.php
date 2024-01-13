@@ -3,7 +3,6 @@
 namespace App\Controller\Resident;
 
 use App\Entity\Resident;
-use App\Form\ResidentBaseType;
 use App\Form\ResidentType;
 use App\Repository\ResidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +34,6 @@ class ResidentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            dd($resident->getReferent());
             $entityManager->persist($resident);
             $entityManager->flush();
 
