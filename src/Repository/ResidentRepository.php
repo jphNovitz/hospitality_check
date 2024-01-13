@@ -54,6 +54,22 @@ class ResidentRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Resident[] Returns an array of Resident objects
+     */
+    public function findByName($query): array
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.room', 'room')
+            ->andWhere('r.firstName LIKE :query')
+//            ->setParameter('query', $query)
+            ->setParameter('query', '%' . $query . '%')
+            ->orderBy('r.firstName', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    /**
 //     * @return Resident[] Returns an array of Resident objects
