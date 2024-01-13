@@ -20,7 +20,7 @@ class CharacteristicType extends AbstractType
                 'choices' => [
                     'Interest' => 'interest',
                     'Do' => 'do',
-                    'Don\'t do' => 'don\'t',
+                    'Don\'t do' => 'dont',
                     'Other' => 'other',
                 ],
             ])
