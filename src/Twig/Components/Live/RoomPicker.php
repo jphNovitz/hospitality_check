@@ -19,10 +19,11 @@ final class RoomPicker
     {
     }
 
-    public function getResidents()
+    public function getResidents(): array
     {
-        if (!empty($this->search_room)) return $this->repository->findBy(['room' => $this->search_room]);
-        else return [];
+        if (!empty($this->search_room)) {
+            return $this->repository->findBy(['room' => $this->search_room]);
+        }  else return $this->repository->findAll();
     }
 
 }

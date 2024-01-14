@@ -1,5 +1,8 @@
-<div{{ attributes }}>
-    <div class="w-full grid grid-cols-2 gap-4 m-auto">
+<div{{ attributes.defaults({class: "w-full lg:w-3/4 m-auto"}) }}>
+    <div class="grid md:grid-cols-3 gap-4 m-auto">
+        <div>
+            <twig:Button:Primary href="{{ path('app_resident_index') }}"> Resident Selection</twig:Button:Primary>
+        </div>
         <div>
             <select data-model="search_room"
                     id="search_room"
@@ -10,39 +13,24 @@
                 {% endfor %}
             </select>
         </div>
-        <div>
-            <a href="{{ path('app_resident_index') }}">
-                <twig:Button:Primary>All Residents</twig:Button:Primary>
-            </a>
+        <div class="text-right">
+            <twig:Button:Primary href="{{ path('app_resident_new') }}"> Add Resident</twig:Button:Primary>
         </div>
     </div>
 
-    <div class="my-8 w-full lg:w-1/2 m-auto">
+    <div class="col-span-3">
         {% if search_room is not empty %}
             <twig:Title:H2> Chambre {{ search_room }}</twig:Title:H2>
         {% endif %}
-        {% if this.getResidents is not empty %}
-            {% for resident in this.getResidents %}
-                <twig:Card:Headline :resident="resident" />
-               {# <div class="my-8 py-8 space-y-8">
-                    <twig:Card:Resident :resident='resident'/>
-                    <twig:Card:Base :infos='resident.bases'/>
-                    <div><a href="{{ path('app_resident', {'id' : resident.id}) }}">
-                            <twig:Button:Primary>
-                                PLus de details
-                            </twig:Button:Primary>
-                        </a>
-                    </div>
-                </div>#}
-            {% endfor %}
-        {% else %}
-            <div class="w-full aspect-square text-3xl text-black/20 dark:text-white/20 flex flex-col justify-center items-center">
-                <span>Nothing</span>
-                <a href="{{ path('app_resident_new') }}">
-                    <twig:Button:Primary>Create new</twig:Button:Primary>
-                </a>
 
-            </div>
-        {% endif %}
+        <div class="my-8 w-full grid lg:grid-cols-2 m-auto">
+            {% if this.getResidents is empty %}
+                <span>This room is empty</span>
+            {% else %}
+                {% for resident in this.getResidents %}
+                    <twig:Card:Headline :resident="resident"/>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </div>
