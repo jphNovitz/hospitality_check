@@ -7,20 +7,31 @@
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('app') }}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
     {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 <body class="w-screen overflow-x-hidden bg-black dark:bg-black text-black dark:text-white  ">
 <div class="min-h-screen max-w-md lg:max-w-7xl m-auto p-3">
     <main class="min-h-screen xl:min-h-screen bg-white dark:bg-black py-3">
-        <div class="">
-            <twig:Title:H1>ResiFinder</twig:Title:H1>
+        <div class="p-4">
+            <div class="w-full flex justify-between items-center mb-12">
+                <div>
+                    <twig:Title:H1>ResiFinder</twig:Title:H1>
+                </div>
+                <div>
+                    {% if app.user%}
+                        <a href="{{ path('app_logout') }}"> Logout</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}"> Login</a>
+                    {% endif %}
+                </div>
+            </div>
             {% block body %}{% endblock %}
         </div>
     </main>
