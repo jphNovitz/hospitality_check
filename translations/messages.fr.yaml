@@ -1,0 +1,17 @@
+title:
+  resident:
+    list: Liste des Résidents
+    rm: Ch
+    name: Nom
+    referent: Référent
+  user:
+    list: Liste des employés
+    name: Nom
+    referee: Référé
+    referees: Référés
+button:
+  add: Ajouter
+  update: Modifier
+  delete: Supprimer
+  list_all: Liste complète
+
