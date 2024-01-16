@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="space-y-4 mb-12 ">
+        {{ component('Live:List:Residents' ,{ limit: 5 }) }}
+        <twig:Button:Primary href="{{ path('admin_resident_index') }}" class="!w-32">
+            {% trans %}button.list_all{% endtrans%}
+        </twig:Button:Primary>
+    </div>
+    <div class="space-y-4">
+        {{ component('Live:List:Users' ,{ limit: 5 }) }}
+{#        <twig:Button:Primary href="{{ path('admin_user_index') }}" class="!w-32">#}
+{#            {% trans %}button.list_all{% endtrans%}#}
+{#        </twig:Button:Primary>#}
+    </div>
+{% endblock %}
