@@ -1,5 +1,6 @@
 title:
   resident:
+    new: Nous accueillons un nouveau résident
     list: Liste des Résidents
     rm: Ch
     name: Nom
@@ -10,8 +11,24 @@ title:
     referee: Référé
     referees: Référés
 button:
+  login: Connexion
+  logout: Déconnexion
+  save: Ajouter
   add: Ajouter
   update: Modifier
   delete: Supprimer
+  remove: Supprimer
   list_all: Liste complète
+  back: Retour
+form:
+  name: Nom
+  firstname: Prénom
+  description: Description
+  type: Type
+  priority: Priorité
+  nationality: Nationalité
+  birthday: Naissance
+  referent: Référent
+  room: Chambre
+  new_room: Nouvelle Chambre
 
