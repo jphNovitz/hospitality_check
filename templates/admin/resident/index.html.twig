@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Residents{% endblock %}
+{% block title %}{% trans %}title.resident.list{% endtrans%}{% endblock %}
 
 {% block body %}
-    <h1>Accueil Résidents</h1>
     <div class="space-y-12">
         {{ component('Live:List:Residents' ,{ limit: 5 }) }}
-
     </div>
 {% endblock %}
