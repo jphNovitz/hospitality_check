@@ -1,10 +1,18 @@
 title:
   resident:
     new: Nous accueillons un nouveau résident
+    edit: Modification d'un résident
+    update: Modification d'un résident
     list: Liste des Résidents
     rm: Ch
     name: Nom
     referent: Référent
+    basic: Informations de base
+    characteristic: Caractéristique
+    characteristics: Caractéristiques
+  room:
+    room: Chambre
+    list: Liste des Chambres
   user:
     list: Liste des employés
     name: Nom
@@ -13,13 +21,17 @@ title:
 button:
   login: Connexion
   logout: Déconnexion
-  save: Ajouter
+  save: Enregistrer
   add: Ajouter
   update: Modifier
   delete: Supprimer
   remove: Supprimer
   list_all: Liste complète
   back: Retour
+  resident:
+    selection: Choisir un résdient
+  room:
+    selection: Choisie une chambre
 form:
   name: Nom
   firstname: Prénom
@@ -31,4 +43,9 @@ form:
   referent: Référent
   room: Chambre
   new_room: Nouvelle Chambre
+text:
+  room:
+    none: Cette chambre est vide
+    room: La chambre
+    empty: est vide
 
