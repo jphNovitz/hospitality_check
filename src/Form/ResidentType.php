@@ -21,7 +21,7 @@ class ResidentType extends AbstractType
     private $entityManager;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface                 $entityManager,
         private readonly TokenStorageInterface $tokenStorage
     )
     {
@@ -32,27 +32,33 @@ class ResidentType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class, [
+                'translation_domain' => 'messages',
                 'required' => false,
                 'allow_delete' => true
             ])
-            ->add('firstName')
+            ->add('firstName', TextType::class, [
+                'translation_domain' => 'messages'
+            ])
             ->add('birthDate', BirthdayType::class, [
                 'input' => 'datetime_immutable',
                 'widget' => 'choice',
-                'years' => range(date('Y') -65, date('Y'))
-                ])
-            ->add('nationality')
+                'years' => range(date('Y') - 65, date('Y'))
+            ])
+            ->add('nationality', TextType::class, [
+                'translation_domain' => 'messages',
+            ])
             ->add('room', EntityType::class, [
-                'class'=> Room::class,
-                'required'   => false,
+                'translation_domain' => 'messages',
+                'class' => Room::class,
+                'required' => false,
                 'empty_data' => '',
             ])
             ->add('newRoom', TextType::class, [
+                'translation_domain' => 'messages',
                 'mapped' => false,
-                'required'   => false,
+                'required' => false,
             ])
-            ->add('referent')
-        ;
+            ->add('referent');
 
 
         $builder->addEventSubscriber(new AddRoomSubscriber($this->entityManager));
