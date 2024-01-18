@@ -40,7 +40,7 @@ class ResidentController extends AbstractController
             return $this->redirectToRoute('app_resident_edit', ['id' => $resident->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('resident/new.html.twig', [
+        return $this->render('common/resident/new.html.twig', [
             'resident' => $resident,
             'form' => $form,
         ]);
@@ -60,17 +60,6 @@ class ResidentController extends AbstractController
         return $this->render('resident/edit.html.twig', [
             'resident' => $resident
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_resident_delete', methods: ['POST'])]
-    public function delete(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$resident->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($resident);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_resident_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/room/{id}', name: 'app_resident_room', methods: ['GET'])]

@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Resident;
-use App\Form\Admin\ResidentType;
+use App\Form\REMOVE_______Admin\ResidentType;
 use App\Repository\ResidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,7 +50,7 @@ class ResidentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_resident_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'admin_resident_delete', methods: ['POST'])]
     public function delete(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$resident->getId(), $request->request->get('_token'))) {
