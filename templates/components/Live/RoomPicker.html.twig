@@ -1,5 +1,5 @@
 <div{{ attributes.defaults({class: "w-full lg:w-3/4 m-auto"}) }}>
-    <div class="grid md:grid-cols-3 gap-4 m-auto">
+    <div class="grid md:grid-cols-3 gap-4 m-auto items-center">
         <div>
             <twig:Button:Primary href="{{ path('app_resident_index') }}"> Resident Selection</twig:Button:Primary>
         </div>
@@ -18,19 +18,23 @@
         </div>
     </div>
 
-    <div class="col-span-3">
-        {% if search_room is not empty %}
-            <twig:Title:H2> Chambre {{ search_room }}</twig:Title:H2>
-        {% endif %}
+    {% for room in this.getRooms %}
 
-        <div class="my-8 w-full grid lg:grid-cols-2 m-auto">
-            {% if this.getResidents is empty %}
-                <span>This room is empty</span>
-            {% else %}
-                {% for resident in this.getResidents %}
-                    <twig:Card:Headline :resident="resident"/>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
+        {% if room.residents |length > 0 %}
+            <div class="my-24 col-span-3">
+                <twig:Title:H2> {% trans %} title.room.room {% endtrans %} {{ room.number }}</twig:Title:H2>
+                <div class="mt-8  w-full grid lg:grid-cols-2 m-auto">
+                    {% for resident in room.residents %}
+                        <twig:Card:Headline :resident="resident"/>
+                    {% endfor %}
+                </div>
+            </div>
+        {% elseif search_room is not empty %}
+            <div class="my-24 col-span-3">
+                <twig:Title:H2>
+                    {% trans %} text.room.room  {% endtrans %} {{ room }} {% trans %} text.room.empty{% endtrans %}
+                </twig:Title:H2>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
