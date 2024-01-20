@@ -3,33 +3,46 @@
         {% macro printCharacteristicForm(characteristicForm) %}
             <div class="w-full flex flex-col space-y-8 my-3">
                 {{ form_errors(characteristicForm) }}
-                {{ component('Form:RowText', {
-                    row: characteristicForm.name,
-                    label: 'name'
-                }) }}
-                {{ component('Form:RowText', {
-                    row: characteristicForm.description,
-                    label: 'description'
-                }) }}
-                {{ component('Form:RowSelect', {
-                    row: characteristicForm.contentType,
-                    label: 'Type'
-                }) }}
-                {{ component('Form:RowSelect', {
-                    row: characteristicForm.priority,
-                    label: 'Priority'
-                }) }}
-
-                {{ form_row(characteristicForm.imageFile) }}
-                <twig:Button:Secondary
-                        data-action="click->characteristic#remove"
-                        data-characteristic-target="remove">
-                    Remove
-                </twig:Button:Secondary>
+                <div>
+                    {{ component('Form:RowText', {
+                        row: characteristicForm.name,
+                        label: 'form.name'
+                    }) }}
+                    {{ component('Form:RowText', {
+                        row: characteristicForm.description,
+                        label: 'form.description'
+                    }) }}
+                </div>
+                <div class="w-full flex flex-col lg:flex-row lg:space-x-4">
+                    <div class="w-full lg:w-6/12">
+                        {{ component('Form:RowSelect', {
+                            row: characteristicForm.contentType,
+                            label: 'form.type'
+                        }) }}
+                    </div>
+                    <div class="w-full lg:w-1/12">
+                        {{ component('Form:RowSelect', {
+                            row: characteristicForm.priority,
+                            label: 'form.priority'
+                        }) }}
+                    </div>
+                    <div class="w-full lg:w-5/12">
+                        {{ form_row(characteristicForm.imageFile) }}
+                    </div>
+                </div>
+                <div class="lg:w-24">
+                    <twig:Button:Secondary
+                            data-action="click->characteristic#remove"
+                            data-characteristic-target="remove">
+                        {% trans %} button.remove {% endtrans %}
+                    </twig:Button:Secondary>
+                </div>
             </div>
         {% endmacro %}
 
 <div class="w-full">
+
+    <twig:Title:H3> {% trans %} title.resident.characteristics {% endtrans %} </twig:Title:H3>
     <div class="js-characteristic-wrapper my-6"
             {{ stimulus_controller('characteristic') }}
             {{ stimulus_target('characteristic', 'prototype') }}
@@ -38,7 +51,6 @@
     >
 
         {% for key, characteristicForms in form.characteristics |group_form %}
-{#            Key: {{ key }}#}
             {% for characteristicForm in characteristicForms %}
                 {{ formMacros.printCharacteristicForm(characteristicForm) }}
             {% endfor %}
@@ -47,7 +59,7 @@
                 data-action="click->characteristic#add"
                 data-characteristic-target="button"
                 class="mt-12">
-            Add
+            {% trans %} button.add {% endtrans %}
         </twig:Button:Primary>
     </div>
 
