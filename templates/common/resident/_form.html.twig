@@ -1,27 +1,45 @@
 <div>
-    {{ component('Form:ImageField', {label: 'Photo', row: form.imageFile}) }}
-{#    {{ form_row(form.imageFile) }}#}
-{#    {{ form_errors(form.imageFile) }}#}
+    {{ component('Form:ImageField', {
+        label: 'Photo',
+        row: form.imageFile
+    }) }}
 </div>
 <div class="w-full flex flex-col lg:flex-row my-8 lg:space-x-4 my-3">
     <div class="w-full lg:w-6/12 m-auto">
-        {{ component('Form:RowText', {label: 'First name', row: form.firstName}) }}
+        {{ component('Form:RowText', {
+            label: 'form.firstname',
+            row: form.firstName
+        }) }}
     </div>
     <div class="w-full lg:w-3/12 m-auto">
-        {{ component('Form:RowText', {label: 'Nationality', row: form.nationality}) }}
+        {{ component('Form:RowText', {
+            label: 'form.nationality',
+            row: form.nationality
+        }) }}
     </div>
     <div class="w-full lg:w-3/12 m-auto">
-        {{ component('Form:Date', {row: form.birthDate}) }}
+        {{ component('Form:Date', {
+            label: 'form.birthday',
+            row: form.birthDate
+        }) }}
     </div>
 </div>
 <div class="w-full flex flex-col lg:flex-row my-8 lg:space-x-4 my-3">
     <div class="w-full lg:w-6/12 m-auto">
-        {{ component('Form:RowSelect', {label: 'Referent', row: form.referent}) }}
+        {{ component('Form:RowSelect', {
+            label: 'form.referent',
+            row: form.referent
+        }) }}
     </div>
     <div class="w-full lg:w-3/12 m-auto">
-        {{ component('Form:RowSelect', {label: 'Room', row: form.room}) }}
+        {{ component('Form:RowSelect', {
+            label: 'form.room',
+            row: form.room}) }}
     </div>
     <div class="w-full lg:w-3/12 m-auto">
-        {{ component('Form:RowText', {label: 'New Room', row: form.newRoom}) }}
+        {{ component('Form:RowText', {
+            label: 'form.new_room',
+            row: form.newRoom
+        }) }}
     </div>
 </div>
