@@ -1,0 +1,16 @@
+<div {{ attributes.defaults({ class: '' }) }}>
+
+    {{ form_label(row,null, {
+        'label': label,
+        'label_attr': {'class': 'font-semibold'}
+    }) }}
+    <div class="">
+        {{ form_widget(row, { 'attr':
+            {
+                'class': ''
+            }
+        }) }}
+
+    </div>
+    {{ form_errors(row) }}
+</div>
