@@ -1,20 +1,24 @@
 <div{{ attributes.defaults({class: "w-full lg:w-3/4 m-auto"}) }}>
     <div class="grid md:grid-cols-3 gap-4 m-auto items-center">
         <div>
-            <twig:Button:Primary href="{{ path('app_resident_index') }}"> Resident Selection</twig:Button:Primary>
+            <twig:Button:Primary href="{{ path('app_resident_index') }}">
+                {% trans %} button.resident.selection {% endtrans %}
+            </twig:Button:Primary>
         </div>
         <div>
             <select data-model="search_room"
                     id="search_room"
                     class=" bg-primary-light dark:bg-primary w-full  px-6 py-3 border-2 rounded-lg border-primary/70 text-black  ">
-                <option value="">Rooms</option>
+                <option value="">{% trans %} text.room.rooms {% endtrans %}</option>
                 {% for room in room.all %}
                     <option data-model="{{ room.id }}">{{ room.number }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="text-right">
-            <twig:Button:Primary href="{{ path('app_resident_new') }}"> Add Resident</twig:Button:Primary>
+            <twig:Button:Primary href="{{ path('app_resident_new') }}">
+                {% trans %} button.add {% endtrans %}
+            </twig:Button:Primary>
         </div>
     </div>
 
