@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Base{% endblock %}
+
+{% block body %}
+    <h1>Create new Base</h1>
+
+    {{ include('preference/base/_form.html.twig') }}
+
+    <a href="{{ path('app_preference_base_index') }}">back to list</a>
+{% endblock %}

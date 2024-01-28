@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+<div class="w-full flex flex-col my-8">
+    {{ component('RowText', {label: 'Name', row: form.name}) }}
+    {{ component('RowText', {label: 'Description', row: form.description}) }}
+    {#    {{ form_widget(form) }} #}
+    <twig:Button:Primary>{{ button_label|default('Save') }}</twig:Button:Primary>
+</div>
+{{ form_end(form) }}
