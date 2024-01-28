@@ -1,7 +1,7 @@
 <div class="w-full flex flex-col">
     {% if resident.characteristics|group['interest'] is defined %}
         <div class="mb-4">
-            <twig:Title:H2>Interests</twig:Title:H2>
+            <twig:Title:H2>{% trans %}title.resident.interest{% endtrans %}</twig:Title:H2>
             <ul class="ml-4">
                 {% for interest in resident.characteristics|group['interest'] %}
                     <twig:InfoLine> {{ interest.name }}, {{ interest.description }} </twig:InfoLine>
@@ -13,18 +13,17 @@
 
     {% if resident.characteristics|group['do'] is defined %}
         <div class="mb-4">
-            <twig:Title:H2>Do</twig:Title:H2>
+            <twig:Title:H2>{% trans %}title.resident.do{% endtrans %}</twig:Title:H2>
             <ul class="ml-4">
                 {% for do in resident.characteristics|group['do'] %}
                     <twig:InfoLine> {{ do.name }}, {{ do.description }} </twig:InfoLine>
-
                 {% endfor %}
             </ul>
         </div>
     {% endif %}
 
     {% if resident.characteristics|group['dont'] is defined %}
-        <twig:Title:H2>You better don't do</twig:Title:H2>
+        <twig:Title:H2>{% trans %}title.resident.dont{% endtrans %}</twig:Title:H2>
         <div class="mb-4">
             <ul class="ml-4">
                 {% for dont in resident.characteristics|group['dont'] %}
@@ -37,7 +36,7 @@
 
     {% if resident.characteristics|group['other'] is defined %}
         <div class="mb-4">
-            <twig:Title:H2>Other</twig:Title:H2>
+            <twig:Title:H2>{% trans %}title.resident.other{% endtrans %}</twig:Title:H2>
             <ul class="ml-4">
                 {% for other in resident.characteristics|group['other'] %}
                     <twig:InfoLine> {{ other.name }}, {{ other.description }} </twig:InfoLine>
