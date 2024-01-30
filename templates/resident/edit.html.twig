@@ -3,74 +3,23 @@
 {% block title %}Edit Resident{% endblock %}
 
  {% block body %}
-     <h1>Edit Resident</h1>
-     <div class="w-full overflow-hidden">
-     <twig:ViewSwitcher>
-         {% block left %}
-             {{ component('Live:Resident:Show:Profile', {
-                 path: "resident/show.html.twig",
-                 initialResident: resident
-             }) }}
-         {% endblock %}
-         {% block right %}
-             {{ component('Live:Resident:Form:Profile', {
-                 path: "common/resident/_form.html.twig",
-                 TypeName: "ResidentType",
-                 initialResidentForm: resident,
-                 action: "Update"
-             } ) }}
-         {% endblock %}
-     </twig:ViewSwitcher>
+        <twig:Title:H2> {%trans%} title.resident.update {% endtrans%} </twig:Title:H2>
+     <div class="w-full pt-16 overflow-hidden  relative">
+         <twig:Button:Secondary class="w-auto absolute top-4 left-1"
+                                href="{{ path('app_resident_show', {'id': resident.id}) }}">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                 <path fill-rule="evenodd"
+                       d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+                       clip-rule="evenodd"/>
+             </svg>
+         </twig:Button:Secondary>
+         {{ component('Live:Resident:Form:Profile', {
+             path: "common/resident/_form.html.twig",
+             TypeName: "ResidentType",
+             initialResidentForm: resident,
+             action: "Update"
+         } ) }}
 
-     <twig:ViewSwitcher>
-         {% block left %}
-             {{ component('Live:Resident:Show:Profile', {
-                 path: "resident/base/show.html.twig",
-                 initialResident: resident
-             }) }}
-         {% endblock %}
-         {% block right %}
-             {{ component('Live:Resident:Form:Profile', {
-                 path: "common/resident/base/_form.html.twig",
-                 TypeName: "BasicType",
-                 initialResidentForm: resident,
-                 action: "Update"
-             } ) }}
-         {% endblock %}
-     </twig:ViewSwitcher>
-
-     <twig:ViewSwitcher>
-         {% block left %}
-             {{ component('Live:Resident:Show:Profile', {
-                 path: "resident/characteristic/show.html.twig",
-                 initialResident: resident
-             }) }}
-         {% endblock %}
-         {% block right %}
-             {{ component('Live:Resident:Form:Profile', {
-                 path: "common/resident/characteristic/_form.html.twig",
-                 TypeName: "CharacteristicType",
-                 initialResidentForm: resident,
-                 action: "Update"
-             } ) }}
-         {% endblock %}
-     </twig:ViewSwitcher>
-
-{#     <twig:ViewSwitcher>
-         {% block left %}
-             {{ component('Live:Resident:Show:Basic', { residentId: resident.id}) }}
-         {% endblock %}
-         {% block right %}
-             {{ component('Live:Resident:Form:Basic', { residentId: resident.id, action: "Update"} ) }}
-         {% endblock %}
-     </twig:ViewSwitcher>#}
-     {#                 {{ form_start(form) }}
-
-                  {{ include('resident/_form.html.twig', {'button_label': 'Update'}) }}
-                  {{ include('resident/base/_form.html.twig') }}
-                  {{ include('resident/interest/_form.html.twig') }}
-                  {{ include('resident/characteristic/_form.html.twig') }}
-
-                  {{ form_end(form) }} #}
+     </div>
 
  {% endblock %}
