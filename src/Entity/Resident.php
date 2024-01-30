@@ -21,7 +21,6 @@ class Resident
     private ?int $id = null;
 
     #[Vich\UploadableField(mapping: 'resident', fileNameProperty: 'picture', size: 'imageSize')]
-
     private ?File $imageFile = null;
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
