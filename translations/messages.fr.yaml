@@ -2,14 +2,19 @@ title:
   resident:
     new: Nous accueillons un nouveau résident
     edit: Modification d'un résident
+    show: "Informations du résident"
     update: Modification d'un résident
     list: Liste des Résidents
     rm: Ch
     name: Nom
     referent: Référent
-    basic: Informations de base
-    characteristic: Caractéristique
-    characteristics: Caractéristiques
+    basic: "Informations de base"
+    interest: "Mes centres d'intérêt"
+    characteristic: "Caractéristique"
+    characteristics: "Caractéristiques"
+    do: "Les choses que j'accepte"
+    dont: "je n'aime pas, ne fait pas ca !"
+    other: "divers"
   room:
     room: Chambre
     list: Liste des Chambres
@@ -18,6 +23,8 @@ title:
     name: Nom
     referee: Référé
     referees: Référés
+  security:
+    sign_in: "Veuillez vous connecter"
 button:
   login: Connexion
   logout: Déconnexion
@@ -34,6 +41,8 @@ button:
     selection: Choisie une chambre
 form:
   name: Nom
+  email: Email
+  password: "Mot de passe"
   firstname: Prénom
   description: Description
   type: Type
@@ -47,5 +56,6 @@ text:
   room:
     none: Cette chambre est vide
     room: La chambre
+    rooms: Les chambres
     empty: est vide
 
