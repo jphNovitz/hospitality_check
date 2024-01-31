@@ -42,27 +42,23 @@ class HomeControllerTest extends WebTestCase
         $user = $this->user_repository->find(2);
         $this->client->loginUser($user);
 
-        $this->client->request('GET', '/admin/home');
-
+        $this->client->request('GET', $this->path);
         self::assertResponseStatusCodeSame(403);
-        self::assertTrue( $user->getRoles() === ['ROLE_USER']);
+        self::assertTrue($user->getRoles() === ['ROLE_USER']);
     }
 
     public function test_home_admin_is_not_accessible_if__admin(): void
     {
         $this->databaseTool->loadFixtures([
             UserTestFixtures::class,
-//            RoomTestFixtures::class,
-//            ResidentTestFixtures::class,
         ]);
         $user = $this->user_repository->find(1);
         $this->client->loginUser($user);
 
-        $crawler = $this->client->request('GET', '/admin/home');
+        $this->client->request('GET', $this->path);
 
         self::assertResponseStatusCodeSame(200);
         self::assertResponseIsSuccessful();
         self::assertContains('ROLE_ADMIN', $user->getRoles());
-//        $this->assertStringContainsString('home admin ', $crawler->text());
     }
 }

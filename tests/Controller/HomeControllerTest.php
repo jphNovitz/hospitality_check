@@ -9,6 +9,8 @@ use App\Repository\ResidentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+//use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -16,6 +18,7 @@ class HomeControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
     private UserRepository $user_repository;
+    private ResidentRepository $resident_repository;
     private string $path = '/';
     private EntityManagerInterface $manager;
     private mixed $databaseTool;
@@ -35,10 +38,10 @@ class HomeControllerTest extends WebTestCase
 
     public function test_homepage_is_accessible(): void
     {
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Bienvenue sur Roomate');
+        $this->assertSelectorTextContains('h2', 'Bienvenue sur Roomate');
     }
 
     public function test_homepage_redirect_to_admin_home_if_user_is_admin(){
@@ -46,12 +49,12 @@ class HomeControllerTest extends WebTestCase
 
         $admin_user = $this->user_repository->find(1);
         $this->client->loginUser($admin_user);
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
 
         $this->assertContains('ROLE_ADMIN', $admin_user->getRoles());
         $this->assertTrue($admin_user->isVerified());
         $this->assertResponseStatusCodeSame(302);
-        $this->assertResponseRedirects('/admin/home');
+        $this->assertResponseRedirects('/admin/');
 
     }
 
