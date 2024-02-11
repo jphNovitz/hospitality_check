@@ -17,8 +17,17 @@
             <twig:Title:H2>  {{ resident.firstName }}  </twig:Title:H2>
         </a>
         <ul class="h-auto flex flex-col ">
-            <li class="leading-loose">Chambre <span class="w-6 h-6 justify-center items-center  inline-flex bg-white text-black dark:bg-black text-white  font-semibold rounded-full">{{ resident.room }}</span></li>
-            <li class="leading-loose">Référent:<strong> {{ resident.referent.name }}</strong></li>
+            <li class="leading-loose">Chambre <span
+                        class="w-6 h-6 justify-center items-center  inline-flex bg-white text-black dark:bg-black text-white  font-semibold rounded-full">{{ resident.room }}</span>
+            </li>
+            <li class="leading-loose">Référent:<strong>
+                    {% if resident.referent %}
+                        {{ resident.referent.name }}
+                    {% else %}
+                        {{ 'text.no_one' | trans }} {# ou une chaîne littérale si vous ne travaillez pas avec des fichiers de traduction #}
+                    {% endif %} </strong>
+            </li>
+
         </ul>
     </div>
 </div>
