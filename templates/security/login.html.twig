@@ -5,25 +5,21 @@
 {% block body %}
     <form method="post" class="my-16 max-w-md m-auto">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            <div class="bg-black/80 text-white dark:bg-white/80 dark:text-black p-2 my-2 text-semibold">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
 
-        <h1 class="text-3xl font-bold underline">Please sign in</h1>
+        <h1 class="text-3xl font-bold underline">{% trans %} title.security.sign_in {% endtrans %}</h1>
         <div class="flex flex-col my-8">
             <div class="flex flex-col my-8">
-                <label for="inputEmail" class="font-semibold">Email</label>
+                <label for="inputEmail" class="font-semibold">{% trans %} form.email {% endtrans %}</label>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
                        class="form-control bg-gray-50 text-black font-black rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900"
                        autocomplete="email" required autofocus>
             </div>
             <div class="flex flex-col my-8">
-                <label for="inputPassword" class="font-semibold">Password</label>
+                <label for="inputPassword" class="font-semibold">{% trans %}form.password {% endtrans %}</label>
                 <input type="password" name="password" id="inputPassword"
                        class="form-control bg-gray-50 text-black font-black  rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900"
                        autocomplete="current-password"
@@ -34,9 +30,9 @@
                        value="{{ csrf_token('authenticate') }}"
                 >
 
-                <button class="w-36 rounded-md py-3 px-6 text-center bg-blue-600 text-blue-50" type="submit">
-                    Sign in
-                </button>
+                <twig:Button:Submit  type="submit">
+                    {%trans%} button.login {% endtrans %}
+                </twig:Button:Submit>
             </div>
         </div>
     </form>
