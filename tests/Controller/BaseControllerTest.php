@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test\Controller;
+namespace App\Tests\Controller;
 
 use App\Entity\Base;
 use App\Repository\BaseRepository;
@@ -24,6 +24,7 @@ class BaseControllerTest extends WebTestCase
             $this->manager->remove($object);
         }
     }
+
 
     public function testIndex(): void
     {
