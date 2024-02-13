@@ -7,12 +7,13 @@
         <twig:Title:H2>{% trans %}title.resident.new{% endtrans %}</twig:Title:H2>
 
         {{ form_start(form) }}
-
-        {% if error %}
+        {{ form_widget(form._token) }}
+{#        {% if form.error %}#}
             <div class="bg-black/80 text-white dark:bg-white/80 dark:text-black p-2 my-2 text-semibold">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
+                {{ form_errors(form) }}
+{#                {{ form.error.messageKey|trans(form.error.messageData, 'security') }}#}
             </div>
-        {% endif %}
+{#        {% endif %}#}
 
         {{ include('common/resident/_form.html.twig') }}
         <div class="w-full  my-4 flex flex-col space-y-2 lg:flex-row lg:justify-start lg:space-y-0 lg:space-x-2 my-3">
