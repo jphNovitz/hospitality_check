@@ -9,7 +9,6 @@ use App\Repository\ResidentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
-//use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
