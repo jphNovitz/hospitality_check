@@ -42,7 +42,7 @@ class ProfileControllerTest extends WebTestCase
 
     }
 
-    public function testShow(): void
+    public function test_profile_show(): void
     {
         $this->databaseTool->loadFixtures([UserFixtures::class]);
         $users = $this->container->get(UserRepository::class)->findAll();
@@ -58,10 +58,9 @@ class ProfileControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
         self::assertStringContainsString($users[2]->getName(), $content);
 
-        // Use assertions to check that the properties are properly displayed.
     }
 
-    public function testEdit(): void
+    public function test_profile_edit(): void
     {
         $this->databaseTool->loadFixtures([UserFixtures::class]);
         $users = $this->container->get(UserRepository::class)->findAll();
@@ -82,7 +81,7 @@ class ProfileControllerTest extends WebTestCase
         self::assertSame("Marcel", $user->getName());
     }
 
-    public function testChangePassword(){
+    public function test_change_password(){
         $this->databaseTool->loadFixtures([UserFixtures::class]);
         $user = $this->container->get(UserRepository::class)->find(2);
 
