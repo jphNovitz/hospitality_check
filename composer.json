@@ -94,6 +94,9 @@
         "symfony": {
             "allow-contrib": false,
             "require": "6.4.*"
+        },
+        "runtime": {
+            "use_putenv": true
         }
     },
     "require-dev": {
@@ -104,7 +107,7 @@
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
         "symfony/maker-bundle": "^1.51",
-        "symfony/phpunit-bridge": "^6.4",
+        "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
     }
