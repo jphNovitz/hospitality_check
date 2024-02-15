@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resident{% endblock %}
+
+{% block body %}
+    <h1>Resident</h1>
+    {% for resident in residents %}
+        {{ component('Card:Resident:Base-infos', {resident: resident}) }}
+    {% endfor %}
+{% endblock %}
