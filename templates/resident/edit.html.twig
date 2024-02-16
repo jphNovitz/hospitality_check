@@ -3,7 +3,7 @@
 {% block title %}Edit Resident{% endblock %}
 
  {% block body %}
-        <twig:Title:H2> {%trans%} title.resident.update {% endtrans%} </twig:Title:H2>
+     <twig:Title:H2> {% trans %} title.resident.update {% endtrans %} </twig:Title:H2>
      <div class="w-full pt-16 overflow-hidden  relative">
          <twig:Button:Secondary class="w-auto absolute top-4 left-1"
                                 href="{{ path('app_resident_show', {'id': resident.id}) }}">
@@ -13,13 +13,20 @@
                        clip-rule="evenodd"/>
              </svg>
          </twig:Button:Secondary>
-         {{ component('Live:Resident:Form:Profile', {
-             path: "common/resident/_form.html.twig",
-             TypeName: "ResidentType",
-             initialResidentForm: resident,
-             action: 'button.update'
-         } ) }}
-
+         {#         {{ component('Live:Resident:Form:Profile', { #}
+         {#             path: "common/resident/_form.html.twig", #}
+         {#             TypeName: "ResidentType", #}
+         {#             initialResidentForm: resident, #}
+         {#             action: 'button.update' #}
+         {#         } ) }} #}
+         {{ form_start(form) }}
+         {% include "common/resident/_form.html.twig" %}
+         <twig:Button:Submit
+                 class="">
+             {% trans %} button.update {% endtrans %}
+         </twig:Button:Submit>
+         {{ form_rest(form) }}
+         {{ form_end(form) }}
      </div>
 
  {% endblock %}
