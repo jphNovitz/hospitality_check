@@ -4,13 +4,17 @@
 
  {% block body %}
      <twig:Button:Secondary
-             href="{{ path('app_resident_index') }}">{% trans %} button.back {% endtrans %}</twig:Button:Secondary>
+             class="w-fit"
+             href="{{ path('app_resident_index') }}">
+         {% trans %} button.back {% endtrans %}
+     </twig:Button:Secondary>
+
      <twig:Title:H2>{% trans %}title.resident.show {% endtrans %}: {{ resident.firstName }}</twig:Title:H2>
      <div class="w-full pt-16 overflow-hidden  relative">
          {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent.id == app.user.id) %}
              <twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"
                                href="{{ path('app_resident_edit', {'id': resident.id}) }}">
-                {% trans %} button.update {% endtrans %}
+                 {% trans %} button.update {% endtrans %}
              </twig:Button:Edit>
          {% endif %}
          <div class="w-full flex flex-col lg:flex-row justify-center lg:justify-between lg:items-center space-y-8 ">
@@ -31,6 +35,7 @@
              </div>
          </div>
      </div>
+
      <div class="w-full pt-16 mx-4 overflow-hidden  relative">
          {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent.id == app.user.id) %}
              <twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"

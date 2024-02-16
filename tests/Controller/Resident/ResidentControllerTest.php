@@ -4,15 +4,12 @@ namespace App\Tests\Controller\Resident;
 
 use App\DataFixtures\Tests\ResidentTestFixtures;
 use App\DataFixtures\Tests\RoomTestFixtures;
-use App\DataFixtures\Tests\TestFixtures;
 use App\DataFixtures\Tests\UserTestFixtures;
-use App\DataFixtures\UserFixtures;
 use App\Entity\Resident;
 use App\Entity\Room;
 use App\Entity\User;
 use App\Repository\ResidentRepository;
 use App\Repository\UserRepository;
-use App\Twig\Components\Live\Resident\Form\Profile;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
