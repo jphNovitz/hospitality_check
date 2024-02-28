@@ -15,9 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ResidentController extends AbstractController
 {
 
-    public function __construct(protected ResidentRepository $residentRepository){
-
+    public function __construct(protected ResidentRepository $residentRepository,
+                                protected EntityManagerInterface $entityManager){
     }
+
     #[Route('/', name: 'app_resident_index', methods: ['GET'])]
     public function index(ResidentRepository $residentRepository): Response
     {
@@ -27,17 +28,19 @@ class ResidentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_resident_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request): Response
     {
         $resident = new Resident();
         $form = $this->createForm(ResidentType::class, $resident);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($resident);
-            $entityManager->flush();
+            $this->entityManager->persist($resident);
+            $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_resident_show', ['id' => $resident->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_resident_show', [
+                'id' => $resident->getId()],
+                Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('common/resident/new.html.twig', [
@@ -55,30 +58,23 @@ class ResidentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_resident_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Resident $resident): Response
     {
-
         $form = $this->createForm(ResidentType::class, $resident);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager->persist($resident);
-            $entityManager->flush();
+            $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_resident_show', ['id' => $resident->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_resident_show', [
+                'id' => $resident->getId()],
+                Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('resident/edit.html.twig', [
             'resident' => $resident,
             'form' => $form,
         ]);
-
-
-
-
-//        return $this->render('resident/edit.html.twig', [
-//            'resident' => $resident
-//        ]);
     }
 
     #[Route('/room/{id}', name: 'app_resident_room', methods: ['GET'])]
