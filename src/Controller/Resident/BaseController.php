@@ -37,11 +37,5 @@ final class BaseController extends AbstractController
             'resident' => $resident,
             'form' => $form,
         ]);
-
-
-
-//        return $this->render('resident/base/edit.html.twig', [
-//            'resident' => $resident
-//        ]);
     }
 }

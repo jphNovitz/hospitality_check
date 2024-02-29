@@ -16,6 +16,10 @@ final class CharacteristicController extends AbstractController
 {
     public function __invoke(Resident $resident): Response
     {
+        if ((!in_array('ROLE_ADMIN', $this->getUser()->getRoles()) &&  $this->getUser()->getId() !== $resident->getReferent()->getId()))
+            return $this->redirectToRoute('app_resident_show', [
+                'id' => $resident->getId()], 301);
+
         return $this->render('resident/characteristic/edit.html.twig', [
             'resident' => $resident
         ]);
