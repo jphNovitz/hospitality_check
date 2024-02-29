@@ -38,7 +38,7 @@ button:
   resident:
     selection: Choisir un résdient
   room:
-    selection: Choisie une chambre
+    selection: Choisir une chambre
 form:
   name: Nom
   email: Email
@@ -53,9 +53,17 @@ form:
   room: Chambre
   new_room: Nouvelle Chambre
 text:
+  updated: "Modifier"
   room:
     none: Cette chambre est vide
     room: La chambre
     rooms: Les chambres
     empty: est vide
+  resident:
+    interest:
+      empty: "Je n'ai aucun centre d'intérêt"
+    do:
+      empty: "RAS concernant ce que j'accepte"
+    dont:
+      empty: "Avec moi, il n'y a rien de particulier à éviter"
 
