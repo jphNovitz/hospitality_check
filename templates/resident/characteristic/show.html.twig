@@ -5,10 +5,12 @@
             <ul class="ml-4">
                 {% for interest in resident.characteristics|group['interest'] %}
                     <twig:InfoLine> {{ interest.name }}, {{ interest.description }} </twig:InfoLine>
-
                 {% endfor %}
+
             </ul>
         </div>
+    {% else %}
+        {% trans %} text.resident.interest.empty {% endtrans %}
     {% endif %}
 
     {% if resident.characteristics|group['do'] is defined %}
@@ -20,6 +22,8 @@
                 {% endfor %}
             </ul>
         </div>
+    {% else %}
+        {% trans %} text.resident.do.empty {% endtrans %}
     {% endif %}
 
     {% if resident.characteristics|group['dont'] is defined %}
@@ -32,6 +36,8 @@
                 {% endfor %}
             </ul>
         </div>
+    {% else %}
+        {% trans %} text.resident.dont.empty {% endtrans %}
     {% endif %}
 
     {% if resident.characteristics|group['other'] is defined %}
