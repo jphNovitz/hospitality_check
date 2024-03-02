@@ -26,6 +26,7 @@ title:
   security:
     sign_in: "Veuillez vous connecter"
 button:
+  register: "S'inscrire"
   login: Connexion
   logout: Déconnexion
   save: Enregistrer
