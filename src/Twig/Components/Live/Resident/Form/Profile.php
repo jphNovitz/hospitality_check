@@ -38,7 +38,7 @@ final class Profile extends AbstractController
     #[LiveProp]
     public mixed $formClass;
 
-    public string $action = 'Update';
+    public string $action = "text.updated";
 
     public function __construct(protected ResidentRepository $residentRepository, protected EntityManagerInterface $em)
     {
