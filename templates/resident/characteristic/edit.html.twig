@@ -3,8 +3,9 @@
 {% block title %}Edit Resident{% endblock %}
 
  {% block body %}
-     <h1>Edit Resident BaseCharacteristics</h1>
+     <h1> {% trans %} title.characteristic.edit {% endchtrans %}</h1>
      <div class="w-full pt-16 overflow-hidden  relative">
+         {# back button #}
          <twig:Button:Secondary class="w-auto absolute top-4 left-1"
                                 href="{{ path('app_resident_show', {'id': resident.id}) }}">
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -13,6 +14,7 @@
                        clip-rule="evenodd"/>
              </svg>
          </twig:Button:Secondary>
+         {# end back button #}
          <div class="">
              {{ component('Live:Resident:Form:Profile', {
                  path: "common/resident/characteristic/_form.html.twig",
