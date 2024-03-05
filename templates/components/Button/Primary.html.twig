@@ -4,6 +4,5 @@
      bg-black/20 dark:bg-white/50 text-black font-semibold rounded-md
      outline outline-black/20 border border-2 border-black/20 dark:border-white/50 '
 })
-}}>
-    {% block content %}{{ label }}{% endblock %}
-</a>
+}}>{% block content%}{% endblock %}</a>
+{#    {% block content%}{{ label |spaceless}}{% endblock %}#}
