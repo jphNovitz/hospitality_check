@@ -33,7 +33,8 @@
                 <div class="lg:w-24">
                     <twig:Button:Secondary
                             data-action="click->characteristic#remove"
-                            data-characteristic-target="remove">
+                            data-characteristic-target="remove"
+                            class="remove">
                         {% trans %} button.remove {% endtrans %}
                     </twig:Button:Secondary>
                 </div>
@@ -58,9 +59,7 @@
         <twig:Button:Primary
                 data-action="click->characteristic#add"
                 data-characteristic-target="button"
-                class="mt-12">
-            {% trans %} button.add {% endtrans %}
-        </twig:Button:Primary>
+                class="mt-12" id="add">{% trans %}button.add{% endtrans %}</twig:Button:Primary>
     </div>
 
 </div>
