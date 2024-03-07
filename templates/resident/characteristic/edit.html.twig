@@ -3,7 +3,7 @@
 {% block title %}Edit Resident{% endblock %}
 
  {% block body %}
-     <h1> {% trans %} title.characteristic.edit {% endchtrans %}</h1>
+     <h1> {% trans %} title.characteristic.edit {% endtrans %}</h1>
      <div class="w-full pt-16 overflow-hidden  relative">
          {# back button #}
          <twig:Button:Secondary class="w-auto absolute top-4 left-1"
@@ -15,13 +15,22 @@
              </svg>
          </twig:Button:Secondary>
          {# end back button #}
-         <div class="">
-             {{ component('Live:Resident:Form:Profile', {
+         <div class="" >
+             {{ form_start(form) }}
+             {% include 'common/resident/characteristic/_form.html.twig' with {"form": form} %}
+         {#    {{ component('Live:Resident:Form:Profile', {
                  path: "common/resident/characteristic/_form.html.twig",
                  TypeName: "CharacteristicType",
                  initialResidentForm: resident,
                  action: "Update"
-             } ) }}
+             } ) }}#}
+
+
+             <twig:Button:Submit  id="submit" class=""> {% trans%} button.update {% endtrans%} </twig:Button:Submit>
+
+             {{ form_rest(form) }}
+             {{ form_end(form) }}
+
          </div>
      </div>
 
