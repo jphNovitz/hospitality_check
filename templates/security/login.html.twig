@@ -20,7 +20,7 @@
             </div>
             <div class="flex flex-col my-8">
                 <label for="inputPassword" class="font-semibold">{% trans %}form.password {% endtrans %}</label>
-                <input type="password" name="password" id="inputPassword"
+                <input type="text" name="password" id="inputPassword"
                        class="form-control bg-gray-50 text-black font-black  rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900"
                        autocomplete="current-password"
                        required>
@@ -30,10 +30,12 @@
                        value="{{ csrf_token('authenticate') }}"
                 >
 
-                <twig:Button:Submit  type="submit">
+                <twig:Button:Submit  type="submit" id="login">
                     {%trans%} button.login {% endtrans %}
                 </twig:Button:Submit>
             </div>
         </div>
     </form>
+
+
 {% endblock %}
