@@ -23,10 +23,8 @@ use Symfony\Component\Panther\Client;
 use Symfony\Component\Panther\PantherTestCase;
 use Symfony\Component\Panther\PantherTestCaseTrait;
 
-class CharacteristicControllerTest extends PantherTestCase
+class CharacteristicControllerTest extends WebTestCase
 {
-    use PantherTestCaseTrait;
-
     private KernelBrowser $client;
     private UserRepository $user_repository;
     private BaseRepository $base_repository;
