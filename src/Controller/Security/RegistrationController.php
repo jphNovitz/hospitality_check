@@ -61,7 +61,7 @@ class RegistrationController extends AbstractController
 
             $nextAction = $form->get('registerAndAdd')->isClicked()
                 ? 'app_register'
-                : 'app_admin_home';
+                : 'admin_home';
 
             return $this->redirectToRoute($nextAction);
         }

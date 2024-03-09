@@ -80,7 +80,7 @@ class RegistrationControllerTest extends WebTestCase
         $this->client->submit($form);
 
         $this->assertResponseRedirects(
-            $this->router->generate('app_admin_home'),
+            '/admin/',
             302,
             'The user has been created');
 
