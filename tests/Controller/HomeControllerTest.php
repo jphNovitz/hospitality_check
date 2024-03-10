@@ -17,9 +17,7 @@ class HomeControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
     private UserRepository $user_repository;
-    private ResidentRepository $resident_repository;
     private string $path = '/';
-    private EntityManagerInterface $manager;
     private mixed $databaseTool;
 
 
@@ -29,9 +27,7 @@ class HomeControllerTest extends WebTestCase
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->resident_repository = static::getContainer()->get('doctrine')->getRepository(Resident::class);
         $this->user_repository = static::getContainer()->get('doctrine')->getRepository(User::class);
-        $this->manager = static::getContainer()->get('doctrine')->getManager();
         $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
     }
 
