@@ -3,25 +3,25 @@
 {% block title %}Log in{% endblock %}
 
 {% block body %}
-    <form method="post" class="my-16 max-w-md m-auto">
+    <form method="post" action="{{ path('app_login') }}" class="my-16 max-w-md m-auto">
         {% if error %}
             <div class="bg-black/80 text-white dark:bg-white/80 dark:text-black p-2 my-2 text-semibold">
                 {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
 
-        <h2 class="text-3xl font-bold underline">{% trans %} title.security.sign_in {% endtrans %}</h2>
+        <h2 class="text-3xl font-bold underline">{% trans %}title.security.sign_in{% endtrans %}</h2>
         <div class="flex flex-col my-8">
             <div class="flex flex-col my-8">
-                <label for="inputEmail" class="font-semibold">{% trans %} form.email {% endtrans %}</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                <label for="inputEmail" class="font-semibold">{% trans %}form.email{% endtrans %}</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="inputEmail"
                        class="form-control bg-gray-50 text-black font-black rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900"
                        autocomplete="email" required autofocus>
             </div>
             <div class="flex flex-col my-8">
-                <label for="inputPassword" class="font-semibold">{% trans %}form.password {% endtrans %}</label>
-                <input type="text" name="password" id="inputPassword"
-                       class="form-control bg-gray-50 text-black font-black  rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900"
+                <label for="inputPassword" class="font-semibold">{% trans %}form.password{% endtrans %}</label>
+                <input type="password" name="_password" id="inputPassword"
+                       class="form-control bg-gray-50 text-black font-black rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900"
                        autocomplete="current-password"
                        required>
             </div>
@@ -30,12 +30,13 @@
                        value="{{ csrf_token('authenticate') }}"
                 >
 
-                <twig:Button:Submit  type="submit" id="login">
-                    {%trans%} button.login {% endtrans %}
+                {# If you want to control the URL the user is redirected to on success #}
+{#                <input type="hidden" name="_target_path" value="/some/default/path">#}
+
+                <twig:Button:Submit type="submit" id="login">
+                    {% trans %}button.login{% endtrans %}
                 </twig:Button:Submit>
             </div>
         </div>
     </form>
-
-
 {% endblock %}
