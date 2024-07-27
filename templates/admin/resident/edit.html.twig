@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} title.resident.update {% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5">
+        <twig:Title:H2>{% trans %} title.resident.update {% endtrans %}</twig:Title:H2>
+
+        {{ form_start(form) }}
+        {{ include('common/resident/_form.html.twig') }}
+
+        {#        TODO: add link to edit basics #}
+        <div class="pt-1 pb-8 border-t border-black/5 dark:border-white/5">
+            {{ include('common/resident/base/_form.html.twig') }}
+        </div>
+        <div class="pt-1 pb-8 border-t border-black/5 dark:border-white/5">
+            {{ include('common/resident/characteristic/_form.html.twig') }}
+        </div>
+        <div class="border-t border-black/10 dark:border-white/10 pt-4">
+
+            <twig:Button:Submit>
+                {% trans %}button.save{% endtrans %}
+            </twig:Button:Submit>
+        </div>
+        {{ form_end(form, {'render_rest': false}) }}
+
+        <div class="my-8 flex space-x-8">
+            <div>
+                {{ include('admin/resident/_delete_form.html.twig') }}
+            </div>
+            <div>
+                <twig:Button:Secondary href="{{ path('admin_resident_index') }}">
+                    {% trans %}button.back{% endtrans %}
+                </twig:Button:Secondary>
+            </div>
+        </div>
+    </div>
+{% endblock %}
