@@ -31,11 +31,12 @@ class ResidentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->leftJoin('r.room', 'room')
             ->leftJoin('r.referent', 'referent')
+            ->select('r, room, referent')
             ->orderBy('r.firstName', 'ASC')
             ->setMaxResults($limit)
 //            ->setParameter('limit', $limit)
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
     }
 
