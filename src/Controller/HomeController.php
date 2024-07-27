@@ -11,17 +11,20 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        if ($user = $this->getUser()) {
-            if (property_exists($user, 'name')) {
-                if ($user->isVerified())
-                    if (in_array('ROLE_ADMIN', $user->getRoles())) return $this->redirectToRoute('admin_home');
-                    else return $this->redirectToRoute('app_resident_index');
-            } else {
-                if (in_array('ROLE_ADMIN', $user->getRoles())) return $this->redirectToRoute('admin_home');
-                else
-                    return $this->render('welcome.html.twig', []);
-            }
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->render('welcome.html.twig', []);
         }
+
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return $this->redirectToRoute('admin_home');
+        }
+
+        if (method_exists($user, 'getName') && $user->getName() && $user->isVerified()) {
+            return $this->redirectToRoute('app_resident_index');
+        }
+
         return $this->render('welcome.html.twig', []);
     }
 }
