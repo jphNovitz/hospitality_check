@@ -8,12 +8,14 @@
     <div class="w-full lg:w-6/12 m-auto">
         {{ component('Form:RowText', {
             label: 'form.firstname',
+            placeholder: 'Comment s\'appelle notre nouveau copain ?',
             row: form.firstName
         }) }}
     </div>
     <div class="w-full lg:w-3/12 m-auto">
         {{ component('Form:RowText', {
             label: 'form.nationality',
+            placeholder: 'Belge ou Francais, autre ?',
             row: form.nationality
         }) }}
     </div>
@@ -39,6 +41,7 @@
     <div class="w-full lg:w-3/12 m-auto">
         {{ component('Form:RowText', {
             label: 'form.new_room',
+            placeholder: 'Ajouter ici une nouvelle chambre ',
             row: form.newRoom
         }) }}
     </div>

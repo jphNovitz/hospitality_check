@@ -1,11 +1,13 @@
 <div {{ attributes.defaults({ class: 'flex flex-col space-y-4' }) }}>
     {{ form_label(row,null, {
         'label': label,
-        'label_attr': {'class': 'font-semibold'}
-    }) }}
+        'label_attr': {
+            'class': 'font-semibold'
+        } }) }}
     {{ form_widget(row, { 'attr':
         {
-            'class': 'w-full bg-zinc-100 dark:bg-stone-400 dark:text-stone-950  rounded-md px-1 py-2 outline-none focus:outline-none border-stone-300 focus:ring focus:border-stone-950'
+            'class': 'w-full bg-zinc-100 dark:bg-stone-400 dark:text-stone-950  rounded-md px-1 py-2 outline-none focus:outline-none border-stone-300 focus:ring focus:border-stone-950',
+            'placeholder': placeholder
         }
     }) }}
 

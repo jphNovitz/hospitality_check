@@ -3,30 +3,30 @@
 {% block title %} {% trans %}title.resident.new{% endtrans %} {% endblock %}
 
 {% block body %}
-    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5 pb-12">
+    <div class="pb-12">
         <twig:Title:H2>{% trans %}title.resident.new{% endtrans %}</twig:Title:H2>
 
         {{ form_start(form) }}
         {{ form_widget(form._token) }}
-{#        {% if form.error %}#}
+        {% if form_errors(form) %}
             <div class="bg-black/80 text-white dark:bg-white/80 dark:text-black p-2 my-2 text-semibold">
                 {{ form_errors(form) }}
-{#                {{ form.error.messageKey|trans(form.error.messageData, 'security') }}#}
+                {#                {{ form.error.messageKey|trans(form.error.messageData, 'security') }} #}
             </div>
-{#        {% endif %}#}
+        {% endif %}
 
         {{ include('common/resident/_form.html.twig') }}
-        <div class="w-full  my-4 flex flex-col space-y-2 lg:flex-row lg:justify-start lg:space-y-0 lg:space-x-2 my-3">
+        <div class="w-full  my-4 flex flex-col space-y-4 md:flex-row lg:justify-start md:space-y-0 md:space-x-4 my-4">
             <twig:Button:Submit>
-                {% trans %}button.save{% endtrans %}
+                {{ ux_icon('mdi:content-save-outline') }}{% trans %}button.save{% endtrans %}
             </twig:Button:Submit>
             {% if is_granted('ROLE_ADMIN') %}
                 <twig:Button:Secondary href="{{ path('admin_resident_index') }}">
-                    {% trans %}button.back{% endtrans %}
+                    {{ ux_icon('mdi:arrow-left-top') }} {% trans %}button.back{% endtrans %}
                 </twig:Button:Secondary>
             {% else %}
                 <twig:Button:Secondary href="{{ path('app_resident_index') }}">
-                    {% trans %}button.back{% endtrans %}
+                    {{ ux_icon('mdi:arrow-left-top') }}   <span>{% trans %}button.back{% endtrans %}</span>
                 </twig:Button:Secondary>
             {% endif %}
 

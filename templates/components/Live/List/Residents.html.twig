@@ -1,7 +1,7 @@
 <div{{ attributes }}>
-    <table class="w-full table-fixed gap-4">
+    <table class="w-full table-fixed border-separate border-spacing-y-4">
         <thead class="">
-        <tr class="mb-6 border-b border-b-2">
+        <tr class="hidden lg:table-row bg-light-primary/60 text-black  dark:bg-dark-primary/60 dark:text-black mb-6 border-b border-b-2">
             <th class="hidden lg:table-cell w-12 text-right p-2">{% trans %}title.resident.rm{% endtrans %}</th>
             <th class="hidden lg:table-cell w-20 lg:w-1/3 text-left p-2">{% trans %}title.resident.name{% endtrans %}</th>
             <th class="hidden lg:table-cell w-20 lg:w-1/3 hidden lg:table-cell text-left p-2">{% trans %}title.resident.referent{% endtrans %}</th>
@@ -11,25 +11,25 @@
         </thead>
         <tbody>
         {% for resident in this.residents %}
-            <tr class="flex flex-col lg:table-row even:bg-black/5 dark:even:bg-white/5">
+            <tr class="flex flex-col lg:table-row even:bg-light-primary/5 dark:even:bg-dark-primary/5">
                 <td class="w-full lg:w-12 text-left lg:text-right p-2 relative before:absolute before:left-0 before:content-['Chanmbre:'] lg:before:hidden lg:before:content-[''] pl-32 lg:pl-2">
                     {{ resident.room.number }}
                 </td>
                 <td class="w-full lg:w-1/3 p-2 text-left relative before:absolute before:left-0 before:content-['Prénom:'] lg:before:hidden lg:before:content-[''] pl-32 lg:pl-2">{{ resident.firstName }}</td>
                 <td class="w-full lg:w-1/3 p-2 text-left relative before:absolute before:left-0 before:content-['Référent:'] lg:before:hidden lg:before:content-[''] pl-32 lg:pl-2">{{ resident.referent.name ?? 'text.na'|trans }}</td>
-                <td class="w-full p-0 lg:p-1 flex justify-start lg:justify-end items-center space-x-2">
+                <td class="w-full p-0 lg:p-1 flex justify-start lg:justify-end items-center space-x-4">
                     {% if is_granted('ROLE_ADMIN') %}
 
                         <twig:Button:Primary
                                 href="{{ path('admin_resident_edit', {id: resident.id}) }}"
-                                class="!w-32 mr-1 inline-flex items-center justify-evenly">
+                                class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                 stroke="currentColor" class="w-6 h-6">
+                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                       d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/>
                             </svg>
 
-                            <span class="hidden lg:inline"> {% trans %}button.update{% endtrans %} </span>
+                            {% trans %}button.update{% endtrans %}
                         </twig:Button:Primary>
                         {{ include('admin/resident/_delete_form.html.twig') }}
 
