@@ -12,28 +12,28 @@
     {% endblock %}
 
     {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
 
     {% endblock %}
 </head>
 <body class="w-screen overflow-x-hidden bg-light-neutral  text-light-text-base dark:bg-dark-neutral dark:text-dark-text-base ">
-<div class="min-h-screen max-w-md lg:max-w-7xl m-auto p-3">
-    <main class="min-h-screen xl:min-h-screen py-2">
-        <div class="p-4">
-            <div class="w-full flex justify-between items-center mb-12">
-                <div>
-                    <twig:Title:H1>Sékie ?</twig:Title:H1>
-                </div>
-                <div>
-                    {% if app.user%}
-                        <a href="{{ path('app_logout') }}"> {% trans %}button.logout{% endtrans%} </a>
-                    {% else %}
-                        <a href="{{ path('app_login') }}"> {% trans %}button.login{% endtrans%} </a>
-                    {% endif %}
-                </div>
+<div class="min-h-screen max-w-md lg:max-w-7xl m-auto p-2">
+    <main class="min-h-screen xl:min-h-screen">
+
+        <div class="w-full flex justify-between items-center mb-12">
+            <div>
+                <twig:Title:H1>Sékie ?</twig:Title:H1>
             </div>
-            {% block body %}{% endblock %}
+            <div>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}"> {% trans %}button.logout{% endtrans %} </a>
+                {% else %}
+                    <a href="{{ path('app_login') }}"> {% trans %}button.login{% endtrans %} </a>
+                {% endif %}
+            </div>
         </div>
+        {% block body %}{% endblock %}
+
     </main>
 </div>
 <footer class="w-full bg-primary-light mt-16">

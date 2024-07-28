@@ -1,18 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %} {% trans %}title.resident.list{% endtrans %} {% endblock %}
 
 {% block body %}
     <div class="space-y-4 mb-12 ">
+        <twig:Title:H2>{% trans %}title.resident.list{% endtrans %}</twig:Title:H2>
+
+        <div class="w-full flex items-center justify-start space-x-4">
+            <twig:Button:Secondary href="{{ path('admin_resident_index') }}" class="">
+                {% trans %}button.list_all{% endtrans %}
+            </twig:Button:Secondary>
+            <twig:Button:Primary href="{{ path('app_resident_new') }}"
+                                 class="">{% trans %}button.add{% endtrans %}
+            </twig:Button:Primary>
+        </div>
+
         {{ component('Live:List:Residents' ,{ limit: 5 }) }}
-        <twig:Button:Primary href="{{ path('admin_resident_index') }}" class="!w-32">
-            {% trans %}button.list_all{% endtrans%}
-        </twig:Button:Primary>
     </div>
     <div class="space-y-4">
         {{ component('Live:List:Users' ,{ limit: 5 }) }}
-{#        <twig:Button:Primary href="{{ path('admin_user_index') }}" class="!w-32">#}
-{#            {% trans %}button.list_all{% endtrans%}#}
-{#        </twig:Button:Primary>#}
+        {#        <twig:Button:Primary href="{{ path('admin_user_index') }}" class="!w-32"> #}
+        {#            {% trans %}button.list_all{% endtrans%} #}
+        {#        </twig:Button:Primary> #}
     </div>
 {% endblock %}

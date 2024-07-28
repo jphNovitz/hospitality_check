@@ -56,6 +56,8 @@ form:
   room: Chambre
   new_room: Nouvelle Chambre
 text:
+  na: "personne"
+  no_one: "N/A"
   updated: "Modifier"
   room:
     none: Cette chambre est vide
