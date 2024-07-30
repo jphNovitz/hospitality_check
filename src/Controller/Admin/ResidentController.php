@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Resident;
-use App\Form\REMOVE_______Admin\ResidentType;
+use App\Form\Admin\ResidentType;
 use App\Repository\ResidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
