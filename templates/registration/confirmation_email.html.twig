@@ -1,12 +1,21 @@
-<h1>Hi! Please confirm your email!</h1>
+<h1> Objet : Confirmation de votre compte utilisateur</h1>
 
-<p>
-    Please confirm your email address by clicking the following link: <br><br>
-{{ pwd }}
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+<p>Bonjour {{ name }}, <br/>
+
+    Un compte utilisateur vous a été créé. Pour finaliser l'activation de votre compte, veuillez cliquer sur le lien
+    ci-dessous dans les  {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }} heures suivant la réception de cet e-mail :
+
+    <br/> <a href="{{ signedUrl|raw }}">{{ signedUrl|raw }}</a>
 </p>
 
-<p>
-    Cheers!
-</p>
+<p>Votre mot de passe temporaire est : {{ pwd }}</p>
+
+<p>Veuillez noter que ce lien expirera dans 24 heures.</p>
+
+
+
+<p>Pour des raisons de sécurité, il est fortement recommandé de changer ce mot de passe temporaire dès que vous vous connecterez à votre compte. Pour ce faire, veuillez suivre les étapes ci-dessous :</p>
+
+
+<p>Cordialement,</p>
+

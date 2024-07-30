@@ -3,12 +3,12 @@
 {% block title %}Register user{% endblock %}
 
 {% block body %}
-<div class="my-16">
+<div class="max-w-screen-sm mx-auto my-16 p-4">
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1 class="text-3xl font-bold underline">Register a user</h1>
+    <twig:Title:H1> {% trans%} title.register {% endtrans%} </twig:Title:H1>
 
     {{ form_errors(registrationForm) }}
 
@@ -16,30 +16,50 @@
     <div class="flex flex-col my-8">
         <div class="flex flex-col my-8">
             {#            {{ form_row(registrationForm.email) }} #}
-            {{ form_label(registrationForm.email,null, {
-                'label': 'Email',
-                'label_attr': {'class': 'font-semibold'}
+{#            {{ form_label(registrationForm.email,null, {#}
+{#                'label': 'Email',#}
+{#                'label_attr': {'class': 'font-semibold'}#}
+{#            }) }}#}
+{#            {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control bg-gray-50 rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900'} }) }}#}
+            {{ component('Form:RowEmail', {
+                label: 'form.name',
+                placeholder: 'Quel est l\'adresse email ?',
+                row: registrationForm.email
             }) }}
-            {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control bg-gray-50 rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900'} }) }}
         </div>
         <div class="flex flex-col my-8">
-            {{ form_label(registrationForm.name,null, {
-                'label': 'Name',
-                'label_attr': {'class': 'font-semibold'}
+            {{ component('Form:RowText', {
+                label: 'form.name',
+                placeholder: 'Quel est le prénom de notre nouveau collegue ?',
+                row: registrationForm.name
             }) }}
-            {{ form_widget(registrationForm.name, { 'attr': {'class': 'form-control bg-gray-50 rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900'} }) }}
+            {#            {{ form_label(registrationForm.name,null, { #}
+            {#                'label': 'Name', #}
+            {#                'label_attr': {'class': 'font-semibold'} #}
+            {#            }) }} #}
+            {#            {{ form_widget(registrationForm.name, { 'attr': {'class': 'form-control bg-gray-50 rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900'} }) }} #}
         </div>
         <div class="flex flex-col my-8">
             {{ form_label(registrationForm.plainPassword,null, {
                 'label': 'Password',
                 'label_attr': {'class': 'font-semibold'}
             }) }}
-            {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'form-control bg-gray-50 rounded-md px-1 py-2 mt-3 focus:outline-none border-black-200 focus:ring focus:border-black-900'} }) }}
+            {{ form_widget(registrationForm.plainPassword, { 'attr': {
+                'class': 'w-full bg-white dark:bg-white text-light-text-base dark:text-dark-text-base  rounded-md px-1 py-2 outline-none focus:outline-none ring ring-light-primary/20 dark:ring-dark-primary/20 focus:ring-light-primary dark:focus:ring-dark-primary ',
+                'placeholder': 'Un mot de passe'
+            } }) }}
         </div>
-{#        {{ form_row(registrationForm.agreeTerms) }}#}
-        <div class="flex flex-col my-8">
-            {{ form_widget(registrationForm.register, { 'attr': {'class': 'w-full xl:w-38 rounded-md py-3 px-6 text-center bg-blue-600 text-blue-50'}}) }}
-            {{ form_widget(registrationForm.registerAndAdd, { 'attr': {'class': 'w-full xl:w-38 rounded-md mt-6 xl:mt-0 xl:ml-6 py-3 px-6 text-center bg-transparent border border-blue-600 text-blue-600'}}) }}
+        {#        {{ form_row(registrationForm.agreeTerms) }} #}
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 my-8">
+
+            {{ form_widget(registrationForm.register, {
+                'label': 'form.register',
+                'attr': {
+                    'class': 'flex items-center justify-center gap-x-4  w-full  px-4 py-2 font-semibold cursor-pointer  bg-light-primary dark:bg-dark-primary text-black dark:text-black rounded-md outline outline-2 outline-light-primary dark:outline-dark-primary'
+                }}) }}
+            {{ form_widget(registrationForm.registerAndAdd, {
+                'label': 'form.register_add',
+                'attr': {'class': 'w-full flex items-center justify-center gap-x-4 px-4 py-2 font-semibold  cursor-pointer bg-transparent dark:bg-transparent text-black dark:text-black rounded-md outline outline-2 outline-light-primary dark:outline-dark-primary'}}) }}
 
         </div>
         <div class="flex flex-col my-8">

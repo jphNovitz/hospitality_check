@@ -1,4 +1,5 @@
 title:
+  register: "Ajoutons un nouveau collègue !"
   resident:
     new: Nous accueillons un nouveau résident
     edit: Modification d'un résident
@@ -55,6 +56,8 @@ form:
   referent: Référent
   room: Chambre
   new_room: Nouvelle Chambre
+  register: "Ajouter"
+  register_add: "Ajouter et recommencer"
 text:
   na: "personne"
   no_one: "N/A"

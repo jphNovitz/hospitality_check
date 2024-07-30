@@ -5,7 +5,6 @@ namespace App\Controller\Security;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
-use App\Security\AppAuthenticator;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -29,7 +28,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/admin/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -50,11 +49,11 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('info@exempl.es', 'No Reply Bot'))
+                    ->from(new Address('info@exempl.es', 'Webmaster Hospitality Check'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Confirmation de votre compte utilisateur')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
-                    ->context(['pwd' => $form->get('plainPassword')->getData()])
+                    ->context(['pwd' => $form->get('plainPassword')->getData(), 'name' => $user->getName()])
             );
 
             $this->addFlash('success', 'The user has been created');
