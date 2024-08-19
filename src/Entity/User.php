@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $referees;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = "mon nom";
+    private ?string $name = "";
 
     public function __construct()
     {
