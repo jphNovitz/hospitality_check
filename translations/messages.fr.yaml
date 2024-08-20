@@ -1,5 +1,7 @@
 title:
   register: "Ajoutons un nouveau collègue !"
+  name: "Nom"
+  icon: "Icône"
   resident:
     new: Nous accueillons un nouveau résident
     edit: Modification d'un résident
@@ -32,15 +34,17 @@ button:
   register: "S'inscrire"
   login: Connexion
   logout: Déconnexion
+  show: "Voir"
   save: Enregistrer
   add: Ajouter
+  edit: Modifier
   update: Modifier
   delete: Supprimer
   remove: Supprimer
   list_all: Liste complète
   back: Retour
   resident:
-    selection: Choisir un résdient
+    selection: "Choisir un résidient"
   room:
     selection: Choisir une chambre
 form:
