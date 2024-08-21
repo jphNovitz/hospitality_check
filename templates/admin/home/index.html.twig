@@ -17,7 +17,14 @@
 
         {{ component('Live:List:Residents' ,{ limit: 5 }) }}
     </div>
-    <div class="space-y-4">
+    <div class="space-y-4 mb-16 ">
+        <twig:Title:H2>{% trans %}title.user.list{% endtrans %}</twig:Title:H2>
+
+        <div class="w-full flex items-center justify-start space-x-4">
+            <twig:Button:Primary
+                                 class="">{% trans %}button.add{% endtrans %}
+            </twig:Button:Primary>
+        </div>
         {{ component('Live:List:Users' ,{ limit: 5 }) }}
 
         <div class="w-full flex items-center justify-start space-x-4">
