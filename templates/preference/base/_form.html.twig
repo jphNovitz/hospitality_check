@@ -1,8 +1,13 @@
 {{ form_start(form) }}
-<div class="w-full flex flex-col my-8">
-    {{ component('RowText', {label: 'Name', row: form.name}) }}
-    {{ component('RowText', {label: 'Description', row: form.description}) }}
+<div class="w-full flex flex-col space-y-8">
+    {{ form_errors(form) }}
+    <twig:Form:RowText labe="Name" :row="form.name" />
+    <twig:Form:RowText labe="Description" :row="form.description" />
+    {{ form_widget(form.imageFile) }}
+{#    {{ component('RowText', {label: 'Name', row: form.name}) }}#}
+{#    {{ component('RowText', {label: 'Description', row: form.description}) }}#}
     {#    {{ form_widget(form) }} #}
-    <twig:Button:Primary>{{ button_label|default('Save') }}</twig:Button:Primary>
+    <twig:Button:Submit>{{ button_label|default('button.save') |trans }}</twig:Button:Submit>
+
 </div>
 {{ form_end(form) }}

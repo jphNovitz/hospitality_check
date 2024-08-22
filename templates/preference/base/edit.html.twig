@@ -3,11 +3,16 @@
 {% block title %}Edit Base{% endblock %}
 
 {% block body %}
-    <h1>Edit Base</h1>
+    <div class="px-4 md:px-2 lg:px-0 py-8 space-y-8" xmlns:twig="http://www.w3.org/1999/html">
+        <twig:Title:H1>{% trans %} title.base.single{% endtrans %}</twig:Title:H1>
 
-    {{ include('preference/base/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('preference/base/_form.html.twig', {'button_label': 'button.update'}) }}
+        <div class="w-full my-8 flex flex-col md:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+            <twig:Button:Secondary
+                    href="{{ path('app_preference_base_index') }}">{{ ux_icon('mdi:arrow-left-thin', {'class': "w-5 h-5"}) }}{% trans %} button.back{% endtrans %}</twig:Button:Secondary>
 
-    <a href="{{ path('app_preference_base_index') }}">back to list</a>
 
-    {{ include('preference/base/_delete_form.html.twig') }}
+            {{ include('preference/base/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

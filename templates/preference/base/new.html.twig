@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Base{% endblock %}
+{% block title %}{% trans %} title.base.new{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Create new Base</h1>
+    <h1>{% trans %} title.base.index{% endtrans %}</h1>
 
     {{ include('preference/base/_form.html.twig') }}
 

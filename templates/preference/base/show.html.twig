@@ -1,34 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Base{% endblock %}
+{% block title %}{% trans %} title.base.single{% endtrans %}: {{ base.name }}{% endblock %}
 
 {% block body %}
-    <h1>Base</h1>
+    <div class="px-4 md:px-2 lg:px-0 py-8 space-y-8" xmlns:twig="http://www.w3.org/1999/html">
+        <twig:Title:H1>{% trans %} title.base.single{% endtrans %}</twig:Title:H1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ base.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ base.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ base.description }}</td>
-            </tr>
-            <tr>
-                <th>Icon</th>
-                <td>{{ base.icon }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <twig:Title:H2>{{ base.name }}</twig:Title:H2>
+        <p>Id: {{ base.id }}</p>
+        <p>Icon: {{ base.icon }}</p>
+        <p class="leading-loose">{{ base.description }}</p>
 
-    <a href="{{ path('app_preference_base_index') }}">back to list</a>
-
-    <a href="{{ path('app_preference_base_edit', {'id': base.id}) }}">edit</a>
-
-    {{ include('preference/base/_delete_form.html.twig') }}
+        <div class="w-full my-8 flex flex-col md:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+            <twig:Button:Primary href="{{ path('app_preference_base_edit', {'id': base.id}) }}">{{ ux_icon('mdi:edit-outline', {'class': "w-5 h-5"}) }} {% trans %} button.edit{% endtrans %}
+            </twig:Button:Primary>
+            <twig:Button:Secondary href="{{ path('app_preference_base_index') }}">{{ ux_icon('mdi:arrow-left-thin', {'class': "w-5 h-5"})}}{% trans %} button.back{% endtrans %}</twig:Button:Secondary>
+            {{ include('preference/base/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

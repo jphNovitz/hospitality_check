@@ -1,30 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Base index{% endblock %}
+{% block title %}{% trans %} title.base.index{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Base index</h1>
+    <twig:Title:H1>{% trans %} title.base.index{% endtrans %}</twig:Title:H1>
 
-    <table class="table">
+    <table class="w-full table-fixed border-separate border-spacing-y-4">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Icon</th>
-                <th>actions</th>
-            </tr>
+        <tr class="hidden lg:table-row bg-light-primary/60 text-black  dark:bg-dark-primary/60 dark:text-black mb-6 border-b border-b-2">
+            <th class="hidden lg:table-cell w-8/12 text-left p-2">{% trans %}title.name{% endtrans %}</th>
+            {#                <th class="hidden lg:table-cell w-12 text-right p-2">{% trans %}title.description{% endtrans %}</th> #}
+            <th class="hidden lg:table-cell w-1/12 text-left p-2">{% trans %}title.icon{% endtrans %}</th>
+            <th class="hidden lg:table-cell w-3/12 text-right p-2"></th>
+        </tr>
         </thead>
         <tbody>
         {% for base in bases %}
-            <tr>
-                <td>{{ base.id }}</td>
-                <td>{{ base.name }}</td>
-                <td>{{ base.description }}</td>
-                <td>{{ base.icon }}</td>
-                <td>
-                    <a href="{{ path('app_preference_base_show', {'id': base.id}) }}">show</a>
-                    <a href="{{ path('app_preference_base_edit', {'id': base.id}) }}">edit</a>
+            <tr class="w-full flex flex-col space-y-8 lg:space-y-0 lg:table-row even:bg-light-primary/5 dark:even:bg-dark-primary/5 my-8">
+                <td class="w-full lg:w-8/12 text-left lg:text-left pt-6 lg:pt-0 relative before:absolute before:left-0 before:top-0 before:content-['Nom:'] before:font-normal lg:before:hidden lg:before:content-['']  lg:pl-2 font-semibold lg:font-normal">{{ base.name }}</td>
+                {#                <td class="w-full lg:w-12 text-left lg:text-right pt-6 relative before:absolute before:left-0 before:top-0 before:content-['Desccription:'] before:font-normal lg:before:hidden lg:before:content-['']  lg:pl-2 font-semibold lg:font-normal">{{ base.description }}</td> #}
+                <td class="w-full lg:w-1/12 text-left lg:text-left pt-6 lg:pt-0 relative before:absolute before:left-0 before:top-0 before:content-['Icone:'] before:font-normal lg:before:hidden lg:before:content-['']  lg:pl-2 font-semibold lg:font-normal">{{ base.icon }}</td>
+                <td class="w-full lg:w-3/12">
+                    <div class="flex flex-col lg:flex-row justify-center lg:justify-end space-y-4 lg:space-y-0 lg:space-x-4 text-right">
+                        <twig:Button:Primary
+                                href="{{ path('app_preference_base_show', {'id': base.id}) }}"> {% trans %} button.show{% endtrans %}</twig:Button:Primary>
+                        <twig:Button:Secondary
+                                href="{{ path('app_preference_base_edit', {'id': base.id}) }}"> {% trans %} button.edit{% endtrans %}</twig:Button:Secondary>
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_preference_base_new') }}">Create new</a>
+    <twig:Button:Primary href="{{ path('app_preference_base_new') }}">{% trans %} button.add{% endtrans %}</twig:Button:Primary>
 {% endblock %}
