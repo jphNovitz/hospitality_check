@@ -1,0 +1,8 @@
+<button {{ attributes.defaults({
+    class:
+    'flex items-center justify-center gap-x-4
+    w-full md:w-fit px-4 py-2 font-semibold cursor-pointer
+            bg-red-700 dark:bg-red-700 text-red-50 dark:text-red-50 rounded-md
+            outline outline-2 outline-red-400 dark:outline-red-400'
+}) }}>{% block content %}{% endblock %}</button>
+{#    {% block content%}{{ label |spaceless}}{% endblock %} #}
