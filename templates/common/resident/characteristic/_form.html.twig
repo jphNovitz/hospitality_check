@@ -1,19 +1,18 @@
 {% import _self as formMacros %}
-
         {% macro printCharacteristicForm(characteristicForm) %}
-            <div class="w-full flex flex-col space-y-8 my-3">
+            <div class="w-full flex flex-col gap-y-8 my-3">
                 {{ form_errors(characteristicForm) }}
-                <div>
-                    {{ component('Form:RowText', {
-                        row: characteristicForm.name,
-                        label: 'form.name'
-                    }) }}
-                    {{ component('Form:RowText', {
-                        row: characteristicForm.description,
-                        label: 'form.description'
-                    }) }}
-                </div>
-                <div class="w-full flex flex-col lg:flex-row lg:space-x-4">
+                {#                <div class="flex flex-col gap-y-8"> #}
+                {{ component('Form:RowText', {
+                    row: characteristicForm.name,
+                    label: 'form.name'
+                }) }}
+                {{ component('Form:RowText', {
+                    row: characteristicForm.description,
+                    label: 'form.description'
+                }) }}
+                {#                </div> #}
+                <div class="w-full flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
                     <div class="w-full lg:w-6/12">
                         {{ component('Form:RowSelect', {
                             row: characteristicForm.contentType,
@@ -30,27 +29,25 @@
                         {{ form_row(characteristicForm.imageFile) }}
                     </div>
                 </div>
-                <div class="lg:w-24">
-                    <twig:Button:Secondary
-                            data-action="click->characteristic#remove"
-                            data-characteristic-target="remove"
-                            class="remove">
-                        {% trans %} button.remove {% endtrans %}
-                    </twig:Button:Secondary>
-                </div>
+                <twig:Button:Secondary
+                        data-action="click->characteristic#remove"
+                        data-characteristic-target="remove"
+                        class="remove">
+                    {% trans %} button.remove {% endtrans %}
+                </twig:Button:Secondary>
             </div>
         {% endmacro %}
 
 <div class="w-full">
 
     <twig:Title:H3> {% trans %} title.resident.characteristics {% endtrans %} </twig:Title:H3>
+    {#    <div {{ stimulus_controller('characteristic') }}> #}
     <div class="js-characteristic-wrapper my-6"
             {{ stimulus_controller('characteristic') }}
             {{ stimulus_target('characteristic', 'prototype') }}
          data-prototype="{{ formMacros.printcharacteristicForm(form.characteristics.vars.prototype)|e('html_attr') }}"
          data-index="{{ form.characteristics|length }}"
     >
-
         {% for key, characteristicForms in form.characteristics |group_form %}
             {% for characteristicForm in characteristicForms %}
                 {{ formMacros.printCharacteristicForm(characteristicForm) }}
@@ -61,5 +58,6 @@
                 data-characteristic-target="button"
                 class="mt-12" id="add">{% trans %}button.add{% endtrans %}</twig:Button:Primary>
     </div>
+    {#    </div> #}
 
 </div>

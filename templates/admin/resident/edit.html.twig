@@ -3,10 +3,12 @@
 {% block title %}{% trans %} title.resident.update {% endtrans %}{% endblock %}
 
 {% block body %}
-    <div class="border border-zinc-300 dark:border-stone-600 rounded-md p-5">
+    <div class="p-5">
         <twig:Title:H2>{% trans %} title.resident.update {% endtrans %}</twig:Title:H2>
 
         {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form._token) }}
         {{ include('common/resident/_form.html.twig') }}
 
         {#        TODO: add link to edit basics #}
@@ -30,6 +32,7 @@
             </div>
             <div>
                 <twig:Button:Secondary href="{{ path('admin_resident_index') }}">
+                    {{ ux_icon('mdi:arrow-left-thin', {'class': 'w-6 h-6'}) }}
                     {% trans %}button.back{% endtrans %}
                 </twig:Button:Secondary>
             </div>
