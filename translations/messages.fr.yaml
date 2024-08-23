@@ -20,6 +20,9 @@ title:
     other: "divers"
   characteristic:
     edit: "Mofification des caractéristiques"
+  base:
+    index: "Préférences de base"
+    single: "Préférence de base"
   room:
     room: Chambre
     list: Liste des Chambres
@@ -44,7 +47,7 @@ button:
   list_all: Liste complète
   back: Retour
   resident:
-    selection: "Choisir un résidient"
+    selection: "Choisir un résident"
   room:
     selection: Choisir une chambre
 form:
