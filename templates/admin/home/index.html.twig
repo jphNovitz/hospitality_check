@@ -21,7 +21,7 @@
         <twig:Title:H2>{% trans %}title.user.list{% endtrans %}</twig:Title:H2>
 
         <div class="w-full flex items-center justify-start space-x-4">
-            <twig:Button:Primary
+            <twig:Button:Primary href="{{ path('app_register') }}"
                                  class="">{% trans %}button.add{% endtrans %}
             </twig:Button:Primary>
         </div>
@@ -31,9 +31,6 @@
 {#            <twig:Button:Secondary href="{{ path('admin_user_index') }}" class="">#}
 {#                {% trans %}button.list_all{% endtrans %}#}
 {#            </twig:Button:Secondary>#}
-            <twig:Button:Primary href="{{ path('app_register') }}"
-                                 class="">{% trans %}button.add{% endtrans %}
-            </twig:Button:Primary>
         </div>
     </div>
 {% endblock %}
