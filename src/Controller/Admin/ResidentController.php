@@ -39,6 +39,7 @@ class ResidentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            dd($resident);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_resident_index', [], Response::HTTP_SEE_OTHER);
