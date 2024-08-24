@@ -1,0 +1,14 @@
+<div class="w-full flex flex-col">
+    <ul>
+        {% for content_type in resident.characteristics|group %}
+           <h4>{{ content_type[0].contentType }}</h4>
+            {% for characteristic in content_type %}
+
+                <li>
+                    {{ characteristic.name }}
+                    <br/>{{ characteristic.description }}
+                </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>

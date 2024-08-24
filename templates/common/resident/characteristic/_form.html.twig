@@ -1,6 +1,6 @@
 {% import _self as formMacros %}
         {% macro printCharacteristicForm(characteristicForm) %}
-            <div class="w-full flex flex-col gap-y-8 my-3">
+            <div class="w-full flex flex-col gap-y-8 my-3 p-4 odd:bg-light-primary/40">
                 {{ form_errors(characteristicForm) }}
                 {#                <div class="flex flex-col gap-y-8"> #}
                 {{ component('Form:RowText', {
@@ -29,12 +29,12 @@
                         {{ form_row(characteristicForm.imageFile) }}
                     </div>
                 </div>
-                <twig:Button:Secondary
+                <twig:Button:Danger
                         data-action="click->characteristic#remove"
                         data-characteristic-target="remove"
                         class="remove">
                     {% trans %} button.remove {% endtrans %}
-                </twig:Button:Secondary>
+                </twig:Button:Danger>
             </div>
         {% endmacro %}
 
