@@ -37,13 +37,14 @@
         "symfony/string": "7.*",
         "symfony/translation": "7.*",
         "symfony/twig-bundle": "7.*",
+        "symfony/ux-icons": "^2.18",
         "symfony/ux-live-component": "^2.13",
         "symfony/ux-twig-component": "*",
         "symfony/validator": "7.*",
         "symfony/web-link": "7.*",
         "symfony/yaml": "7.*",
         "symfonycasts/tailwind-bundle": "^0.6.0",
-        "symfonycasts/verify-email-bundle": "^1.13",
+        "symfonycasts/verify-email-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
         "vich/uploader-bundle": "^2.2"
@@ -111,6 +112,7 @@
         "symfony/panther": "^2.1",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "7.*",
-        "symfony/web-profiler-bundle": "7.*"
+        "symfony/web-profiler-bundle": "7.*",
+        "zenstruck/foundry": "^2.0"
     }
 }
