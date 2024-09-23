@@ -1,0 +1,28 @@
+<div{{ attributes.defaults({class: "w-full lg:w-3/4 m-auto"}) }}>
+    <div class="grid md:grid-cols-3 gap-4 m-auto items-center">
+        <div>
+            <twig:Button:Primary href="{{ path('app_room') }}">
+                {%trans%} button.room.selection {% endtrans %}
+            </twig:Button:Primary>
+        </div>
+        <div>
+            <input type="text"
+                   data-model="query"
+                   id="search_resident"
+                   class="w-full leading-loose rounded-md bg-white text-black font-semibold px-2 py-2 border border-black/50" />
+        </div>
+
+        <div class="text-right">
+            <twig:Button:Primary href="{{ path('app_resident_new') }}">
+                {%trans%} button.add {% endtrans %}
+            </twig:Button:Primary>
+        </div>
+    </div>
+    <div class="col-span-3">
+        <div class="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-6">
+            {% for resident in this.getResidents %}
+                <twig:Card:Headline :resident="resident"/>
+            {% endfor %}
+        </div>
+    </div>
+</div>
