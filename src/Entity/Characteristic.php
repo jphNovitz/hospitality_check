@@ -26,8 +26,10 @@ class Characteristic
 
     #[Vich\UploadableField(mapping: 'base', fileNameProperty: 'picture', size: 'imageSize')]
     private ?File $imageFile = null;
+    
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
+    
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
 
@@ -35,7 +37,7 @@ class Characteristic
     private ?int $priority = null;
 
     #[ORM\ManyToOne(inversedBy: 'characteristics')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Resident $resident = null;
 
     #[ORM\Column(length: 20)]

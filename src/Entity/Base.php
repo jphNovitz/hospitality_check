@@ -28,8 +28,10 @@ class Base
 
     #[Vich\UploadableField(mapping: 'base', fileNameProperty: 'icon', size: 'imageSize')]
     private ?File $imageFile = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $icon = null;
+    
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
     #[ORM\ManyToMany(targetEntity: Resident::class, inversedBy: 'bases')]

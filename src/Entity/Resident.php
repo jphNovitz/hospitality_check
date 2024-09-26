@@ -63,6 +63,10 @@ class Resident
     #[Gedmo\Timestampable]
     private \DateTimeImmutable $updated;
 
+    #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[Gedmo\Slug(fields: ['firstName'])]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->bases = new ArrayCollection();
@@ -265,6 +269,19 @@ class Resident
 
         return $this;
     }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 
 
 }
