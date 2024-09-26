@@ -2,13 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\Resident;
+use App\Entity\Base;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Resident>
+ * @extends PersistentProxyObjectFactory<Base>
  */
-final class ResidentFactory extends PersistentProxyObjectFactory
+final class BaseFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -17,12 +17,11 @@ final class ResidentFactory extends PersistentProxyObjectFactory
      */
     public function __construct()
     {
-        parent::__construct();
     }
 
     public static function class(): string
     {
-        return Resident::class;
+        return Base::class;
     }
 
     /**
@@ -33,10 +32,8 @@ final class ResidentFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'firstName' => self::faker()->firstName(),
-            'birthDate' => self::faker()->dateTimeThisCentury(),
-            'nationality' => self::faker()->country(),
-            'room' => RoomFactory::new(),
+           'name' => self::faker()->text(255),
+            'description' => self::faker()->text(500)
         ];
     }
 
@@ -45,7 +42,8 @@ final class ResidentFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this// ->afterInstantiate(function(Resident $resident): void {})
-            ;
+        return $this
+            // ->afterInstantiate(function(Base $base): void {})
+        ;
     }
 }
