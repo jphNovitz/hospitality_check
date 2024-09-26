@@ -1,0 +1,14 @@
+<dl class="max-w-screen-md text-content-primary-light divide-y divide-black/30 dark:text-content-primary-dark dark:divide-white/30 mt-8">
+    {% for base in resident.bases %}
+        <div class="text-xl font-semibold ">
+            <div class="flex flex-col pb-3">
+                <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">{{ base.name }}</dt>
+                <dd class="text-lg font-semibold">{{ base.description }}</dd>
+            </div>
+        </div>
+    {% else %}
+        <div class="p-6">
+            <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">Pas de préférences de bases ?!</dt>
+        </div>
+    {% endfor %}
+</dl> 

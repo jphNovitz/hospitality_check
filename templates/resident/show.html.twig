@@ -4,55 +4,87 @@
 
  {% block body %}
      <twig:Button:Secondary
-             class="w-fit"
+             class="!w-fit"
              href="{{ path('app_resident_index') }}">
          {% trans %} button.back {% endtrans %}
      </twig:Button:Secondary>
 
-     <twig:Title:H2>{% trans %}title.resident.show {% endtrans %}: {{ resident.firstName }}</twig:Title:H2>
-     <div class="w-full pt-16 overflow-hidden  relative">
-         {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent.id == app.user.id) %}
-             <twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"
-                               href="{{ path('app_resident_edit', {'id': resident.id}) }}">
-                 {% trans %} button.update {% endtrans %}
-             </twig:Button:Edit>
-         {% endif %}
-         <div class="w-full flex flex-col lg:flex-row justify-center lg:justify-between lg:items-center space-y-8 ">
-             <div class="w-96 px-4">
-                 {% if resident.picture is not empty %}
-                     <img src="{{ asset('images/resident/'~resident.picture) }}" alt=""
-                          class="w-full  rounded-md"/>
-                 {% else %}
-                     <img src="{{ asset('images/emojis/elon-musk.png') }}" alt="" class="w-full rounded-md"/>
-                 {% endif %}
-             </div>
-             <div class="w-full h-full flex md:w-1/3 flex-col space-y-4 mx-4  items-center">
-                 <twig:InfoLine label="Je m'appele"> {{ resident.firstName }} </twig:InfoLine>
-                 <twig:InfoLine label="Je suis dans la chambre"> {{ resident.room }} </twig:InfoLine>
-                 <twig:InfoLine
-                         label="Je suis suis né le"> {{ resident.birthDate ? resident.birthDate|date('d-m-Y') : '' }} </twig:InfoLine>
-                 <twig:InfoLine label="Je suis de nationalité"> {{ resident.nationality }} </twig:InfoLine>
-             </div>
-         </div>
-     </div>
+     {# <twig:Title:H2>{% trans %}title.resident.show {% endtrans %}: {{ resident.firstName }}</twig:Title:H2> #}
 
-     <div class="w-full pt-16 mx-4 overflow-hidden  relative">
-         {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent.id == app.user.id) %}
-             <twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"
-                               href="{{ path('app_resident_base_edit', {'id': resident.id}) }}">
-                 {% trans %} button.update {% endtrans %}
-             </twig:Button:Edit>
-         {% endif %}
-         {% include 'resident/base/show.html.twig' %}
-     </div>
-     <div class="w-full pt-16 overflow-hidden  relative">
-         {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent.id == app.user.id) %}
-             <twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"
-                               href="{{ path('app_resident_characteristic_edit', {'id': resident.id}) }}">
-                 {% trans %} button.update {% endtrans %}
-             </twig:Button:Edit>
-         {% endif %}
-         {% include 'resident/characteristic/show.html.twig' %}
+    <div class="grid grid-cols-1 lg:grid-cols-3">
+        <div class="w-full">
+            <section id="resdient_header" class="w-full pt-16">
+                <twig:Card:Headline :resident="resident" />   
+            </section>
+        </div>
+        <div class="w-full col-span-2">
+            <section id="resident_info" class="w-full pt-16 overflow-hidden  relative">
+                {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent  and resident.referent.id == app.user.id) %}<twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"
+                                    href="{{ path('app_resident_edit', {'id': resident.id}) }}">
+                        {% trans %} button.update {% endtrans %}
+                    </twig:Button:Edit>
+                {% endif %}
+                    <dl class="max-w-screen-md text-content-primary-light divide-y divide-black/30 dark:text-content-primary-dark dark:divide-white/30 mt-8">
+                        <div class="text-xl font-semibold ">
+                            <div class="flex flex-col pb-3">
+                                <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">{% trans %} text.resident.my_name{% endtrans %}</dt>
+                                <dd class="text-lg font-semibold">{{ resident.firstName }} </dd>
+                            </div>
+                        <div class="text-xl font-semibold ">
+                            <div class="flex flex-col pb-3">
+                                <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">{% trans %} text.resident.my_room{% endtrans %}</dt>
+                                <dd class="text-lg font-semibold">{{ resident.room }} </dd>
+                            </div>
+                        </div>
+                        <div class="text-xl font-semibold ">
+                            <div class="flex flex-col pb-3">
+                                <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">{% trans %} text.resident.my_birthday{% endtrans %}</dt>
+                                <dd class="text-lg font-semibold">{{ resident.birthDate ? resident.birthDate|date('d-m-Y') : '' }} </dd>
+                            </div>
+                        </div>
+                        <div class="text-xl font-semibold ">
+                            <div class="flex flex-col pb-3">
+                                <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">{% trans %} text.resident.my_nationality{% endtrans %}</dt>
+                                <dd class="text-lg font-semibold">{{ resident.nationality }} </dd>
+                            </div>
+                        </div>
+                        <div class="text-xl font-semibold ">
+                            <div class="flex flex-col pb-3">
+                                <dt class="mb-1 text-black/50 md:text-lg dark:text-white/50">{% trans %} text.resident.my_referent{% endtrans %}</dt>
+                                <dd class="text-lg font-semibold">{{ resident.referent.name }} </dd>
+                            </div>
+                        </div>
+                    </dl>
+            </section>
+
+            <section id="resident_base" class="w-full my-4 p-4 overflow-hidden  relative border border-2 border-black dark:border-white bg-black/10 dark:bg-white/10">
+                <div class="w-full flex justify-between items-center">
+                <twig:Title:H2>{% trans %} title.resident.basic{% endtrans %}</twig:Title:H2>
+
+                {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent and resident.referent.id == app.user.id) %}
+                    <twig:Button:Edit class="max-w-fit inline-flex"
+                                    href="{{ path('app_resident_base_edit', {'id': resident.id}) }}">
+                        {% trans %} button.update {% endtrans %}
+                    </twig:Button:Edit>
+                {% endif %}
+                </div>
+        
+                {% include 'resident/_bases.html.twig' %}
+            
+            </section>
+            <section id="resident_characteristic" class="w-full my-4 py-4 overflow-hidden  relative">
+                <div class="w-full flex justify-between items-center">
+                    {# <twig:Title:H2>{% trans %} title.resident.characteristic{% endtrans %}</twig:Title:H2> #}
+                    {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent and resident.referent.id == app.user.id) %}
+                            <twig:Button:Edit class="max-w-fit inline-flex"
+                                        href="{{ path('app_resident_characteristic_edit', {'id': resident.id}) }}">
+                            {% trans %} button.update {% endtrans %}
+                        </twig:Button:Edit>
+                    {% endif %}
+                </div>
+                {% include 'resident/characteristic/show.html.twig' %}
+            </section>
+        </div>
      </div>
  {% endblock %}
 
