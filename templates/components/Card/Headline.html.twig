@@ -1,6 +1,12 @@
 <div class="text-center text-black/60 dark:text-white/50">
-    <img class="mx-auto mb-4 w-36 h-36 rounded-full" src="{{ asset('images/resident/' ~ resident.picture) }}"
-         alt="{{ resident.firstname }}">
+    {% if resident.picture %}
+        <img class="mx-auto mb-4 w-36 rounded-full aspect-square" src="{{ asset('images/resident/' ~ resident.picture) }}"
+             alt="{{ resident.firstname }}">
+    {% else %}
+        <img class="mx-auto mb-4 w-36 rounded-full aspect-square" src="{{ asset('images/nophoto.webp') }}"
+             alt="{{ resident.firstname }}">
+    {% endif %}
+
     <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         <a href="{{ path('app_resident_show', {'slug': resident.slug}) }}">{{ resident.firstname }}</a>
     </h3>
