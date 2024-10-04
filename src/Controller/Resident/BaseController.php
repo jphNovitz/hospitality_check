@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/resident/{id}/base', name: 'app_resident_base_edit', methods: ['GET', 'POST'])]
+#[Route('/resident/{slug}/base', name: 'app_resident_base_edit', methods: ['GET', 'POST'])]
 final class BaseController extends AbstractController
 {
     public function __invoke(Request $request, Resident $resident, EntityManagerInterface $entityManager): Response
