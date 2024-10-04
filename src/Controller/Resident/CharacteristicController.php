@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/resident/{id}/characteristic', name: 'app_resident_characteristic_edit', methods: ['GET', 'POST'])]
+#[Route('/resident/{slug}/characteristic', name: 'app_resident_characteristic_edit', methods: ['GET', 'POST'])]
 final class CharacteristicController extends AbstractController
 {
     public function __invoke(Resident $resident, Request $request, EntityManagerInterface $entityManager): Response
