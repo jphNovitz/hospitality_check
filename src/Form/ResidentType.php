@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Dto\ResidentDTO;
 use App\Entity\Resident;
 use App\Entity\Room;
 use App\EventListener\AddRoomSubscriber;
@@ -68,7 +69,7 @@ class ResidentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Resident::class,
+            'data_class' => ResidentDTO::class,
         ]);
     }
 }

@@ -43,8 +43,8 @@ class ResidentController extends AbstractController
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_resident_show', [
-                'id' => $resident->getId()],
-                Response::HTTP_SEE_OTHER);
+                'slug' => $resident->getSlug()],
+                Response::HTTP_FOUND);
         }
 
         return $this->render('common/resident/new.html.twig', [
@@ -62,18 +62,27 @@ class ResidentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_resident_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Resident $resident): Response
+    #[Route('/{slug}/edit', name: 'app_resident_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Resident $resident= null): Response
     {
-        $form = $this->createForm(ResidentType::class, $resident);
+        if ($resident->getReferent() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $residentDTO = $this->residentMapper->toDto($resident);
+        $form = $this->createForm(ResidentType::class, $residentDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->residentMapper->updateEntityFromDto($residentDTO, $resident);
+            $resident->setUpdated(new \DateTimeImmutable());
+            
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_resident_show', [
-                'id' => $resident->getId()],
-                Response::HTTP_SEE_OTHER);
+                'slug' => $resident->getSlug()
+            ], Response::HTTP_FOUND);
         }
 
         return $this->render('resident/edit.html.twig', [
