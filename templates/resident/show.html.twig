@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Resident{% endblock %}
+{% block title %}{% trans %}title.resident.about {% endtrans %} {{ resident.firstname }}{% endblock %}
 
  {% block body %}
      <twig:Button:Secondary
@@ -20,7 +20,7 @@
         <div class="w-full col-span-2">
             <section id="resident_info" class="w-full pt-16 overflow-hidden  relative">
                 {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent  and resident.referent.id == app.user.id) %}<twig:Button:Edit class="max-w-fit inline-flex absolute top-4 right-1"
-                                    href="{{ path('app_resident_edit', {'id': resident.id}) }}">
+                                    href="{{ path('app_resident_edit', {'slug': resident.slug}) }}">
                         {% trans %} button.update {% endtrans %}
                     </twig:Button:Edit>
                 {% endif %}
@@ -63,7 +63,7 @@
 
                 {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent and resident.referent.id == app.user.id) %}
                     <twig:Button:Edit class="max-w-fit inline-flex"
-                                    href="{{ path('app_resident_base_edit', {'id': resident.id}) }}">
+                                    href="{{ path('app_resident_base_edit', {'slug': resident.slug}) }}">
                         {% trans %} button.update {% endtrans %}
                     </twig:Button:Edit>
                 {% endif %}
@@ -74,10 +74,10 @@
             </section>
             <section id="resident_characteristic" class="w-full my-4 py-4 overflow-hidden  relative">
                 <div class="w-full flex justify-between items-center">
-                    {# <twig:Title:H2>{% trans %} title.resident.characteristic{% endtrans %}</twig:Title:H2> #}
+                     <twig:Title:H2>{% trans %} title.resident.characteristic{% endtrans %}</twig:Title:H2>
                     {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent and resident.referent.id == app.user.id) %}
                             <twig:Button:Edit class="max-w-fit inline-flex"
-                                        href="{{ path('app_resident_characteristic_edit', {'id': resident.id}) }}">
+                                        href="{{ path('app_resident_characteristic_edit', {'slug': resident.slug}) }}">
                             {% trans %} button.update {% endtrans %}
                         </twig:Button:Edit>
                     {% endif %}
