@@ -2,24 +2,28 @@
 
 namespace App\Tests\Controller\Resident;
 
-use App\DataFixtures\Tests\ResidentTestFixtures;
-use App\DataFixtures\Tests\RoomTestFixtures;
-use App\DataFixtures\Tests\UserTestFixtures;
 use App\Entity\Resident;
 use App\Entity\Room;
 use App\Entity\User;
+use App\Factory\Test\ResidentFactory;
+use App\Factory\Test\RoomFactory;
+use App\Factory\Test\UserFactory;
 use App\Repository\ResidentRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use JetBrains\PhpStorm\NoReturn;
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\UX\LiveComponent\Test\InteractsWithLiveComponents;
+use Zenstruck\Foundry\Test\Factories;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
 class ResidentControllerTest extends WebTestCase
 {
+    use ResetDatabase, Factories;
+
     private KernelBrowser $client;
     private UserRepository $user_repository;
     private ResidentRepository $resident_repository;
@@ -38,7 +42,6 @@ class ResidentControllerTest extends WebTestCase
         $this->resident_repository = static::getContainer()->get('doctrine')->getRepository(Resident::class);
         $this->user_repository = static::getContainer()->get('doctrine')->getRepository(User::class);
         $this->manager = static::getContainer()->get('doctrine')->getManager();
-        $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
     }
 
     public function test_resident_index_redirect_to_login_if_not_logged(): void
@@ -49,15 +52,14 @@ class ResidentControllerTest extends WebTestCase
         self::assertResponseRedirects('/login');
     }
 
-    #[NoReturn]
+    
     public function test_resident_index(): void
     {
-        $this->databaseTool->loadFixtures([
-            UserTestFixtures::class,
-            RoomTestFixtures::class,
-            ResidentTestFixtures::class,
+        $user = UserFactory::createOne();
+        $residentFactory = ResidentFactory::createOne([
+            'referent' => $user,
         ]);
-        $user = $this->user_repository->findAll()[1];
+        $user = $this->user_repository->findAll()[0];
         $residents = $this->resident_repository->findAll();
 
         $this->client->loginUser($user);
@@ -70,11 +72,8 @@ class ResidentControllerTest extends WebTestCase
 
     public function test_new_resident(): void
     {
-
-        $this->databaseTool->loadFixtures([
-            UserTestFixtures::class,
-            RoomTestFixtures::class,
-        ]);
+        $user = UserFactory::createOne();
+        $room = RoomFactory::createOne();
 
         $user = $this->user_repository->find(1);
         $this->client->loginUser($user);
@@ -102,16 +101,13 @@ class ResidentControllerTest extends WebTestCase
             'resident[room]' => 1,
             'resident[referent]' => $user->getId(),
         ]);
-        self::assertResponseRedirects(sprintf('%s%s', $this->path, 1));
+        self::assertResponseRedirects(sprintf('%s%s', $this->path, 'fake-first'));
         self::assertSame(1, $this->resident_repository->count([]));
     }
 
     public function test_new_room_is_persisted_by_event(): void
     {
-
-        $this->databaseTool->loadFixtures([
-            UserTestFixtures::class,
-        ]);
+        $user = UserFactory::createOne();
 
         $user = $this->user_repository->find(1);
         $this->client->loginUser($user);
@@ -143,47 +139,92 @@ class ResidentControllerTest extends WebTestCase
             'resident[referent]' => $user->getId(),
         ]);
 
-        self::assertResponseRedirects(sprintf('%s%s', $this->path, 1));
+        self::assertResponseRedirects(sprintf('%s%s', $this->path, 'fake-first'));
         self::assertSame(1, $this->manager->getRepository(Room::class)->count([]));
     }
 
-    public function test_show_resident(): void
+    public function test_member_can_see_resident_profile(): void
     {
-        $this->databaseTool->loadFixtures([
-            UserTestFixtures::class,
-            RoomTestFixtures::class,
-            ResidentTestFixtures::class,
+        $user = UserFactory::createOne();
+        $room = RoomFactory::createOne();
+        $resident = ResidentFactory::createOne([
+            'referent' => $user,
+            'room' => $room,
         ]);
-
 
         $resident = $this->resident_repository->find(1);
         $user = $this->user_repository->find(1);
-        $this->client->loginUser($user);
 
-        $crawler = $this->client->request('GET', sprintf('%s%s', $this->path, $resident->getId()));
+        $this->client->loginUser($user); // login as referent
 
+        $crawler = $this->client->request('GET', sprintf('%s%s', $this->path, $resident->getSlug()));
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Resident');
+        self::assertPageTitleContains('A propos de');
+        self::assertPageTitleContains($resident->getFirstName());
         self::assertStringContainsString($resident->getFirstName(), $crawler->text());
         self::assertStringContainsString($resident->getNationality(), $crawler->text());
     }
 
-    #[NoReturn]
-    public function test_edit_resident(): void
+    public function test_random_member_can_not_edit_resident(): void
     {
-        $this->databaseTool->loadFixtures([
-            UserTestFixtures::class,
-            RoomTestFixtures::class,
-            ResidentTestFixtures::class,
+        $this->client->disableReboot();
+
+        $referent = UserFactory::createOne();
+        $random_member = UserFactory::createOne();
+        $room = RoomFactory::createOne();
+        $resident = ResidentFactory::createOne([
+            'referent' => $referent,
+            'room' => $room,
         ]);
 
-
+        $user = $this->user_repository->find(2);
         $resident = $this->resident_repository->find(1);
-        $user = $this->user_repository->find(1);
-        $other_user = $this->user_repository->find(2);
+
         $this->client->loginUser($user);
 
-        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $resident->getId()));
+        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $resident->getSlug()));
+
+        $this->assertResponseStatusCodeSame(403);
+
+    }
+
+    public function test_edit_resident_page_is_accessible_referent(): void
+    {
+        $referent = UserFactory::createOne();
+        $room = RoomFactory::createOne();
+        $resident = ResidentFactory::createOne([
+            'referent' => $referent,
+            'room' => $room,
+        ]);
+
+        $user = $this->user_repository->find(1);
+        $resident = $this->resident_repository->find(1);
+
+        $this->client->loginUser($user);
+
+        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $resident->getSlug()));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains("title", "Modification d'un résident");
+        $this->assertSelectorTextContains("title", $resident->getFirstName());
+        $this->assertSelectorTextContains("h2", "Modification d'un résident");
+    }
+
+    public function test_referent_can_modify_resident_infos(): void
+    {
+        $referent = UserFactory::createOne();
+        $room = RoomFactory::createMany(2);
+        $resident = ResidentFactory::createOne([
+            'referent' => $referent,
+            'room' => $room[0],
+        ]);
+
+        $user = $this->user_repository->find(1);
+        $resident = $this->resident_repository->find(1);
+
+        $this->client->loginUser($user);
+
+        $this->client->request('GET', sprintf('%s%s/edit', $this->path, $resident->getSlug()));
 
         $imagePath = __DIR__ . '/../../fixtures/image_test.jpeg';
         $imageFile = new UploadedFile(
@@ -202,15 +243,16 @@ class ResidentControllerTest extends WebTestCase
                 'month' => 12,
                 'day' => 1,
             ],
-            'resident[room]' => "3",
+            'resident[room]' => "2",
             'resident[nationality]' => 'French',
             'resident[referent]' => $user->getId(),
         ]);
 
         $resident = $this->resident_repository->find(1);
 
-        self::assertSame('New FirstName Lipsum', $resident->getFirstName());
-        self::assertSame('French', $resident->getNationality());
-        self::assertSame(3, $resident->getRoom()->getId());
+        $this->assertSame('New FirstName Lipsum', $resident->getFirstName());
+        $this->assertSame('French', $resident->getNationality());
+        $this->assertSame(2, $resident->getRoom()->getId());
+        $this->assertNotNull($resident->getPicture());
     }
 }
