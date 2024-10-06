@@ -6,9 +6,15 @@ use App\Entity\Room;
 use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection as Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\ORM\Mapping as ORM;
 
+
+#[Vich\Uploadable]
 class ResidentDTO
 {
+    private int $id;
     private string $slug;
     private ?string $firstName = null;
     private ?\DateTimeImmutable $birthDate = null;
@@ -17,9 +23,35 @@ class ResidentDTO
     private User|null $referent = null;
     private Collection $bases;
     private Collection $characteristics ;
-    private string|null $picture;
+//    private string|null $picture = null;
     private DateTimeImmutable $created;
     private DateTimeImmutable $updated;
+
+    #[Vich\UploadableField(mapping: 'resident', fileNameProperty: 'picture', size: 'imageSize')]
+    private ?File $imageFile = null;
+
+    private ?int $imageSize = null;
+
+    private ?string $picture = null;
+
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+
 
     /**
      * @return string
@@ -198,6 +230,34 @@ class ResidentDTO
     {
         $this->updated = $updated;
     }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
 
 
 }

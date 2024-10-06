@@ -10,6 +10,7 @@ class ResidentMapper
     public function toDto(Resident $resident): ResidentDTO
     {
         $dto = new ResidentDTO();
+        $dto->setId($resident->getId());
         $dto->setSlug($resident->getSlug());
         $dto->setFirstName($resident->getFirstName());
         $dto->setBirthDate($resident->getBirthDate());
@@ -29,6 +30,25 @@ class ResidentMapper
     public function toEntity(ResidentDTO $dto, ?Resident $resident = null): Resident
     {
         $resident = $resident ?? new Resident();
+        $this->hydrateResident($resident, $dto);
+        return $resident;
+    }
+
+    public function updateEntityFromDto(ResidentDTO $dto, Resident $resident ): Resident
+    {
+        $this->hydrateResident($resident, $dto);
+        $resident->setUpdated($dto->getUpdated());
+
+        return $resident;
+    }
+
+    /**
+     * @param Resident $resident
+     * @param ResidentDTO $dto
+     * @return void
+     */
+    public function hydrateResident(Resident $resident, ResidentDTO $dto): void
+    {
         $resident->setFirstName($dto->getFirstName());
         $resident->setBirthDate($dto->getBirthDate());
         $resident->setNationality($dto->getNationality());
@@ -47,11 +67,7 @@ class ResidentMapper
         foreach ($dto->getCharacteristics() as $Characteristic) {
             $resident->addCharacteristic($Characteristic);
         }
-
-        $resident->setPicture($dto->getPicture());
+        $resident->setImageFile($dto->getImageFile());
         $resident->setCreated($dto->getCreated());
-        $resident->setUpdated($dto->getUpdated());
-
-        return $resident;
     }
 }
