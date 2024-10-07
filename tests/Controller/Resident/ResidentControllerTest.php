@@ -8,8 +8,9 @@ use App\Entity\User;
 use App\Factory\Test\ResidentFactory;
 use App\Factory\Test\RoomFactory;
 use App\Factory\Test\UserFactory;
-use App\Repository\ResidentRepository;
+use App\Factory\BaseFactory;
 use App\Repository\UserRepository;
+use App\Repository\ResidentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -103,6 +104,7 @@ class ResidentControllerTest extends WebTestCase
         ]);
         self::assertResponseRedirects(sprintf('%s%s', $this->path, 'fake-first'));
         self::assertSame(1, $this->resident_repository->count([]));
+        self::assertNotNull($this->resident_repository->find(1)->getPicture());
     }
 
     public function test_new_room_is_persisted_by_event(): void
@@ -255,4 +257,34 @@ class ResidentControllerTest extends WebTestCase
         $this->assertSame(2, $resident->getRoom()->getId());
         $this->assertNotNull($resident->getPicture());
     }
+    
+    public function test_referent_can_modify_resident_basics(): void
+    {
+        $base = BaseFactory::createOne();
+        $referent = UserFactory::createOne();
+        $room = RoomFactory::createMany(2);
+        $resident = ResidentFactory::createOne([
+            'referent' => $referent,
+            'room' => $room[0],
+        ]);
+
+        $user = $this->user_repository->find(1);
+        $resident = $this->resident_repository->find(1);
+        
+        $this->client->loginUser($user);
+
+        $crawler = $this->client->request('GET', sprintf('%s%s/base', $this->path, $resident->getSlug()));
+        $form = $crawler->selectButton('Modifier')->form();
+        $form['basic[bases][0]']->tick();
+
+        $this->client->submit($form);
+
+        // $this->client->followRedirect();
+        $this->assertResponseRedirects(sprintf('%s%s', $this->path, $resident->getSlug()));
+
+        $resident = $this->resident_repository->find(1);
+
+        $this->assertSame(1, $resident->getBases()->count());
+    }
+    
 }
