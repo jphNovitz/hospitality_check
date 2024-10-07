@@ -279,7 +279,6 @@ class ResidentControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
-        // $this->client->followRedirect();
         $this->assertResponseRedirects(sprintf('%s%s', $this->path, $resident->getSlug()));
 
         $resident = $this->resident_repository->find(1);
