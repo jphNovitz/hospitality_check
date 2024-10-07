@@ -57,7 +57,7 @@
                     </dl>
             </section>
 
-            <section id="resident_base" class="w-full my-4 p-4 overflow-hidden  relative border border-2 border-black dark:border-white bg-black/10 dark:bg-white/10">
+            <section id="resident_base" class="w-full my-4 p-4 overflow-hidden  relative border-2 border-black/90 dark:border-white/60 bg-black/10 dark:bg-white/10">
                 <div class="w-full flex justify-between items-center">
                 <twig:Title:H2>{% trans %} title.resident.basic{% endtrans %}</twig:Title:H2>
 
@@ -72,7 +72,7 @@
                 {% include 'resident/_bases.html.twig' %}
             
             </section>
-            <section id="resident_characteristic" class="w-full my-4 py-4 overflow-hidden  relative">
+            <section id="resident_characteristic" class="w-full my-4 px-2 py-4 overflow-hidden  relative">
                 <div class="w-full flex justify-between items-center">
                      <twig:Title:H2>{% trans %} title.resident.characteristic{% endtrans %}</twig:Title:H2>
                     {% if ('ROLE_ADMIN' in app.user.roles) or (resident.referent and resident.referent.id == app.user.id) %}
