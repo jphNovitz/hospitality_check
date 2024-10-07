@@ -20,12 +20,17 @@ class Resident
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'resident', fileNameProperty: 'picture', size: 'imageSize')]
-    private ?File $imageFile = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
+
+    
+    #[Vich\UploadableField(mapping: 'resident', fileNameProperty: 'picture', size: 'imageSize')]
+    private ?File $imageFile = null;
+
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
@@ -50,14 +55,14 @@ class Resident
     private Collection $characteristics;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'created', type: Types::DATE_IMMUTABLE, nullable: true)]
     private \DateTimeImmutable $created ;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     #[ORM\Column(name: 'updated', type: Types::DATETIME_IMMUTABLE, nullable: true)]
     #[Gedmo\Timestampable]
@@ -210,41 +215,6 @@ class Resident
 
         return $this;
     }
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updated = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function setImageSize(?int $imageSize): void
-    {
-        $this->imageSize = $imageSize;
-    }
-
-    public function getImageSize(): ?int
-    {
-        return $this->imageSize;
-    }
 
     public function getCreated(): ?\DateTimeImmutable
     {
@@ -282,6 +252,32 @@ class Resident
         return $this;
     }
 
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
 
 
 }
