@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[Vich\Uploadable]
 class ResidentDTO
 {
-    private int $id;
+    private ?int $id = null;
     private string $slug;
     private ?string $firstName = null;
     private ?\DateTimeImmutable $birthDate = null;
@@ -24,8 +24,8 @@ class ResidentDTO
     private Collection $bases;
     private Collection $characteristics ;
 //    private string|null $picture = null;
-    private DateTimeImmutable $created;
-    private DateTimeImmutable $updated;
+    private ?DateTimeImmutable $created ;
+    private ?DateTimeImmutable $updated ;
 
     #[Vich\UploadableField(mapping: 'resident', fileNameProperty: 'picture', size: 'imageSize')]
     private ?File $imageFile = null;
@@ -34,6 +34,11 @@ class ResidentDTO
 
     private ?string $picture = null;
 
+    public function __construct()
+    {
+        $this->created = new \DateTimeImmutable();
+        $this->updated = new \DateTimeImmutable();
+    }
 
     /**
      * @return int

@@ -29,7 +29,7 @@ final class BaseController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_resident_show', [
-                'id' => $resident->getId()],
+                'slug' => $resident->getSlug()],
                 Response::HTTP_SEE_OTHER);
         }
 

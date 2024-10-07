@@ -35,10 +35,13 @@ class ResidentController extends AbstractController
     public function new(Request $request): Response
     {
         $resident = new Resident();
-        $form = $this->createForm(ResidentType::class, $resident);
+        $residentDTO = $this->residentMapper->toDto($resident);
+
+        $form = $this->createForm(ResidentType::class, $residentDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $resident = $this->residentMapper->toEntity($form->getData());
             $this->entityManager->persist($resident);
             $this->entityManager->flush();
 
@@ -61,6 +64,9 @@ class ResidentController extends AbstractController
             'resident' => $residentDTO,
         ]);
     }
+
+    
+   
 
     #[Route('/{slug}/edit', name: 'app_resident_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Resident $resident= null): Response

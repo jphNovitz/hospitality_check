@@ -10,8 +10,13 @@ class ResidentMapper
     public function toDto(Resident $resident): ResidentDTO
     {
         $dto = new ResidentDTO();
-        $dto->setId($resident->getId());
-        $dto->setSlug($resident->getSlug());
+        if ($resident->getId()) {   
+            $dto->setId($resident->getId());
+            $dto->setSlug($resident->getSlug());
+        $dto->setCreated($resident->getCreated());
+        $dto->setUpdated($resident->getUpdated());
+        }
+
         $dto->setFirstName($resident->getFirstName());
         $dto->setBirthDate($resident->getBirthDate());
 
@@ -21,8 +26,6 @@ class ResidentMapper
         $dto->setBases($resident->getBases());
         $dto->setCharacteristics($resident->getCharacteristics());
         $dto->setPicture($resident->getPicture());
-        $dto->setCreated($resident->getCreated());
-        $dto->setUpdated($resident->getUpdated());
 
         return $dto;
     }
